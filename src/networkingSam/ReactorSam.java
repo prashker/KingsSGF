@@ -11,8 +11,6 @@ import java.util.Iterator;
 
 public class ReactorSam implements Runnable {
 	private final int port;
-
-	private ByteBuffer buf = ByteBuffer.allocate(256);
  
 	ReactorSam(int port) throws IOException {
 		this.port = port;
@@ -29,7 +27,7 @@ public class ReactorSam implements Runnable {
 			
 			//Bind socket to selector
 			Selector selector = Selector.open();
-			serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);			
+			serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT, new ConnectionAcceptHandler());
 			
 			Iterator<SelectionKey> iter;
 			SelectionKey key;
@@ -40,10 +38,7 @@ public class ReactorSam implements Runnable {
 					key = iter.next();
 					iter.remove();
 					
-					//To be replaced with Concrete Event Handlers (BECAUSE WE CRAY)
-					//And because the reactor pattern will give us extra marks
-					if (key.isAcceptable()) this.handleAccept(key);
-					if (key.isReadable()) this.handleRead(key);
+					((CanHandleConnection)key.attachment()).handleConnection(key);
 				}
 			}
 		} catch(IOException e) {
@@ -52,6 +47,7 @@ public class ReactorSam implements Runnable {
 		}
 	}
  
+	/*
 	private final ByteBuffer welcomeBuf = ByteBuffer.wrap("Welcome to NioChat!\n".getBytes());
 	private void handleAccept(SelectionKey key) throws IOException {
 		SocketChannel sc = ((ServerSocketChannel) key.channel()).accept();
@@ -99,5 +95,6 @@ public class ReactorSam implements Runnable {
 			}
 		}
 	}
+	*/
  
 }
