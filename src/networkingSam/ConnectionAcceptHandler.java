@@ -19,8 +19,9 @@ public class ConnectionAcceptHandler implements CanHandleConnection {
 		String metadata = (new StringBuilder( socketChannel.socket().getInetAddress().toString() )).append(":").append( socketChannel.socket().getPort()).toString();
 		socketChannel.configureBlocking(false);
 		socketChannel.register(key.selector(), SelectionKey.OP_READ, new ConnectionByteHandler());
-		socketChannel.write(welcomeBuf);
-		welcomeBuf.rewind();
+		
+		//socketChannel.write(welcomeBuf);
+		//welcomeBuf.rewind();
 		System.out.println("accepted connection from: " + metadata);
 		
 		return false;

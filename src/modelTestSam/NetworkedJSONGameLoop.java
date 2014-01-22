@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import networkingSam.ReactorSam;
 
 public class NetworkedJSONGameLoop implements ModelWorker {
@@ -12,6 +14,8 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 	public HashMap<String, GameEventHandler> handleMap = new HashMap<String, GameEventHandler>();
 	
 	private List queue = new LinkedList();
+	
+	private Gson gsonInstance = new Gson();
 
 	@Override
 	public void run() {
@@ -30,7 +34,8 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 
 			// Return to sender
 			try {
-				data.s.broadcastAll(data.d);
+				if (data.d != null)
+					data.s.broadcastAll(data.d);
 			} catch (IOException e) {
 				System.out.println("Graceful disconnect, why dis happen?");
 			}
@@ -40,11 +45,14 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData(ReactorSam sender, String data) {
+		
+		
+		GameEvent generatedEvent = gsonInstance.fromJson(data, GameEvent.class);
 				
 	    //byte[] dataCopy = new byte[count];
 	    //System.arraycopy(data, 0, dataCopy, 0, count);
 	    synchronized(queue) {
-	      queue.add(new TempWrapper(sender, handleMap.get("BOB").handleEvent(data)));
+	      queue.add(new TempWrapper(sender, handleMap.get(generatedEvent.type).handleEvent(generatedEvent)));
 	      queue.notify();
 	    }
 	}

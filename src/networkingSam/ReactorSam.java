@@ -54,7 +54,7 @@ public class ReactorSam implements Runnable {
 				}
 			}
 		} catch(IOException e) {
-			System.out.println("IOException, server of port " +this.port+ " terminating. Stack trace:");
+			System.out.println("IOException, server of port " + this.port + " terminating. Stack trace:");
 			e.printStackTrace();
 		}
 	}
@@ -99,6 +99,7 @@ public class ReactorSam implements Runnable {
 	*/
  
 	public void broadcastAll(String msg) throws IOException {
+		System.out.println("Sending back to all: " + msg);
 		ByteBuffer msgBuf=ByteBuffer.wrap(msg.getBytes());
 		for(SelectionKey key : selector.keys()) {
 			if (key.isValid() && key.channel() instanceof SocketChannel) {

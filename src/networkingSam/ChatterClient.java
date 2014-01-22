@@ -17,6 +17,10 @@ import java.nio.charset.CharsetDecoder;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.google.gson.Gson;
+
+import modelTestSam.GameEvent;
+
 public class ChatterClient extends Thread {
 	private static final int BUFFER_SIZE = 255;
 	private static final long CHANNEL_WRITE_SLEEP = 10L;
@@ -30,6 +34,8 @@ public class ChatterClient extends Thread {
 	private Selector readSelector;
 	private CharsetDecoder asciiDecoder;
 	private InputThread it;
+	
+	private Gson gsonInstance = new Gson();
 
 	public static void main(String args[]) {
 		String host = "localhost";
@@ -102,8 +108,7 @@ public class ChatterClient extends Thread {
 
 				// check for end-of-stream
 				if (nbytes == -1) {
-					System.out
-							.println("disconnected from server: end-of-stream");
+					System.out.println("disconnected from server: end-of-stream");
 					channel.close();
 					shutdown();
 					it.shutdown();
@@ -117,15 +122,16 @@ public class ChatterClient extends Thread {
 					String str = asciiDecoder.decode(readBuffer).toString();
 					sb.append(str);
 					readBuffer.clear();
-
+					
 					// check for a full line and write to STDOUT
 					String line = sb.toString();
-					if ((line.indexOf("\n") != -1)
-							|| (line.indexOf("\r") != -1)) {
-						sb.delete(0, sb.length());
-						System.out.print("\n" + line);
-						System.out.print("> ");
-					}
+					
+					GameEvent gameEvent = gsonInstance.fromJson(line, GameEvent.class);
+
+					System.out.printf("\n" + "Message of type (%s), content: %s", gameEvent.getType(), (String) gameEvent.get("CONTENT"));
+					System.out.print("> ");
+
+					sb.delete(0, sb.length());
 				}
 			}
 		} 
@@ -136,7 +142,16 @@ public class ChatterClient extends Thread {
 	}
 
 	private void sendMessage(String mesg) {
-		prepWriteBuffer(mesg);
+		
+		GameEvent chatMsgEvent = new GameEvent("CHAT");
+		chatMsgEvent.put("CONTENT", mesg);
+		
+		String serialized = gsonInstance.toJson(chatMsgEvent);
+		
+		System.out.println("anubis");
+		System.out.println("going to client write " + serialized);
+		
+		prepWriteBuffer(serialized);
 		channelWrite(channel, writeBuffer);
 	}
 
@@ -145,7 +160,7 @@ public class ChatterClient extends Thread {
 		// and prepares it for a channel write
 		writeBuffer.clear();
 		writeBuffer.put(mesg.getBytes());
-		writeBuffer.putChar('\n');
+		//writeBuffer.putChar('\n');
 		writeBuffer.flip();
 	}
 
