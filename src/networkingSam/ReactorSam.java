@@ -9,11 +9,23 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
+import modelTestSam.ModelWorker;
+
 public class ReactorSam implements Runnable {
 	private final int port;
+	
+	private Selector selector;
+	
+	
+	public ModelWorker consultingModel;
  
 	ReactorSam(int port) throws IOException {
 		this.port = port;
+	}
+	
+	ReactorSam(int port, ModelWorker m) {
+		this.port = port;
+		this.consultingModel = m;
 	}
  
 	@Override public void run() {
@@ -26,7 +38,7 @@ public class ReactorSam implements Runnable {
 			serverSocketChannel.configureBlocking(false);
 			
 			//Bind socket to selector
-			Selector selector = Selector.open();
+			selector = Selector.open();
 			serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT, new ConnectionAcceptHandler());
 			
 			Iterator<SelectionKey> iter;
@@ -38,7 +50,7 @@ public class ReactorSam implements Runnable {
 					key = iter.next();
 					iter.remove();
 					
-					((CanHandleConnection)key.attachment()).handleConnection(key);
+					((CanHandleConnection)key.attachment()).handleConnection(this, key);
 				}
 			}
 		} catch(IOException e) {
@@ -84,10 +96,11 @@ public class ReactorSam implements Runnable {
 		System.out.println(msg);
 		broadcast(key, msg);
 	}
+	*/
  
-	private void broadcast(SelectionKey k, String msg) throws IOException {
+	public void broadcastAll(String msg) throws IOException {
 		ByteBuffer msgBuf=ByteBuffer.wrap(msg.getBytes());
-		for(SelectionKey key : k.selector().keys()) {
+		for(SelectionKey key : selector.keys()) {
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
 				sch.write(msgBuf);
@@ -95,6 +108,5 @@ public class ReactorSam implements Runnable {
 			}
 		}
 	}
-	*/
  
 }

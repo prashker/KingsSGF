@@ -5,7 +5,7 @@ import java.nio.channels.SelectionKey;
 
 public interface CanHandleConnection {
 	
-	public boolean handleConnection(SelectionKey key) throws IOException;
+	public boolean handleConnection(ReactorSam server, SelectionKey key) throws IOException;
 	
 	//Future
 	//public void broadcastAll(SelectionKey k, CanWrapMessage msg)

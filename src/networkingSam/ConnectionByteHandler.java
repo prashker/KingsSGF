@@ -14,14 +14,14 @@ public class ConnectionByteHandler implements CanHandleConnection {
 	private ByteBuffer buf = ByteBuffer.allocate(256);
 		
 	@Override
-	public boolean handleConnection(SelectionKey key) throws IOException {
+	public boolean handleConnection(ReactorSam server, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = (SocketChannel) key.channel();
 		
 		StringBuilder sb = new StringBuilder();
  
 		buf.clear();
 		int read = 0;
-		while( (read = socketChannel.read(buf)) > 0 ) {
+		while((read = socketChannel.read(buf)) > 0) {
 			buf.flip();
 			byte[] bytes = new byte[buf.limit()];
 			buf.get(bytes);
@@ -29,6 +29,10 @@ public class ConnectionByteHandler implements CanHandleConnection {
 			buf.clear();
 		}
 		
+		server.consultingModel.processData(server, sb.toString());
+		
+		
+		/*
 		String msg;
 		if (read < 0) {
 			//msg = key.attachment()+" left the chat.\n";
@@ -39,9 +43,10 @@ public class ConnectionByteHandler implements CanHandleConnection {
 			//msg = key.attachment()+": "+sb.toString();
 			msg = "Someone said: " + sb.toString();
 		}
+		*/
  
-		System.out.println(msg);
-		broadcastAll(key, msg);
+		//System.out.println(msg);
+		//broadcastAll(key, msg);
 		return false;
 	}
 	

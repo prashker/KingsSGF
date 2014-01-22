@@ -13,7 +13,7 @@ public class ConnectionAcceptHandler implements CanHandleConnection {
 	private final ByteBuffer welcomeBuf = ByteBuffer.wrap("Connection Accept Handler, Hi!!\n".getBytes());
 		
 	@Override
-	public boolean handleConnection(SelectionKey key) throws IOException {
+	public boolean handleConnection(ReactorSam server, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = ((ServerSocketChannel) key.channel()).accept();
 		
 		String metadata = (new StringBuilder( socketChannel.socket().getInetAddress().toString() )).append(":").append( socketChannel.socket().getPort()).toString();
