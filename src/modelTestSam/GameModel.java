@@ -39,9 +39,10 @@ public class GameModel {
 			@Override
 			public String handleEvent(GameEvent event) {
 				
-				System.out.println("test");
+				//System.out.println("test");
 				
 				increment();
+				
 				GameEvent returnMsg = new GameEvent("CHAT");
 				returnMsg.put("CONTENT", String.format("Said (%d): %s", testingVar, event.get("CONTENT")));
 				return gsonInstance.toJson(returnMsg);
