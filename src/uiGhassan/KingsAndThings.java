@@ -8,9 +8,15 @@ package uiGhassan;
 
 //import java.awt.Insets;
 import static java.rmi.Naming.list;
+
 import java.util.ArrayList;
+
 import static java.util.Collections.list;
+
 import java.util.List;
+
+import modelTestSam.GameModel;
+import modelTestSam.NetworkedJSONGameLoop;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -61,6 +67,13 @@ import javafx.stage.Stage;
  * @author ghassanansari
  */
 public class KingsAndThings extends Application {
+	
+	//GHASSAN REMOVE THESE LATER
+	GameModel gameModel;
+	
+	
+	
+	
      Image back = new Image(getClass().getResourceAsStream("images/Tuile_Back.png"), 100, 100, true, true); 
      Image desert = new Image(getClass().getResourceAsStream("images/Tuile-Desert.png"), 80, 80, true, true);
      Image backTile = new Image(getClass().getResourceAsStream("images/Tuile_Back.png"), 80, 80, true, true);
@@ -85,6 +98,10 @@ public class KingsAndThings extends Application {
      
     @Override
     public void start(Stage primaryStage) {
+    	gameModel = new GameModel(new NetworkedJSONGameLoop());
+    	
+    	//so a simple association from the gameModel to the View's stuff could be like
+    	
         
         loadHexes();
         loadPieces();
@@ -239,13 +256,30 @@ public class KingsAndThings extends Application {
     }
     
     private void loadHexes() {
-      
+    	
+    	//SAM ADDED, GHASSAN MODIFY
+    	
         int y = 193;
         for (int i=0; i<4; i++){
             hexes[i] = new Hex(16, y);
             y += 75;
         }
-             
+        
+        //SAM ADDED, GHASSAN MODIFY
+        System.out.println("Model has " + gameModel.hexes.size());
+        
+        for (int i = 0; i < gameModel.hexes.size(); i++) {
+        	hexes[i].setModel(gameModel.hexes.get(i));
+        	System.out.printf("BOUND %s to %s\n", hexes[i], gameModel.hexes.get(i));
+        }
+        
+        //lets say you want the model to change based on your view actions
+        //you'd do like
+        /*onDrag(Hex h) {
+        	hex.associatedModel.<whatever function to change the model>
+    	}
+          
+        */
     }
     
    private void addHexesTo(Pane root) {

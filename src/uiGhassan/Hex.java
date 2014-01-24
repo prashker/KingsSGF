@@ -6,18 +6,29 @@
 
 package uiGhassan;
 
+import modelTestSam.HexModel;
+
 /**
  *
  * @author ghassanansari
  */
 public class Hex {
     
+	//SAM ADDED - GHASSAN MODIFY
+	public HexModel associatedModel;
+	
     boolean isRevealed = false;
     int X, Y;
 
     Hex(int x, int y) {
         X = x;
         Y = y;
+    }
+    
+    
+    //SAM ADDED - GHASSAN MODIFY
+    public void setModel(HexModel x) {
+    	associatedModel = x;
     }
     
     @Override

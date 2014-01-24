@@ -13,7 +13,6 @@ public class networkingMain {
 		
 		new Thread(testModel.gameLoop).start();
 		
-		
 		ReactorSam server = new ReactorSam(10997, testModel.gameLoop);
 		(new Thread(server)).start();
 	}

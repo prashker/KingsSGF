@@ -2,10 +2,15 @@ package modelTestSam;
 
 import com.google.gson.Gson;
 
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+
 public class GameModel {
 	
 	public int testingVar;
 	public ModelWorker gameLoop;
+	
+	public ArrayList<HexModel> hexes = new ArrayList<HexModel>();
 	
 	public Gson gsonInstance = new Gson();
 	
@@ -14,8 +19,15 @@ public class GameModel {
 		testingVar = 0;
 		
 		gameEventSetup(workerType);
-		
-		
+
+		hexes.add(new HexModel("Jungle"));
+		hexes.add(new HexModel("Land"));
+		hexes.add(new HexModel("Jungle"));
+		hexes.add(new HexModel("Land"));
+		hexes.add(new HexModel("Jungle"));
+		hexes.add(new HexModel("Land"));
+		hexes.add(new HexModel("Jungle"));
+		hexes.add(new HexModel("Land"));
 	}
 	
 	private void gameEventSetup(ModelWorker workerType) {
