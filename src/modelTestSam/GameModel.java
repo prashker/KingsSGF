@@ -22,12 +22,8 @@ public class GameModel {
 
 		hexes.add(new HexModel("Jungle"));
 		hexes.add(new HexModel("Land"));
-		hexes.add(new HexModel("Jungle"));
-		hexes.add(new HexModel("Land"));
-		hexes.add(new HexModel("Jungle"));
-		hexes.add(new HexModel("Land"));
-		hexes.add(new HexModel("Jungle"));
-		hexes.add(new HexModel("Land"));
+		hexes.add(new HexModel("Sea"));
+		hexes.add(new HexModel("TreeLand"));
 	}
 	
 	private void gameEventSetup(ModelWorker workerType) {
