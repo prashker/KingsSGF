@@ -12,15 +12,15 @@ import modelTestSam.HexModel;
  *
  * @author ghassanansari
  */
-public class Hex {
+public class HexView {
     
 	//SAM ADDED - GHASSAN MODIFY
 	public HexModel associatedModel;
 	
     boolean isRevealed = false;
-    int X, Y;
+   public int X, Y;
 
-    Hex(int x, int y) {
+    public HexView(int x, int y) {
         X = x;
         Y = y;
     }

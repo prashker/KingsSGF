@@ -26,7 +26,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -45,6 +47,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
@@ -57,9 +60,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Stage;
 
 /**
@@ -71,14 +76,18 @@ public class KingsAndThings extends Application {
 	//GHASSAN REMOVE THESE LATER
 	GameModel gameModel;
 	
-	
-	
-	
-     Image back = new Image(getClass().getResourceAsStream("images/Tuile_Back.png"), 100, 100, true, true); 
+	 String jungle = "Tuile-Jungle";
+	 String montagne = "Tuile-Montagne";
+	 String plaines = "Tuile-Plaines";
+	 String deserts = "Tuile-Desert";
+	 String marais = "Tuile-Marais";
+	 String mer = "Tuile-Mer";
      Image desert = new Image(getClass().getResourceAsStream("images/Tuile-Desert.png"), 80, 80, true, true);
      Image backTile = new Image(getClass().getResourceAsStream("images/Tuile_Back.png"), 80, 80, true, true);
      Image dice = new Image(getClass().getResourceAsStream("images/D_Dice1.jpeg"), 40, 40, true, true);
-     Hex[] hexes = new Hex[48];
+     Image Jungle = new Image(getClass().getResourceAsStream("images/Tuile-Jungle.png"), 80, 80, true, true);
+     
+     HexView[] hexes = new HexView[48];
      Dice dce;
      final ImageView dicepic = new ImageView();
      final ImageView dicepic2 = new ImageView();
@@ -102,20 +111,38 @@ public class KingsAndThings extends Application {
     	
     	//so a simple association from the gameModel to the View's stuff could be like
     	
+    	//from the gameModel, create the HexViews
         
         loadHexes();
-        loadPieces();
-        loadBackTiles();
+        ObservableList<String> hexOptions = 
+        	    FXCollections.observableArrayList(
+        	        jungle,
+        	        montagne,
+        	        plaines,
+        	        deserts,
+        	        marais,
+        	        mer
+        	    );
         
-        Pane root = new Pane();
+        ObservableList<String> locationOptions = 
+        	    FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16",
+        	    		"17","18","19","20", "21","22","23","24","25","26","27","28","29","30","31","32","33");
+        
+        final ComboBox hexComboBox = new ComboBox();
+        hexComboBox.getItems().addAll(hexOptions);
+        
+        final ComboBox locationComboBox = new ComboBox();
+        locationComboBox.getItems().addAll(locationOptions);
+        
+        final Pane root = new Pane();
         Image image = new Image(getClass().getResourceAsStream("images/Bowl.png"), 100, 100, true, true);
-        Image image2 = new Image(getClass().getResourceAsStream("images/Tuile-Desert.png"), 75, 75, true, true);
+       // Image image2 = new Image(getClass().getResourceAsStream("images/Tuile-Desert.png"), 75, 75, true, true);
         Image Player1_Rack = new Image(getClass().getResourceAsStream("images/Rack.png"), 150, 150, true, true);
         Image Player2_Rack = new Image(getClass().getResourceAsStream("images/Rack.png"), 150, 150, true, true); 
         Image Player3_Rack = new Image(getClass().getResourceAsStream("images/Rack.png"), 150, 150, true, true);
         Image Player4_Rack = new Image(getClass().getResourceAsStream("images/Rack.png"), 150, 150, true, true);
         Button rollButton = new Button("Roll");
-  
+        Button hexButton = new Button("Set");
         
         ImageView img = new ImageView();
         final ImageView img2 = new ImageView();
@@ -126,8 +153,8 @@ public class KingsAndThings extends Application {
         
         img.setImage(image);
         img.relocate(400, 0);
-        img2.setImage(image2);
-        img2.relocate(0, 0);
+        hexComboBox.relocate(0, 0);
+        locationComboBox.relocate(150, 0);
         PR1_img.setImage(Player1_Rack);
         PR1_img.relocate(550,0);
         PR2_img.setImage(Player2_Rack);
@@ -137,6 +164,7 @@ public class KingsAndThings extends Application {
         PR4_img.setImage(Player4_Rack);
         PR4_img.relocate(550,240);
         rollButton.relocate(100, 550);
+        hexButton.relocate(250, 0);
       //  pic.setPreserveRatio(true);
         dicepic.relocate(0, 500);
         dicepic.setImage(dice);
@@ -152,6 +180,84 @@ public class KingsAndThings extends Application {
         vbox.setPadding(new Insets(0, 10, 0, 10));
        vbox.getChildren().addAll(dicepic,dicepic2);
         
+       hexButton.setOnAction(new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			if (locationComboBox.getValue() == "1"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(75, 150);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "2"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(75, 225);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "3"){
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(75, 300);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "4"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(75, 375);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "5"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(75, 450);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "6"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(137, 115);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "7"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(137, 190);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "8"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(137, 265);
+				root.getChildren().add(i);
+			}
+			
+			if (locationComboBox.getValue() == "9"){
+				System.out.println("A new Jungle");
+				ImageView i = new ImageView();
+				i.setImage(new Image(getClass().getResourceAsStream("images/" + hexComboBox.getValue() + ".png"),80, 80, true, true));
+				i.relocate(137, 340);
+				root.getChildren().add(i);
+			}
+		}
+    	   
+    	   
+       });
+       
             rollButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
               //Roll();
@@ -174,43 +280,34 @@ public class KingsAndThings extends Application {
         });
             
         root.getChildren().add(img);
-        root.getChildren().add(img2);
+        root.getChildren().add(hexComboBox);
+        root.getChildren().add(locationComboBox);
         root.getChildren().add(PR1_img);
         root.getChildren().add(PR2_img);
         root.getChildren().add(PR3_img);
         root.getChildren().add(PR4_img);
         root.getChildren().addAll(rollButton);
-//       root.getChildren().add(dicepic);
-      //  root.getChildren().add(vbox);
+        root.getChildren().addAll(hexButton);
         root.getChildren().add(dicepic);
         root.getChildren().add(dicepic2);
        
         addHexesTo(root);
         addPiecesTo(root);
-        addBackTiles(root);
-        
-        HBox hBox1 = new HBox();
-        hBox1.setPrefWidth(75);
-        hBox1.setPrefHeight(75);
-        hBox1.setStyle("-fx-border-color: grey;"
-              + "-fx-border-width: 1;"
-              + "-fx-border-style: solid;");
-        hBox1.relocate(0,0);
-        root.getChildren().add(hBox1);
-        
-        
-            
-           //  pieceHBox.relocate(450,30);
-        //root.getChildren().add(pieceHBox);
-        
+         
         Scene scene = new Scene(root, 750, 600);
         scene.getStylesheets().add
             (KingsAndThings.class.getResource("style.css").toExternalForm());
-       // ((VBox) scene.getRoot()).getChildren().addAll(vbox);
         primaryStage.setTitle("Kings And Things");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.setScene(new Scene(VBoxBuilder.create().
+            children(new Text("IP: "), new TextField(), new Text("Port: "), new TextField(), new Button("Connect")).
+            alignment(Pos.BASELINE_LEFT).padding(new Insets(50)).build()));
+        dialogStage.show();
         
       
         
@@ -261,17 +358,19 @@ public class KingsAndThings extends Application {
     	
         int y = 193;
         for (int i=0; i<4; i++){
-            hexes[i] = new Hex(16, y);
+            hexes[i] = new HexView(16, y);
             y += 75;
         }
+       
         
         //SAM ADDED, GHASSAN MODIFY
-        System.out.println("Model has " + gameModel.hexes.size());
+       /* System.out.println("Model has " + gameModel.hexes.size());
         
-        for (int i = 0; i < gameModel.hexes.size(); i++) {
+        for (int i = 0; i < gameModel.hexes.size()-1; i++) {
         	hexes[i].setModel(gameModel.hexes.get(i));
+        	
         	System.out.printf("BOUND %s to %s\n", hexes[i], gameModel.hexes.get(i));
-        }
+        }*/
         
         //lets say you want the model to change based on your view actions
         //you'd do like
@@ -286,14 +385,13 @@ public class KingsAndThings extends Application {
        
         ObservableList<Node> children = root.getChildren();
        
-        for(Hex h : hexes){
+        for(HexView h : hexes){
              
             if(h==null){ continue; }
             System.out.println(h);
             ImageView view = new ImageView();
             view.setImage(desert);
-            view.setX(h.X);
-            view.setY(h.Y);
+            view.relocate(h.X, h.Y);
             children.add(view);
             
         }
@@ -305,29 +403,7 @@ public class KingsAndThings extends Application {
     
      }
    
-   public void loadBackTiles(){
-       int y = 0;
-       int x = 0;
-       for (int i = 0; i<48; i++){
-           hexes[i] = new Hex(x,y);
-       }
-   }
-  
-   
-   public void addBackTiles(Pane root){
-       ObservableList<Node> children = root.getChildren();
-       
-        for(Hex h : hexes){
-             
-            if(h==null){ continue; }
-            System.out.println(h);
-            ImageView view = new ImageView();
-            view.setImage(backTile);
-            view.setX(h.X);
-            view.setY(h.Y);
-            children.add(view);
-   }
-   }
+
      public void Roll(){
         int index = -1;
         int i = index;
