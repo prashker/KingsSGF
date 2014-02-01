@@ -13,11 +13,16 @@ public class ConnectionAcceptHandler implements CanHandleConnection {
 	private final ByteBuffer welcomeBuf = ByteBuffer.wrap("Connection Accept Handler, Hi!!\n".getBytes());
 		
 	@Override
-	public boolean handleConnection(ReactorSam server, SelectionKey key) throws IOException {
+	public boolean handleConnection(GameServer server, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = ((ServerSocketChannel) key.channel()).accept();
 		
 		String metadata = (new StringBuilder( socketChannel.socket().getInetAddress().toString() )).append(":").append( socketChannel.socket().getPort()).toString();
 		socketChannel.configureBlocking(false);
+		
+		// The interestOps value which tells that neither read nor write operation has been suspended.
+		// So this mean OP_READ is only needed, not OP_READ | OP_WRITE
+		// Taken from NETTY site but most likely applies to native Selecotr in Java
+		// http://docs.jboss.org/netty/3.2/api/org/jboss/netty/channel/Channel.html
 		socketChannel.register(key.selector(), SelectionKey.OP_READ, new ConnectionByteHandler());
 		
 		//socketChannel.write(welcomeBuf);

@@ -9,11 +9,11 @@ public class networkingMain {
 
 	public static void main(String[] args) throws IOException {
 		
-		GameModel testModel = new GameModel(new NetworkedJSONGameLoop());
+		GameModel testModel = new GameModel(new NetworkedJSONGameLoop(), GameModel.Type.SERVER);
 		
 		new Thread(testModel.gameLoop).start();
 		
-		ReactorSam server = new ReactorSam(10997, testModel.gameLoop);
+		GameServer server = new GameServer(10997, testModel.gameLoop);
 		(new Thread(server)).start();
 	}
 

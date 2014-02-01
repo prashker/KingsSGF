@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 import modelTestSam.ModelWorker;
 
-public class ReactorSam implements Runnable {
+public class GameServer implements Runnable {
 	private final int port;
 	
 	private Selector selector;
@@ -19,11 +19,11 @@ public class ReactorSam implements Runnable {
 	
 	public ModelWorker consultingModel;
  
-	ReactorSam(int port) throws IOException {
+	GameServer(int port) throws IOException {
 		this.port = port;
 	}
 	
-	ReactorSam(int port, ModelWorker m) {
+	GameServer(int port, ModelWorker m) {
 		this.port = port;
 		this.consultingModel = m;
 	}
@@ -97,8 +97,22 @@ public class ReactorSam implements Runnable {
 		broadcast(key, msg);
 	}
 	*/
- 
-	public void broadcastAll(String msg) throws IOException {
+	
+	
+	//byte array?
+	
+	//This is not properly implemented, but too confusing to waste time on this part
+	//So we're working with send and sendAll without dealing with the interestOps crap
+	
+	public void send(SocketChannel socketChannel, String data) throws IOException { 
+		System.out.println("Sending back to one: " + data);
+		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
+		socketChannel.write(msgBuf);
+		msgBuf.rewind();
+	}
+	
+	//
+	public void sendAll(String msg) throws IOException {
 		System.out.println("Sending back to all: " + msg);
 		ByteBuffer msgBuf=ByteBuffer.wrap(msg.getBytes());
 		for(SelectionKey key : selector.keys()) {
@@ -109,5 +123,18 @@ public class ReactorSam implements Runnable {
 			}
 		}
 	}
+ 
+	
+	/*public void broadcastAll(String msg) throws IOException {
+		System.out.println("Sending back to all: " + msg);
+		ByteBuffer msgBuf=ByteBuffer.wrap(msg.getBytes());
+		for(SelectionKey key : selector.keys()) {
+			if (key.isValid() && key.channel() instanceof SocketChannel) {
+				SocketChannel sch=(SocketChannel) key.channel();
+				sch.write(msgBuf);
+				msgBuf.rewind();
+			}
+		}
+	}*/
  
 }

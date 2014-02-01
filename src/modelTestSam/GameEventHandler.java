@@ -1,5 +1,5 @@
 package modelTestSam;
 
 public interface GameEventHandler {
-	public String handleEvent(GameEvent event);
+	public GameEvent handleEvent(GameEvent event);
 }

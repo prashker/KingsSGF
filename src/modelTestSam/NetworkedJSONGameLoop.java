@@ -1,13 +1,14 @@
 package modelTestSam;
 
 import java.io.IOException;
+import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.Gson;
 
-import networkingSam.ReactorSam;
+import networkingSam.GameServer;
 
 public class NetworkedJSONGameLoop implements ModelWorker {
 	
@@ -19,7 +20,7 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 
 	@Override
 	public void run() {
-		TempWrapper data;
+		ServerDataEvent dataEvent;
 		while (true) {
 			// Wait for data to become available
 			synchronized (queue) {
@@ -29,41 +30,73 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 					} catch (InterruptedException e) {
 					}
 				}
-				data = (TempWrapper) queue.remove(0);
+				dataEvent = (ServerDataEvent) queue.remove(0);
 			}
+			
+			//move JSON decode from processData into here (processData
+			//should give the data to the queue for the thread
+			//to do its stuff
+			
+			GameEvent generatedEvent = gsonInstance.fromJson(dataEvent.data, GameEvent.class);
 
+			
+			if (handleMap.containsKey(generatedEvent.type)) {
+				GameEvent response = handleMap.get(generatedEvent.type).handleEvent(generatedEvent);
+				if (response != null)
+					try {
+						dataEvent.server.sendAll(gsonInstance.toJson(response));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+			}
+			else {
+				GameEvent unknown = new GameEvent("UNKNOWN");
+				unknown.put("REASON", "Cannot handle type: " + generatedEvent.type);
+				try {
+					dataEvent.server.send(dataEvent.socket, gsonInstance.toJson(unknown));
+				}
+				catch (IOException e) {
+					
+				}
+			}
+			
+
+			/*
 			// Return to sender
 			try {
-				if (data.d != null)
-					data.s.broadcastAll(data.d);
+				if (data.data != null)
+					data.server.broadcastAll(data.data);
 			} catch (IOException e) {
 				System.out.println("Graceful disconnect, why dis happen?");
 			}
+			*/
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void processData(ReactorSam sender, String data) {
+	public void processData(GameServer sender, SocketChannel socket, String data) {
 		
 		
-		GameEvent generatedEvent = gsonInstance.fromJson(data, GameEvent.class);
 				
 	    //byte[] dataCopy = new byte[count];
 	    //System.arraycopy(data, 0, dataCopy, 0, count);
 	    synchronized(queue) {
-	      queue.add(new TempWrapper(sender, handleMap.get(generatedEvent.type).handleEvent(generatedEvent)));
+	      queue.add(new ServerDataEvent(sender, socket, data));
 	      queue.notify();
 	    }
 	}
 	
-	class TempWrapper {
-		ReactorSam s;
-		String d;
+	class ServerDataEvent {
+		GameServer server;
+		SocketChannel socket;
+		String data;
 		
-		public TempWrapper(ReactorSam s, String d) {
-			this.s = s;
-			this.d = d;
+		public ServerDataEvent(GameServer server, SocketChannel socket, String data) {
+			this.server = server;
+			this.socket = socket;
+			this.data = data;
 		}
 		
 	}

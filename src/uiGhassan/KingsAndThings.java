@@ -98,7 +98,7 @@ public class KingsAndThings extends Application {
      
     @Override
     public void start(Stage primaryStage) {
-    	gameModel = new GameModel(new NetworkedJSONGameLoop());
+    	//gameModel = new GameModel(new NetworkedJSONGameLoop());
     	
     	//so a simple association from the gameModel to the View's stuff could be like
     	

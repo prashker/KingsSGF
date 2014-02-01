@@ -11,10 +11,10 @@ public class ConnectionByteHandler implements CanHandleConnection {
 	//also currently dealing with bytes and strings, so dynamically work on that....yo
 	
 
-	private ByteBuffer buf = ByteBuffer.allocate(256);
+	private ByteBuffer buf = ByteBuffer.allocate(8192);
 		
 	@Override
-	public boolean handleConnection(ReactorSam server, SelectionKey key) throws IOException {
+	public boolean handleConnection(GameServer server, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = (SocketChannel) key.channel();
 		
 		StringBuilder sb = new StringBuilder();
@@ -29,7 +29,7 @@ public class ConnectionByteHandler implements CanHandleConnection {
 			buf.clear();
 		}
 		
-		server.consultingModel.processData(server, sb.toString());
+		server.consultingModel.processData(server, socketChannel, sb.toString());
 		
 		
 		/*
@@ -49,18 +49,7 @@ public class ConnectionByteHandler implements CanHandleConnection {
 		//broadcastAll(key, msg);
 		return false;
 	}
-	
-	public void broadcastAll(SelectionKey k, String msg) throws IOException {
-		ByteBuffer msgBuf = ByteBuffer.wrap(msg.getBytes());
-		
-		for (SelectionKey key: k.selector().keys()) {
-			if (key.isValid() && key.channel() instanceof SocketChannel) {
-				SocketChannel sch = (SocketChannel) key.channel();
-				sch.write(msgBuf);
-				msgBuf.rewind();
-			}
-		}
-	}
+
 
 
 }
