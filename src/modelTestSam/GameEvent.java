@@ -2,12 +2,16 @@ package modelTestSam;
 
 import java.util.HashMap;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class GameEvent {
 	
 	String type;
 	HashMap<String,Object> map;
+	
+	public GameEvent() {
+		//Dummy constructor
+	}
 
 	public GameEvent(String type, HashMap<String, Object> map) {
 		this.type = type;
@@ -44,8 +48,13 @@ public class GameEvent {
 	}
 	
 	public String toJson() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		try {
+			return JacksonSingleton.getInstance().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public String toString() {

@@ -46,9 +46,7 @@ public class JoinGamePhase extends GamePhase {
 				System.out.println("Player: " + playerFromNetwork + " joined");
 				
 				referenceToModel.players.addPlayer(new PlayerModel(playerFromNetwork));
-				
-				
-				
+
 				GameEvent allPlayersEvent = new GameEvent("PLAYERS");
 				allPlayersEvent.put("PLAYERS", referenceToModel.players.playerIDS());
 				

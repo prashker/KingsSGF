@@ -17,9 +17,10 @@ import java.nio.charset.CharsetDecoder;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import modelTestSam.GameEvent;
+import modelTestSam.JacksonSingleton;
 
 public class ChatterClient extends Thread {
 	private static final int BUFFER_SIZE = 255;
@@ -35,8 +36,6 @@ public class ChatterClient extends Thread {
 	private CharsetDecoder asciiDecoder;
 	private InputThread it;
 	
-	private Gson gsonInstance = new Gson();
-
 	public static void main(String args[]) {
 		String host = "localhost";
 		ChatterClient cc = new ChatterClient(host);
@@ -126,7 +125,7 @@ public class ChatterClient extends Thread {
 					// check for a full line and write to STDOUT
 					String line = sb.toString();
 					
-					GameEvent gameEvent = gsonInstance.fromJson(line, GameEvent.class);
+					GameEvent gameEvent = JacksonSingleton.getInstance().readValue(line, GameEvent.class);
 
 					System.out.printf("\n" + "Message of type (%s), content: %s", gameEvent.getType(), (String) gameEvent.get("CONTENT"));
 					System.out.print("> ");
@@ -146,7 +145,13 @@ public class ChatterClient extends Thread {
 		GameEvent chatMsgEvent = new GameEvent("CHAT");
 		chatMsgEvent.put("CONTENT", mesg);
 		
-		String serialized = gsonInstance.toJson(chatMsgEvent);
+		String serialized = "";
+		try {
+			serialized = JacksonSingleton.getInstance().writeValueAsString(chatMsgEvent);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("anubis");
 		System.out.println("going to client write " + serialized);

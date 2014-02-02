@@ -21,12 +21,11 @@ import networkingSam.CanHandleConnection;
 import networkingSam.ConnectionByteHandler;
 import modelTestSam.GameEvent;
 import modelTestSam.GameModel;
+import modelTestSam.JacksonSingleton;
 import modelTestSam.ModelWorker;
 import modelTestSam.Networkable;
 import modelTestSam.NetworkedJSONGameLoop;
-
-import com.google.gson.Gson;
-
+import modelTestSam.ThingModel;
 
 public class GameClient extends Thread implements Networkable {
 	private final int port;
@@ -42,8 +41,6 @@ public class GameClient extends Thread implements Networkable {
 	public GameModel gameModel;
 	public ModelWorker gameLoop;
 	
-	private Gson gsonInstance = new Gson();
-
 	public GameClient(String host, int port, GameModel m) {
 		this.host = host;
 		this.port = port;
@@ -197,7 +194,7 @@ public class GameClient extends Thread implements Networkable {
 						chatMsgEvent.put("FROM",  gameModel.localPlayer.getId());
 						chatMsgEvent.put("CONTENT", s);
 						
-						String serialized = gsonInstance.toJson(chatMsgEvent);
+						String serialized = JacksonSingleton.getInstance().writeValueAsString(chatMsgEvent);
 						
 						cc.sendTo(socketChannel, serialized);
 					}

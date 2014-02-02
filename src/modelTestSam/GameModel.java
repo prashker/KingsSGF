@@ -1,7 +1,5 @@
 package modelTestSam;
 
-import com.google.gson.Gson;
-
 import gamePhasesSam.ChatPhase;
 import gamePhasesSam.GamePhase;
 import gamePhasesSam.JoinGamePhase;
@@ -31,9 +29,6 @@ public class GameModel extends Observable {
 	
 	public Players players = new Players();
 	public PlayerModel localPlayer = null;
-	
-	
-	public Gson gsonInstance = new Gson();
 	
 	public GameModel(Type modelType) {
 		this.modelType = modelType;

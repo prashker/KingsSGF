@@ -1,9 +1,10 @@
 package modelTestSam;
 
-public class ThingModel extends KNTObject {
+//Subclass of a Thing
+public abstract class ThingModel extends KNTObject {
 	
 	public ThingModel() {
-		
+
 	}
 
 }

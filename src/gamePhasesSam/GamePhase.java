@@ -1,10 +1,9 @@
 package gamePhasesSam;
 
-import com.google.gson.Gson;
-
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
+import modelTestSam.ThingModel;
 
 
 public abstract class GamePhase {
@@ -15,8 +14,7 @@ public abstract class GamePhase {
 	
 	
 	GameModel referenceToModel;
-	public Gson gsonInstance = new Gson();
-	
+
 	public GamePhase(GameModel m) { 
 		referenceToModel = m;
 		

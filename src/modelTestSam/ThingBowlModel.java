@@ -14,9 +14,9 @@ public class ThingBowlModel extends KNTObject implements Observer {
 	
 	public void Demo1Population() {
 		for (int i = 0; i < 15; i++) {
-			ThingModel m = new ThingModel();
-			m.addObserver(this);
-			things.put(m.getId(), m);
+			//ThingModel m = new ThingModel();
+			//m.addObserver(this);
+			//things.put(m.getId(), m);
 		}
 	}
 

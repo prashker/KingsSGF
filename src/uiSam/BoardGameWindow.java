@@ -57,10 +57,13 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 				if (event.getClickCount() == 2) {
 					
 					model.localPlayer = new PlayerModel();
-					
+			
 					GameEvent joinEvent = new GameEvent("JOIN");
 					joinEvent.put("PLAYER", model.localPlayer.getId());
+
 					
+					System.out.println("Sending: " + joinEvent.toJson());
+
 					model.network.sendAll(joinEvent.toJson());
 				}
 			}

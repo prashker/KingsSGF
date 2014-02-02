@@ -5,6 +5,9 @@ import java.util.Observable;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+
 public abstract class KNTObject extends Observable {
 	
 	private final String id;
