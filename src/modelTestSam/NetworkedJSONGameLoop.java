@@ -16,36 +16,6 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 	public HashMap<String, GameEventHandler> handleMap = new HashMap<String, GameEventHandler>();
 	
 	private List queue = new LinkedList();
-	
-	/*
-	<h3>Registering Types</h3>
-	 * Create a {@code RuntimeTypeAdapter} by passing the base type and type field
-	 * name to the {@link #of} factory method. If you don't supply an explicit type
-	 * field name, {@code "type"} will be used. <pre>   {@code
-	 *   RuntimeTypeAdapter<Shape> shapeAdapter
-	 *       = RuntimeTypeAdapter.of(Shape.class, "type");
-	 * }</pre>
-	 * Next register all of your subtypes. Every subtype must be explicitly
-	 * registered. This protects your application from injection attacks. If you
-	 * don't supply an explicit type label, the type's simple name will be used.
-	 * <pre>   {@code
-	 *   shapeAdapter.registerSubtype(Rectangle.class, "Rectangle");
-	 *   shapeAdapter.registerSubtype(Circle.class, "Circle");
-	 *   shapeAdapter.registerSubtype(Diamond.class, "Diamond");
-	 * }</pre>
-	 * Finally, register the type adapter in your application's GSON builder:
-	 * <pre>   {@code
-	 *   Gson gson = new GsonBuilder()
-	 *       .registerTypeAdapter(Shape.class, shapeAdapter)
-	 *       .create();
-	 * }</pre>
-	 * Like {@code GsonBuilder}, this API supports chaining: <pre>   {@code
-	 *   RuntimeTypeAdapter<Shape> shapeAdapter = RuntimeTypeAdapterFactory.of(Shape.class)
-	 *       .registerSubtype(Rectangle.class)
-	 *       .registerSubtype(Circle.class)
-	 *       .registerSubtype(Diamond.class);
-	 * }</pre>
-	 */
 
 	@Override
 	public void run() {
