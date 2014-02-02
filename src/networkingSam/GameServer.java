@@ -139,6 +139,25 @@ public class GameServer implements Runnable, Networkable {
 			}
 		}
 	}
+	
+	public void sendAllExcept(SocketChannel socketChannel, String data) {
+		System.out.println("Sending back to all except 1: " + data);
+		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
+		for(SelectionKey key : selector.keys()) {
+			if (key.isValid() && key.channel() instanceof SocketChannel) {
+				SocketChannel sch=(SocketChannel) key.channel();
+				if (sch != socketChannel) {
+					try {
+						sch.write(msgBuf);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					msgBuf.rewind();
+				}
+			}
+		}
+	}
  
 	
 	/*public void broadcastAll(String msg) throws IOException {

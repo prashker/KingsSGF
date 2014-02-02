@@ -2,6 +2,8 @@ package modelTestSam;
 
 import java.util.HashMap;
 
+import com.google.gson.Gson;
+
 public class GameEvent {
 	
 	String type;
@@ -39,6 +41,15 @@ public class GameEvent {
 	
 	public void put(String key, Object value) {
 		map.put(key, value);
+	}
+	
+	public String toJson() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
+	
+	public String toString() {
+		return toJson();
 	}
 
 }

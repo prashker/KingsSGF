@@ -27,6 +27,11 @@ public class GameModel {
 	
 	public HexGrid grid;
 	public ThingBowlModel bowl;
+	//public Bank bank;
+	
+	public Players players;
+	public PlayerModel localPlayer = null;
+	
 	
 	public Gson gsonInstance = new Gson();
 	
@@ -39,7 +44,8 @@ public class GameModel {
 	
 	public void setNetwork(Networkable n) {
 		network = n;
-		state = new ChatPhase(this);
+		
+		state = new JoinGamePhase(this);
 	}
 	
 	

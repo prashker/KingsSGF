@@ -14,6 +14,11 @@ public abstract class KNTObject extends Observable {
 		setVisible(true); //face up, face down implementation in the future
 	}
 	
+	public KNTObject(int id) {
+		this.id = id;
+		setVisible(true);
+	}
+	
 	public int getId() {
 		return id;
 	}

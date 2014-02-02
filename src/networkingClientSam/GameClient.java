@@ -235,6 +235,10 @@ public class GameClient extends Thread implements Networkable {
 	public void sendAll(String data) {
 		//Not supported...this shoudln't really be here but my inheritance is messed.
 	}
+	
+	public void sendAllExcept(SocketChannel socketChannel, String data) {
+		//Not supported...
+	}
 
 
 }

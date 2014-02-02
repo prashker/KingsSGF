@@ -27,13 +27,13 @@
         <HBox prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Host" />
-            <TextField id="host" fx:id="hostField" prefWidth="201.0" />
+            <TextField id="host" fx:id="hostField" prefWidth="201.0" text="localhost" />
           </children>
         </HBox>
         <HBox prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Port" />
-            <TextField fx:id="portField" alignment="CENTER_RIGHT" prefWidth="204.0" />
+            <TextField fx:id="portField" alignment="CENTER_LEFT" prefWidth="204.0" text="10997" />
           </children>
         </HBox>
       </children>

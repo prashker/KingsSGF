@@ -8,8 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import uiSam.*?>
 
-<VBox prefHeight="769.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BoardGameWindow">
+<VBox id="mainVbox" prefHeight="769.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BoardGameWindow">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -57,11 +58,11 @@
             <Image url="@images/Board.jpg" />
           </image>
         </ImageView>
-        <ImageView fx:id="thingBowl" fitHeight="126.0" fitWidth="126.0" layoutX="552.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <ThingBowlView fx:id="thingBowl" fitHeight="126.0" fitWidth="126.0" layoutX="552.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@images/Bowl.png" />
           </image>
-        </ImageView>
+        </ThingBowlView>
       </children>
     </AnchorPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
