@@ -20,12 +20,15 @@ import java.util.Set;
 import networkingSam.CanHandleConnection;
 import networkingSam.ConnectionByteHandler;
 import modelTestSam.GameEvent;
+import modelTestSam.GameModel;
 import modelTestSam.ModelWorker;
+import modelTestSam.Networkable;
+import modelTestSam.NetworkedJSONGameLoop;
 
 import com.google.gson.Gson;
 
 
-public class GameClient extends Thread {
+public class GameClient extends Thread implements Networkable {
 	private final int port;
 	private final String host;
 	
@@ -36,23 +39,27 @@ public class GameClient extends Thread {
 
 
 	
+	public GameModel gameModel;
 	public ModelWorker gameLoop;
 	
 	private Gson gsonInstance = new Gson();
 
-	public GameClient(String host, int port, ModelWorker m) {
+	public GameClient(String host, int port, GameModel m) {
 		this.host = host;
 		this.port = port;
-		this.gameLoop = m;
+		this.gameLoop = new NetworkedJSONGameLoop();
+		new Thread(gameLoop).start();
 	}
+
 
 	public void run() {
 		try {
 			selector = Selector.open();
 			socketChannel = SocketChannel.open(new InetSocketAddress(InetAddress.getByName(host), port));
 			socketChannel.configureBlocking(false);
-			socketChannel.register(selector, SelectionKey.OP_READ,
-					new ConnectionByteHandler());
+			//future
+			//socketChannel.register(selector, SelectionKey.OP_READ, new ConnectionByteHandler());
+			socketChannel.register(selector, SelectionKey.OP_READ);
 			
 			it = new InputThread(this);
 			it.start();
@@ -104,13 +111,7 @@ public class GameClient extends Thread {
 		//so we need common superclass
 		//it doesnt need to know the server because its never replying
 		//but it wasn't really a good idea to do this...fi.
-		this.gameLoop.processData(null, socketChannel, sb.toString());		
-	}
-	
-	public void send(SocketChannel socketChannel, String data) throws IOException { 
-		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
-		socketChannel.write(msgBuf);
-		msgBuf.rewind();
+		this.gameLoop.processData(this, socketChannel, sb.toString());		
 	}
 
 	/*
@@ -196,7 +197,7 @@ public class GameClient extends Thread {
 						
 						String serialized = gsonInstance.toJson(chatMsgEvent);
 						
-						cc.send(socketChannel, serialized);
+						cc.sendTo(socketChannel, serialized);
 					}
 					if (s.equals("quit"))
 						running = false;
@@ -211,6 +212,28 @@ public class GameClient extends Thread {
 			running = false;
 			interrupt();
 		}
+	}
+
+	@Override
+	public ModelWorker getLoop() {
+		return gameLoop;
+	}
+
+	@Override
+	public void sendTo(SocketChannel socketChannel, String data) {
+		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
+		try {
+			socketChannel.write(msgBuf);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		msgBuf.rewind();		
+	}
+
+	@Override
+	public void sendAll(String data) {
+		//Not supported...this shoudln't really be here but my inheritance is messed.
 	}
 
 

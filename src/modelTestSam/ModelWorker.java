@@ -16,7 +16,7 @@ public interface ModelWorker extends Runnable {
 	//attempts to having that happen
 	//having said that another #YOLO code change here because Iteration1...
 	
-	public void processData(GameServer sender, SocketChannel socket, String data);
+	public void processData(Networkable sender, SocketChannel socket, String data);
 	
 	public void register(String key, GameEventHandler event);
 	public void deregister(String key);	

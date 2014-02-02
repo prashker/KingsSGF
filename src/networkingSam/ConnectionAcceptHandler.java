@@ -7,13 +7,15 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
+import modelTestSam.Networkable;
+
 //Responsible for accepting a connection and passing it off to the appropriate Reader Handler (forced to Byte now, future: param to JSON as example)
 public class ConnectionAcceptHandler implements CanHandleConnection {
 	
 	private final ByteBuffer welcomeBuf = ByteBuffer.wrap("Connection Accept Handler, Hi!!\n".getBytes());
 		
 	@Override
-	public boolean handleConnection(GameServer server, SelectionKey key) throws IOException {
+	public boolean handleConnection(Networkable network, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = ((ServerSocketChannel) key.channel()).accept();
 		
 		String metadata = (new StringBuilder( socketChannel.socket().getInetAddress().toString() )).append(":").append( socketChannel.socket().getPort()).toString();

@@ -20,7 +20,7 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 
 	@Override
 	public void run() {
-		ServerDataEvent dataEvent;
+		NetworkDataEvent dataEvent;
 		while (true) {
 			// Wait for data to become available
 			synchronized (queue) {
@@ -30,7 +30,7 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 					} catch (InterruptedException e) {
 					}
 				}
-				dataEvent = (ServerDataEvent) queue.remove(0);
+				dataEvent = (NetworkDataEvent) queue.remove(0);
 			}
 			
 			//move JSON decode from processData into here (processData
@@ -41,17 +41,12 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 
 			
 			if (handleMap.containsKey(generatedEvent.type)) {
-				GameEvent response = handleMap.get(generatedEvent.type).handleEvent(generatedEvent);
-				if (response != null)
-					try {
-						dataEvent.server.sendAll(gsonInstance.toJson(response));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
+				handleMap.get(generatedEvent.type).handleEvent(dataEvent.network, dataEvent.socket, generatedEvent);
 			}
 			else {
-				GameEvent unknown = new GameEvent("UNKNOWN");
+				System.out.println("Cannot handle type: " + generatedEvent.type);
+				
+				/*GameEvent unknown = new GameEvent("UNKNOWN");
 				unknown.put("REASON", "Cannot handle type: " + generatedEvent.type);
 				try {
 					dataEvent.server.send(dataEvent.socket, gsonInstance.toJson(unknown));
@@ -59,6 +54,7 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 				catch (IOException e) {
 					
 				}
+				*/
 			}
 			
 
@@ -76,25 +72,25 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void processData(GameServer sender, SocketChannel socket, String data) {
+	public void processData(Networkable sender, SocketChannel socket, String data) {
 		
 		
 				
 	    //byte[] dataCopy = new byte[count];
 	    //System.arraycopy(data, 0, dataCopy, 0, count);
 	    synchronized(queue) {
-	      queue.add(new ServerDataEvent(sender, socket, data));
+	      queue.add(new NetworkDataEvent(sender, socket, data));
 	      queue.notify();
 	    }
 	}
 	
-	class ServerDataEvent {
-		GameServer server;
+	class NetworkDataEvent {
+		Networkable network;
 		SocketChannel socket;
 		String data;
 		
-		public ServerDataEvent(GameServer server, SocketChannel socket, String data) {
-			this.server = server;
+		public NetworkDataEvent(Networkable network, SocketChannel socket, String data) {
+			this.network = network;
 			this.socket = socket;
 			this.data = data;
 		}

@@ -5,6 +5,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
+import modelTestSam.Networkable;
+
 public class ConnectionByteHandler implements CanHandleConnection {
 	
 	//metadata attach to this class in future (char info?)
@@ -14,7 +16,7 @@ public class ConnectionByteHandler implements CanHandleConnection {
 	private ByteBuffer buf = ByteBuffer.allocate(8192);
 		
 	@Override
-	public boolean handleConnection(GameServer server, SelectionKey key) throws IOException {
+	public boolean handleConnection(Networkable network, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = (SocketChannel) key.channel();
 		
 		StringBuilder sb = new StringBuilder();
@@ -29,24 +31,8 @@ public class ConnectionByteHandler implements CanHandleConnection {
 			buf.clear();
 		}
 		
-		server.consultingModel.processData(server, socketChannel, sb.toString());
-		
-		
-		/*
-		String msg;
-		if (read < 0) {
-			//msg = key.attachment()+" left the chat.\n";
-			msg = "Someone left the chat.";
-			socketChannel.close();
-		}
-		else {
-			//msg = key.attachment()+": "+sb.toString();
-			msg = "Someone said: " + sb.toString();
-		}
-		*/
- 
-		//System.out.println(msg);
-		//broadcastAll(key, msg);
+		network.getLoop().processData(network, socketChannel, sb.toString());
+				
 		return false;
 	}
 

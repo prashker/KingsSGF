@@ -6,7 +6,7 @@
 
 package uiGhassan;
 
-import modelTestSam.HexModel;
+import hexModelSam.HexModel;
 
 /**
  *

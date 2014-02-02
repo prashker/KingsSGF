@@ -9,23 +9,29 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
+import modelTestSam.GameModel;
 import modelTestSam.ModelWorker;
+import modelTestSam.Networkable;
+import modelTestSam.NetworkedJSONGameLoop;
 
-public class GameServer implements Runnable {
+public class GameServer implements Runnable, Networkable {
 	private final int port;
 	
 	private Selector selector;
 	
 	
-	public ModelWorker consultingModel;
+	public GameModel gameModel;
+	public ModelWorker gameLoop;
  
 	GameServer(int port) throws IOException {
 		this.port = port;
 	}
 	
-	GameServer(int port, ModelWorker m) {
+	GameServer(int port, GameModel m) {
 		this.port = port;
-		this.consultingModel = m;
+		this.gameModel = m;
+		this.gameLoop = new NetworkedJSONGameLoop();
+		new Thread(gameLoop).start();
 	}
  
 	@Override public void run() {
@@ -104,21 +110,31 @@ public class GameServer implements Runnable {
 	//This is not properly implemented, but too confusing to waste time on this part
 	//So we're working with send and sendAll without dealing with the interestOps crap
 	
-	public void send(SocketChannel socketChannel, String data) throws IOException { 
-		System.out.println("Sending back to one: " + data);
+	public void sendTo(SocketChannel socketChannel, String data) { 
+		System.out.println("Sending back to Individual: " + data);
 		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
-		socketChannel.write(msgBuf);
+		try {
+			socketChannel.write(msgBuf);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		msgBuf.rewind();
 	}
 	
 	//
-	public void sendAll(String msg) throws IOException {
-		System.out.println("Sending back to all: " + msg);
-		ByteBuffer msgBuf=ByteBuffer.wrap(msg.getBytes());
+	public void sendAll(String data) {
+		System.out.println("Sending back to all: " + data);
+		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 		for(SelectionKey key : selector.keys()) {
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
-				sch.write(msgBuf);
+				try {
+					sch.write(msgBuf);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				msgBuf.rewind();
 			}
 		}
@@ -136,5 +152,10 @@ public class GameServer implements Runnable {
 			}
 		}
 	}*/
+	
+	@Override
+	public ModelWorker getLoop() {
+		return gameLoop;
+	}
  
 }
