@@ -22,8 +22,9 @@ public abstract class GamePhase {
 		
 		if (m.modelType == GameModel.Type.SERVER)
 			serverPhaseHandler();
-		else
+		else {
 			clientPhaseHandler();
+		}
 	}
 	
 	public abstract GamePhase turn();

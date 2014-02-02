@@ -11,8 +11,8 @@ public class Players extends KNTObject {
 		private int currentPlayerIndex;
 		
 		//get players private in future
-		public HashMap<Integer, PlayerModel> players = new HashMap<Integer, PlayerModel>();
-		ArrayList<Integer> playerOrder = new ArrayList<Integer>();
+		public HashMap<String, PlayerModel> players = new HashMap<String, PlayerModel>();
+		ArrayList<String> playerOrder = new ArrayList<String>();
 		
 		public Players() {
 		}
@@ -29,12 +29,21 @@ public class Players extends KNTObject {
 			return newP;
 		}
 		
-		public PlayerModel getPlayer(int id) {
+		public PlayerModel getPlayer(String id) {
 			return players.get(id);
 		}
 		
 		public int numPlayers() {
 			return players.size();
+		}
+		
+		public ArrayList<String> playerIDS() {
+			ArrayList<String> ids = new ArrayList<String>();
+			for (PlayerModel x: players.values()) {
+				ids.add(x.getId());
+			}
+			
+			return ids;
 		}
 		
 		

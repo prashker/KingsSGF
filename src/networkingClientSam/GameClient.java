@@ -47,6 +47,7 @@ public class GameClient extends Thread implements Networkable {
 	public GameClient(String host, int port, GameModel m) {
 		this.host = host;
 		this.port = port;
+		this.gameModel = m;
 		this.gameLoop = new NetworkedJSONGameLoop();
 		new Thread(gameLoop).start();
 	}
@@ -193,6 +194,7 @@ public class GameClient extends Thread implements Networkable {
 					s = br.readLine();
 					if (s.length() > 0) {
 						GameEvent chatMsgEvent = new GameEvent("CHAT");
+						chatMsgEvent.put("FROM",  gameModel.localPlayer.getId());
 						chatMsgEvent.put("CONTENT", s);
 						
 						String serialized = gsonInstance.toJson(chatMsgEvent);
@@ -233,7 +235,7 @@ public class GameClient extends Thread implements Networkable {
 
 	@Override
 	public void sendAll(String data) {
-		//Not supported...this shoudln't really be here but my inheritance is messed.
+		sendTo(socketChannel, data);
 	}
 	
 	public void sendAllExcept(SocketChannel socketChannel, String data) {

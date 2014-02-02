@@ -4,6 +4,7 @@ import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
 import modelTestSam.Networkable;
+
 import java.nio.channels.SocketChannel;
 
 
@@ -17,12 +18,8 @@ public class ChatPhase extends GamePhase {
 
 	@Override
 	public GamePhase turn() {
-		if (true) {
-			return this;
-		}
-		else {
-			return new JoinGamePhase(this.referenceToModel);
-		}
+		//Permanent, no need to remove		
+		return null;
 	}
 
 	@Override
@@ -32,13 +29,12 @@ public class ChatPhase extends GamePhase {
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				chatCount++;
+								
 				
+				//Forward chat message to all (including sender)
+				network.sendAll(event.toJson());
 				
-				GameEvent returnMsg = new GameEvent("CHAT");
-				returnMsg.put("CONTENT", String.format("Said (%d): %s", chatCount, event.get("CONTENT")));
-				
-
-				network.sendAll(gsonInstance.toJson(returnMsg));
+				turn();
 			}
 			
 		});
@@ -51,11 +47,13 @@ public class ChatPhase extends GamePhase {
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
+				String from = (String) event.get("FROM");
 				
-				
-				System.out.printf("\n" + "Message of type (%s), content: %s", 
-						event.getType(), 
+				System.out.printf("<%s> %s\n", 
+						referenceToModel.players.getPlayer(from).name, 
 						(String) event.get("CONTENT"));	
+				
+				turn();
 			}
 			
 		});

@@ -146,6 +146,7 @@ public class GameServer implements Runnable, Networkable {
 		for(SelectionKey key : selector.keys()) {
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
+				System.out.println("Comparing " + sch + " to " + socketChannel);
 				if (sch != socketChannel) {
 					try {
 						sch.write(msgBuf);
@@ -154,6 +155,9 @@ public class GameServer implements Runnable, Networkable {
 						e.printStackTrace();
 					}
 					msgBuf.rewind();
+				}
+				else {
+					System.out.println("Skipping this one");
 				}
 			}
 		}

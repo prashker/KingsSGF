@@ -1,25 +1,26 @@
 package modelTestSam;
 
+import java.io.Serializable;
 import java.util.Observable;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class KNTObject extends Observable {
 	
-	public static AtomicInteger nextId = new AtomicInteger();
-	private final int id;
+	private final String id;
 	private boolean isVisible;
 	
 	public KNTObject() {
-		id = nextId.incrementAndGet();
+		id = UUID.randomUUID().toString();
 		setVisible(true); //face up, face down implementation in the future
 	}
 	
-	public KNTObject(int id) {
+	public KNTObject(String id) {
 		this.id = id;
 		setVisible(true);
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	

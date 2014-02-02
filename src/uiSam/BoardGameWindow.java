@@ -6,7 +6,9 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import networkingClientSam.GameClient;
+import modelTestSam.GameEvent;
 import modelTestSam.GameModel;
+import modelTestSam.PlayerModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,9 +55,14 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.getClickCount() == 2) {
-					System.out.println("Double clicked mouse bowl");
+					
+					model.localPlayer = new PlayerModel();
+					
+					GameEvent joinEvent = new GameEvent("JOIN");
+					joinEvent.put("PLAYER", model.localPlayer.getId());
+					
+					model.network.sendAll(joinEvent.toJson());
 				}
-				
 			}
 			
 		});

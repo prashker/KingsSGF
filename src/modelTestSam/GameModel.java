@@ -8,10 +8,10 @@ import gamePhasesSam.JoinGamePhase;
 import hexModelSam.HexGrid;
 import hexModelSam.HexModel;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class GameModel {
+public class GameModel extends Observable {
 	//Internals (Server/Client Info)
 	
 	public static enum Type {
@@ -25,11 +25,11 @@ public class GameModel {
 	
 	//Externals (Game Knowledge)
 	
-	public HexGrid grid;
-	public ThingBowlModel bowl;
+	public HexGrid grid = new HexGrid();
+	public ThingBowlModel bowl = new ThingBowlModel();
 	//public Bank bank;
 	
-	public Players players;
+	public Players players = new Players();
 	public PlayerModel localPlayer = null;
 	
 	

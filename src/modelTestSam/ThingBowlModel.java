@@ -6,7 +6,7 @@ import java.util.Observer;
 
 public class ThingBowlModel extends KNTObject implements Observer {
 
-	HashMap<Integer, ThingModel> things = new HashMap<Integer, ThingModel>();
+	HashMap<String, ThingModel> things = new HashMap<String, ThingModel>();
 	
 	public ThingBowlModel() {
 

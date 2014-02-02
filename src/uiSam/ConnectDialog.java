@@ -31,6 +31,9 @@ public class ConnectDialog extends GridPane {
 			stage.setTitle("My New Stage Title");
 			stage.setScene(new Scene(root));
 			
+			Stage s = (Stage) okButton.getScene().getWindow();
+			s.close();
+			
 //			BoardGameWindow boardGame = loader.getController();
 //			boardGame.connect(host, port);
 			

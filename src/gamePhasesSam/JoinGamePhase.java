@@ -23,41 +23,42 @@ public class JoinGamePhase extends GamePhase {
 
 	@Override
 	public GamePhase turn() {
-		if (true) {
-			return this;
+		
+		if (referenceToModel.players.numPlayers() == 2) {
+			System.out.printf("%d PLayers, New Phase\n", referenceToModel.players.numPlayers());
+			removeHandlers();
+			referenceToModel.state = new ChatPhase(referenceToModel);
 		}
-		else {
-			return new JoinGamePhase(this.referenceToModel);
-		}
-
+		
+		return null;
 	}
 
 	@Override
 	public void serverPhaseHandler() {
+		System.out.println("Server start");
 		this.referenceToModel.network.getLoop().register("JOIN", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
-				PlayerModel playerFromNetwork = (PlayerModel) event.get("PLAYER");
 				
-				referenceToModel.players.addPlayer(playerFromNetwork);
+				String playerFromNetwork = (String) event.get("PLAYER");
+				System.out.println("Player: " + playerFromNetwork + " joined");
+				
+				referenceToModel.players.addPlayer(new PlayerModel(playerFromNetwork));
+				
+				
 				
 				GameEvent allPlayersEvent = new GameEvent("PLAYERS");
-				allPlayersEvent.put("PLAYERS", referenceToModel.players);
+				allPlayersEvent.put("PLAYERS", referenceToModel.players.playerIDS());
+				
 				
 				//Send to joining player a list of all players
 				//Send to existing player the joining player
 				network.sendAllExcept(socket, event.toJson());
-				network.sendTo(socket, event.toJson());
+				network.sendTo(socket, allPlayersEvent.toJson());
 				
-				
-
-				
-				
-				if (referenceToModel.players.numPlayers() == 4) {
-					referenceToModel.state = new ChatPhase(referenceToModel);
-				}
+				turn();
 				
 			}
 			
@@ -66,18 +67,17 @@ public class JoinGamePhase extends GamePhase {
 
 	@Override
 	public void clientPhaseHandler() {
+		System.out.println("Client start");
 		this.referenceToModel.network.getLoop().register("JOIN", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 								
-				PlayerModel playerFromNetwork = (PlayerModel) event.get("PLAYER");
+				String playerFromNetwork = (String) event.get("PLAYER");
 
-				referenceToModel.players.addPlayer(playerFromNetwork);
+				referenceToModel.players.addPlayer(new PlayerModel(playerFromNetwork));
 				
-				if (referenceToModel.players.numPlayers() == 4) {
-					referenceToModel.state = new ChatPhase(referenceToModel);
-				}
+				turn();
 				
 			}
 			
@@ -86,20 +86,15 @@ public class JoinGamePhase extends GamePhase {
 		this.referenceToModel.network.getLoop().register("PLAYERS", new GameEventHandler() {
 
 			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-
-				System.out.println("Got players, new join");
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {				
+				ArrayList<String> playersFromEvent = (ArrayList<String>) event.get("PLAYERS");
 				
-				Players playersFromEvent = (Players) event.get("PLAYERS");
 				
-				for (PlayerModel networkedPlayer: playersFromEvent.players.values()) {
-					referenceToModel.players.addPlayer(networkedPlayer);
+				for (String networkedPlayerID: playersFromEvent) {
+					referenceToModel.players.addPlayer(new PlayerModel(networkedPlayerID));
 				}
 				
-				if (referenceToModel.players.numPlayers() == 4) {
-					referenceToModel.state = new ChatPhase(referenceToModel);
-				}
-				
+				turn();
 			}
 			
 		});

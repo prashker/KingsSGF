@@ -34,6 +34,10 @@ public class HexGrid {
 		this.grid = new HexModel[width][height];
 	}
 	
+	public HexGrid() {
+		this(-3, 3, -3, 3); // 4 player layout
+	}
+
 	public void randomlySetAllQR() {
 		//to modify when 2 player if we do 2 player
 		for (int q = -3; q <=3; q++) {
