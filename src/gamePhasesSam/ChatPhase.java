@@ -24,6 +24,9 @@ public class ChatPhase extends GamePhase {
 
 	@Override
 	public void serverPhaseHandler() {
+		
+		//CHAT: When server received a CHAT message, forward it to all other users (no processing, for now)
+		//CHAT: PARAMS: FROM, CONTENT
 		this.referenceToModel.network.getLoop().register("CHAT", new GameEventHandler() {
 
 			@Override
@@ -42,6 +45,9 @@ public class ChatPhase extends GamePhase {
 
 	@Override
 	public void clientPhaseHandler() {
+		
+		//CHAT: When client receives a CHAT message, display it (future: ChatObject in Model?)
+		//PARAMS: FROM, CONTENT
 		this.referenceToModel.network.getLoop().register("CHAT", new GameEventHandler() {
 
 			@Override
@@ -60,7 +66,7 @@ public class ChatPhase extends GamePhase {
 	}
 	
 	public void removeHandlers() {
-		//Nothing to remove, permanent handler
+		//Nothing to remove, permanent handler (will this be garbage collected by Java????)
 	}
 
 }

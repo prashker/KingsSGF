@@ -78,11 +78,6 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void processData(Networkable sender, SocketChannel socket, String data) {
-		
-		
-				
-	    //byte[] dataCopy = new byte[count];
-	    //System.arraycopy(data, 0, dataCopy, 0, count);
 	    synchronized(queue) {
 	      queue.add(new NetworkDataEvent(sender, socket, data));
 	      queue.notify();

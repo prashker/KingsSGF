@@ -28,14 +28,14 @@ public class ConnectDialog extends GridPane {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainGameBoard.fxml"));
 			root = (Parent) loader.load();
 			Stage stage = new Stage();
-			stage.setTitle("My New Stage Title");
+			stage.setTitle("----------------KINGS AND THINGS------------------");
 			stage.setScene(new Scene(root));
 			
 			Stage s = (Stage) okButton.getScene().getWindow();
 			s.close();
 			
-//			BoardGameWindow boardGame = loader.getController();
-//			boardGame.connect(host, port);
+			//BoardGameWindow boardGame = loader.getController();
+			//boardGame.connect(host, port);
 			
 			stage.show();
 		} catch (IOException e) {

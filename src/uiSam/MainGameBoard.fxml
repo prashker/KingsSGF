@@ -9,6 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
 
 <VBox id="mainVbox" prefHeight="769.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BoardGameWindow">
   <children>
@@ -27,7 +28,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" text="Quit" fx:id="quitMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">

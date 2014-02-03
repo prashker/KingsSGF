@@ -40,59 +40,7 @@ public class GameModel extends Observable {
 	public void setNetwork(Networkable n) {
 		network = n;
 		
-		state = new JoinGamePhase(this);
+		state = new JoinGamePhase(this); //Starting phase of any game, for debugging we might be able to force this later on to something mid-game (assuming we can inject game-state)
 	}
-	
-	
-	
-	/*
-	private void gameEventSetup(ModelWorker workerType) {
-		//BIG BOX HERE, REPLACE WITH CLASSES LATER?
-		
-		if (modelType == Type.SERVER) {
-			workerType.register("CONNECT", new GameEventHandler() {
-	
-				@Override
-				public GameEvent handleEvent(GameEvent event) {
-					
-					increment();
-					return null;
-					
-				}
-				
-			});
-			
-			workerType.register("CHAT", new GameEventHandler() {
-	
-				@Override
-				public GameEvent handleEvent(GameEvent event) {
-					
-					//System.out.println("test");
-					
-					increment();
-					
-					GameEvent returnMsg = new GameEvent("CHAT");
-					returnMsg.put("CONTENT", String.format("Said (%d): %s", testingVar, event.get("CONTENT")));
-					return returnMsg;
-				}
-				
-			});
-		}
-		
-		else if (modelType == Type.CLIENT) {
-			workerType.register("CHAT",  new GameEventHandler() {
-
-				public GameEvent handleEvent(GameEvent event) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-				
-			});
-			
-		}
-	}
-	*/
-	
-	
 	
 }

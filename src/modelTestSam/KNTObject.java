@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 public abstract class KNTObject extends Observable {
+	//Basically this is a superclass below class Object for which all Kings and Things objects inherit from.
+	//There are some concepts needed for network communication that need to be universal (the concept of a UUID for 2 different objects across PCs)
+	//Additionally the Observable property. Will be handy when doing major UI stuff.
 	
 	private final String id;
 	private boolean isVisible;

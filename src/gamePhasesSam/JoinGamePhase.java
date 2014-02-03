@@ -35,7 +35,6 @@ public class JoinGamePhase extends GamePhase {
 
 	@Override
 	public void serverPhaseHandler() {
-		System.out.println("Server start");
 		this.referenceToModel.network.getLoop().register("JOIN", new GameEventHandler() {
 
 			@Override
@@ -65,7 +64,6 @@ public class JoinGamePhase extends GamePhase {
 
 	@Override
 	public void clientPhaseHandler() {
-		System.out.println("Client start");
 		this.referenceToModel.network.getLoop().register("JOIN", new GameEventHandler() {
 
 			@Override
@@ -76,9 +74,8 @@ public class JoinGamePhase extends GamePhase {
 				referenceToModel.players.addPlayer(new PlayerModel(playerFromNetwork));
 				
 				turn();
-				
 			}
-			
+
 		});		
 		
 		this.referenceToModel.network.getLoop().register("PLAYERS", new GameEventHandler() {
@@ -100,7 +97,6 @@ public class JoinGamePhase extends GamePhase {
 
 	@Override
 	public void removeHandlers() {
-		// TODO Auto-generated method stub
 		referenceToModel.network.getLoop().deregister("JOIN");
 		referenceToModel.network.getLoop().deregister("PLAYERS");		
 	}

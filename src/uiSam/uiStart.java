@@ -20,10 +20,7 @@ public class uiStart extends Application {
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 						
-			stage.show();
-			
-			// TODO Auto-generated method stub
-			
+			stage.show();			
 		}
 		
 }

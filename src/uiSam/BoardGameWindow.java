@@ -9,21 +9,27 @@ import networkingClientSam.GameClient;
 import modelTestSam.GameEvent;
 import modelTestSam.GameModel;
 import modelTestSam.PlayerModel;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.WindowEvent;
 
 public class BoardGameWindow extends VBox implements Observer, Initializable {
 	private GameModel model;
 	private GameClient client;
+	private Thread g;
 	
 	public String host;
 	public int port;
 	
 	@FXML private ThingBowlView thingBowl;
+	@FXML private MenuItem quitMenuItem;
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -38,7 +44,8 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 		model = new GameModel(GameModel.Type.CLIENT);
 		client = new GameClient(host, port, model);
 		model.setNetwork(client); 
-		new Thread(client).start();
+		g = new Thread(client);
+		g.start();
 	}
 
 	@Override
@@ -49,7 +56,7 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
-		//thingBowl.setBind(model.bowl);
+		thingBowl.setBind(model.bowl);
 		
 		thingBowl.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -67,8 +74,7 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 					model.network.sendAll(joinEvent.toJson());
 				}
 			}
-			
 		});
+		
 	}
-
 }
