@@ -1,0 +1,5 @@
+.playerRack {
+	-fx-border-style:solid;
+	-fx-border-width:5px;
+	-fx-border-color: #000000;
+}

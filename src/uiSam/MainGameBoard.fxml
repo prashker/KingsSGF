@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -64,6 +65,26 @@
             <Image url="@images/Bowl.png" />
           </image>
         </ThingBowlView>
+        <PlayerRackView id="" fx:id="playerOneRack" alignment="TOP_LEFT" gridLinesVisible="false" layoutX="686.0" layoutY="54.0" prefHeight="131.0" prefWidth="312.0" styleClass="playerRack">
+          <children>
+            <ThingView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <image>
+                <Image url="@images/Misc/ConnectIcon.png" />
+              </image>
+            </ThingView>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </PlayerRackView>
       </children>
     </AnchorPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
@@ -84,4 +105,7 @@
     </HBox>
     <Pane prefHeight="-1.0" prefWidth="-1.0" />
   </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
 </VBox>

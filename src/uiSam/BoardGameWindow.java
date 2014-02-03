@@ -31,6 +31,8 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 	@FXML private ThingBowlView thingBowl;
 	@FXML private MenuItem quitMenuItem;
 	
+	@FXML private PlayerRackView playerOneRack;
+	
 	public void connect(String host, int port) {
 		this.host = host;
 		this.port = port;
