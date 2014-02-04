@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 public class PlayerRackView extends GridPane implements KingsAndThingView<PlayerModel> {
 	public PlayerModel player; //future, ArrayList<ThingModel> player.rack?
 	
-	public ArrayList<ThingView> cells;
+	public ArrayList<ThingView> cells = new ArrayList<ThingView>();
 	
 	@Override
 	public void update(Observable o, Object arg) {
@@ -24,8 +24,7 @@ public class PlayerRackView extends GridPane implements KingsAndThingView<Player
 
 	@Override
 	public void updateUI() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	
 }
