@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
 
@@ -32,6 +33,10 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 	@FXML private MenuItem quitMenuItem;
 	
 	@FXML private PlayerRackView playerOneRack;
+	
+	@FXML private AnchorPane hexGrid;
+	
+	
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -79,4 +84,12 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 		});
 		
 	}
+	
+	/*
+	public void bindHexTiles() {
+		this.getChildren().
+		//model.grid.getHexFromQR(q, r)
+	}
+	*/
+	
 }
