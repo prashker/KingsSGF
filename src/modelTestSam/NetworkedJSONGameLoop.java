@@ -16,18 +16,28 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 	public HashMap<String, GameEventHandler> handleMap = new HashMap<String, GameEventHandler>();
 	
 	private List queue = new LinkedList();
+	
+	private boolean running = true;
 
 	@Override
 	public void run() {
 		NetworkDataEvent dataEvent;
-		while (true) {
+		while (running) {
 			// Wait for data to become available
 			synchronized (queue) {
 				while (queue.isEmpty()) {
 					try {
 						queue.wait();
-					} catch (InterruptedException e) {
+					} 
+					catch (InterruptedException e) {
+						//Game over
+						running = false;
+						break;
 					}
+				}
+				if (!running) {
+					//Game over
+					continue;
 				}
 				dataEvent = (NetworkDataEvent) queue.remove(0);
 			}
@@ -106,7 +116,6 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 	public void deregister(String key) {
 		handleMap.remove(key);
 	}
-
-
+	
 
 }

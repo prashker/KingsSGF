@@ -23,7 +23,6 @@ import javafx.stage.WindowEvent;
 public class BoardGameWindow extends VBox implements Observer, Initializable {
 	private GameModel model;
 	private GameClient client;
-	private Thread g;
 	
 	public String host;
 	public int port;
@@ -41,29 +40,26 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 	public void connect(String host, int port) {
 		this.host = host;
 		this.port = port;
+		startNetwork();
 	}
 	
-	public BoardGameWindow() {
-		System.out.println("INIT");
-		this.host = "localhost";
-		this.port = 10997;
-		
+	public void startNetwork() {
 		model = new GameModel(GameModel.Type.CLIENT);
 		client = new GameClient(host, port, model);
 		model.setNetwork(client); 
-		g = new Thread(client);
-		g.start();
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		
-	}
+		client.start();
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		initializeBinds();
+	}
+	
+	//Deprecation suppression for now...
+	public void killNetwork() {
+		client.gameLoopThread.interrupt();
+		client.interrupt();
+	}
+	
+	public void initializeBinds() {
 		thingBowl.setBind(model.bowl);
 		
 		thingBowl.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -86,5 +82,20 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 			}
 		});
 		
+	}
+	
+	public BoardGameWindow() {
+		System.out.println("INIT");
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		//NOPE
 	}
 }

@@ -2,6 +2,7 @@ package uiSam;
 
 import java.io.IOException;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class ConnectDialog extends GridPane {
 	@FXML private TextField hostField, portField;
@@ -26,7 +28,7 @@ public class ConnectDialog extends GridPane {
 		Parent root;
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainGameBoard.fxml"));
-			root = (Parent) loader.load();
+			root = (Parent) loader.load();	
 			Stage stage = new Stage();
 			stage.setTitle("----------------KINGS AND THINGS------------------");
 			stage.setScene(new Scene(root));
@@ -39,6 +41,22 @@ public class ConnectDialog extends GridPane {
 			//boardGame.connect(host, port);
 			
 			stage.show();
+			
+			final BoardGameWindow gameWindow = loader.getController();
+			gameWindow.connect(host, port);
+
+			
+			stage.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+				@Override
+				public void handle(WindowEvent arg0) {
+					System.out.println("Killing client");
+					gameWindow.killNetwork();
+				}
+				
+			});
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

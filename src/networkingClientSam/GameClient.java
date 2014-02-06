@@ -35,6 +35,8 @@ public class GameClient extends Thread implements Networkable {
 	private SocketChannel socketChannel;
 	private ByteBuffer buf = ByteBuffer.allocate(8192);
 	private InputThread it;
+	
+	public Thread gameLoopThread = null;
 
 
 	
@@ -46,9 +48,9 @@ public class GameClient extends Thread implements Networkable {
 		this.port = port;
 		this.gameModel = m;
 		this.gameLoop = new NetworkedJSONGameLoop();
-		new Thread(gameLoop).start();
+		gameLoopThread = new Thread(gameLoop);
+		gameLoopThread.start();
 	}
-
 
 	public void run() {
 		try {
@@ -59,13 +61,16 @@ public class GameClient extends Thread implements Networkable {
 			//socketChannel.register(selector, SelectionKey.OP_READ, new ConnectionByteHandler());
 			socketChannel.register(selector, SelectionKey.OP_READ);
 			
-			it = new InputThread(this);
-			it.start();
+			//it = new InputThread(this);
+			//it.start();
 			
 			Iterator<SelectionKey> iter;
 			SelectionKey key;
 			while(socketChannel.isOpen()) {
 				selector.select();
+				if (!gameLoopThread.isAlive())
+					break;
+				
 				iter = selector.selectedKeys().iterator();
 				
 				while (iter.hasNext()) {
@@ -84,7 +89,8 @@ public class GameClient extends Thread implements Networkable {
 
 
 
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -238,6 +244,5 @@ public class GameClient extends Thread implements Networkable {
 	public void sendAllExcept(SocketChannel socketChannel, String data) {
 		//Not supported...
 	}
-
-
+	
 }

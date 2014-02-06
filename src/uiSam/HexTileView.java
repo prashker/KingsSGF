@@ -14,7 +14,7 @@ public class HexTileView extends ImageView implements KingsAndThingView<HexModel
 
 	@Override
 	public void update(Observable o, Object arg) {
-		o.
+		
 		// TODO Auto-generated method stub
 		
 	}

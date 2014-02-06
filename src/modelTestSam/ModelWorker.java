@@ -20,6 +20,6 @@ public interface ModelWorker extends Runnable {
 	
 	public void register(String key, GameEventHandler event);
 	public void deregister(String key);	
-	
+		
 	
 }

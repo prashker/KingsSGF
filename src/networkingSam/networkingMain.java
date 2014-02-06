@@ -16,7 +16,7 @@ public class networkingMain {
 		//Model has access to network
 		//But Network notifies Model of changes through Observer pattern (Network Observable, Model Observer)
 		
-		new Thread(server).start();
+		server.start();
 	}
 
 }

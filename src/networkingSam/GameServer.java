@@ -14,7 +14,7 @@ import modelTestSam.ModelWorker;
 import modelTestSam.Networkable;
 import modelTestSam.NetworkedJSONGameLoop;
 
-public class GameServer implements Runnable, Networkable {
+public class GameServer extends Thread implements Networkable {
 	private final int port;
 	
 	private Selector selector;
@@ -22,6 +22,9 @@ public class GameServer implements Runnable, Networkable {
 	
 	public GameModel gameModel;
 	public ModelWorker gameLoop;
+	
+	public Thread gameLoopThread = null;
+	
  
 	GameServer(int port) throws IOException {
 		this.port = port;
@@ -31,10 +34,12 @@ public class GameServer implements Runnable, Networkable {
 		this.port = port;
 		this.gameModel = m;
 		this.gameLoop = new NetworkedJSONGameLoop();
-		new Thread(gameLoop).start();
+		gameLoopThread = new Thread(gameLoop);
+		gameLoopThread.start();
 	}
  
-	@Override public void run() {
+	@Override 
+	public void run() {
 		try {
 			System.out.println("Server starting on port " + this.port);
 			
