@@ -30,6 +30,7 @@ public class ConnectDialog extends GridPane {
 			Stage stage = new Stage();
 			stage.setTitle("----------------KINGS AND THINGS------------------");
 			stage.setScene(new Scene(root));
+			stage.setResizable(false);
 			
 			Stage s = (Stage) okButton.getScene().getWindow();
 			s.close();

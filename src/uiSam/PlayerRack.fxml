@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<PlayerRackView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.00009999999747" prefWidth="330.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.PlayerRackView">
+  <children>
+    <ThingView id="thingView" fx:id="positionOne" fitHeight="58.0" fitWidth="58.0" layoutX="4.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionTwo" fitHeight="58.0" fitWidth="58.0" layoutX="62.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionThree" fitHeight="58.0" fitWidth="58.0" layoutX="120.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionFour" fitHeight="58.0" fitWidth="58.0" layoutX="178.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionFive" fitHeight="58.0" fitWidth="58.0" layoutX="236.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionSix" fitHeight="58.0" fitWidth="58.0" layoutX="4.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionSeven" fitHeight="58.0" fitWidth="58.0" layoutX="62.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionEight" fitHeight="58.0" fitWidth="58.0" layoutX="120.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionNine" fitHeight="58.0" fitWidth="58.0" layoutX="178.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView id="positionTenX" fx:id="positionTen" fitHeight="58.0" fitWidth="58.0" layoutX="236.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Misc/WIP.png" />
+      </image>
+    </ThingView>
+    <Label layoutX="297.0" layoutY="25.0" prefHeight="18.999908447265625" text="Gold" />
+    <Label alignment="CENTER" layoutX="307.0" layoutY="62.0" minWidth="6.0001220703125" prefWidth="6.0001220703125" text="0" />
+  </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
+</PlayerRackView>

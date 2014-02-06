@@ -4,6 +4,7 @@ package uiSam;
 import java.util.Observable;
 
 import modelTestSam.ThingModel;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ThingView extends ImageView implements KingsAndThingView<ThingModel> {
@@ -23,8 +24,8 @@ public class ThingView extends ImageView implements KingsAndThingView<ThingModel
 
 	@Override
 	public void updateUI() {
-		// TODO Auto-generated method stub
-		
+		//reloads each time for the moment
+		this.setImage(new Image("/images/Tiles/Old Dragon.jpg"));
 	}
 
 }

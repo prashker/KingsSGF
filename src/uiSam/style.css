@@ -1,5 +1,10 @@
 .playerRack {
-	-fx-border-style:solid;
-	-fx-border-width:5px;
+	-fx-border-style: solid;
+	-fx-border-width: 15px;
 	-fx-border-color: #000000;
+}
+
+#mainBoard {
+	-fx-background-image: url("Board.jpg");
+	-fx-background-repeat: repeat;
 }

@@ -32,6 +32,11 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 	@FXML private MenuItem quitMenuItem;
 	
 	@FXML private PlayerRackView playerOneRack;
+	@FXML private PlayerRackView playerTwoRack;
+	@FXML private PlayerRackView playerThreeRack;
+	@FXML private PlayerRackView playerFourRack;
+	
+	@FXML private HexGridView hexGrid;
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -57,7 +62,8 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 	}
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {		
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		thingBowl.setBind(model.bowl);
 		
 		thingBowl.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -70,6 +76,8 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 					GameEvent joinEvent = new GameEvent("JOIN");
 					joinEvent.put("PLAYER", model.localPlayer.getId());
 
+					//TEST
+					//hexGrid.getChildren().get(5).setVisible(false);
 					
 					System.out.println("Sending: " + joinEvent.toJson());
 

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<HexGridView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.5941162109375" prefWidth="610.8131103515625" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.HexGridView">
+  <children>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="252.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="170.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="334.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="251.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="169.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="333.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="250.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="168.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="332.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="4.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="86.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="3.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="85.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="3.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="87.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fx:id="hexOne" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="250.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="168.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="85.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="3.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="414.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="331.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="249.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="166.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="84.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="496.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="414.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="332.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="249.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="167.0" layoutY="523.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="495.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="413.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="330.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="248.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="415.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="497.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="415.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+    <HexTileView fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="496.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Tiles/FaceDownTile.png" />
+      </image>
+    </HexTileView>
+  </children>
+</HexGridView>
