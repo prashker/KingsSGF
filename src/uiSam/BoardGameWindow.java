@@ -87,4 +87,11 @@ public class BoardGameWindow extends VBox implements Observer, Initializable {
 		});
 		
 	}
+	
+	/*
+	public void bindHexTiles() {
+		this.getChildren().
+		//model.grid.getHexFromQR(q, r)
+	}
+	*/
 }

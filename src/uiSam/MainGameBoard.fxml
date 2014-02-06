@@ -60,14 +60,231 @@
             <Image url="@images/Bowl.png" />
           </image>
         </ThingBowlView>
+<<<<<<< HEAD
         <fx:include fx:id="playerOneRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="35.0" />
         <fx:include fx:id="playerTwoRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="163.0" />
         <fx:include fx:id="playerThreeRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="295.0" />
         <fx:include fx:id="playerFourRack" source="PlayerRack.fxml" layoutX="692.0" layoutY="419.0" />
         <fx:include fx:id="hexGrid" source="HexGrid.fxml" layoutX="8.0" layoutY="106.0" />
+=======
+        <PlayerRackView id="" fx:id="playerOneRack" alignment="TOP_LEFT" gridLinesVisible="false" layoutX="686.0" layoutY="54.0" prefHeight="131.0" prefWidth="312.0" styleClass="playerRack">
+          <children>
+            <ThingView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <image>
+                <Image url="@images/Misc/ConnectIcon.png" />
+              </image>
+            </ThingView>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </PlayerRackView>
+        <ImageView fx:id="hexTile22" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="266.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile21" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="184.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile23" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="348.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile9" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="265.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile8" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="183.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile10" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="347.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView id="hexGrid2" fx:id="hexTile2" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="264.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile7" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="182.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile3" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="346.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile37" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="18.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile19" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="100.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile36" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="17.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile18" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="99.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile35" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="17.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile20" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="101.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView id="hexGrid1" fx:id="hexTile1" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="264.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile6" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="182.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile17" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="99.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile34" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="17.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile12" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="428.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile4" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="345.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile5" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="263.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile16" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="180.0" layoutY="525.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile33" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="98.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile27" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="510.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile13" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="428.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile14" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="346.0" layoutY="525.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile15" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="263.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile32" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="181.0" layoutY="618.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile28" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="509.0" layoutY="529.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile29" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="427.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile30" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="344.0" layoutY="622.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile31" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="262.0" layoutY="668.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile24" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="429.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile25" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="511.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile11" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="429.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="hexTile26" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="510.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@images/Tiles/FaceDownTile.png" />
+          </image>
+        </ImageView>
+>>>>>>> branch 'master' of https://github.com/prashker/KingsSGF.git
         <TextArea layoutX="649.0" layoutY="540.0" prefHeight="194.0" prefWidth="373.0" wrapText="true" />
         <TextField layoutX="649.0" layoutY="737.0" prefWidth="312.0" />
         <Button alignment="CENTER" layoutX="964.0" layoutY="737.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="58.0" text="Chat" />
+        <Pane layoutX="42.0" layoutY="40.0" mouseTransparent="false" prefHeight="104.5941162109375" prefWidth="114.0">
+          <children>
+            <ImageView id="hexTile22" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@images/Tiles/FaceDownTile.png" />
+              </image>
+            </ImageView>
+          </children>
+        </Pane>
       </children>
       <stylesheets>
         <URL value="@style.css" />
