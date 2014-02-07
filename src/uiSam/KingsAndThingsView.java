@@ -1,15 +1,18 @@
 package uiSam;
 
+import java.util.Observable;
 import java.util.Observer;
 
-public interface KingsAndThingView<T> extends Observer {
+import javafx.fxml.FXML;
+
+public interface KingsAndThingsView<T> extends Observer {
 	
 	//Not to use now, but all views implement this to hold a required setBind()
 	//All model objects in this game should properly be subclass of KNTObject
 	
-	public void setBind(T m);
+	public abstract void setBind(T m);
 	
 	//Should be in the observer
-	public void updateUI();
+	public abstract void updateUI();
 	
 }

@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-public class PlayerRackView extends AnchorPane implements KingsAndThingView<PlayerModel> {
+public class PlayerRackView extends AnchorPane implements KingsAndThingsView<PlayerModel> {
 	private ArrayList<ThingView> rackViewArray = new ArrayList<ThingView>();
 	
 	@FXML private ThingView positionOne;
@@ -56,7 +56,6 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingView<Play
 		rackViewArray.add(positionEight);
 		rackViewArray.add(positionNine);
 		rackViewArray.add(positionTen);	
-		System.out.println("lol");
 		
 		positionTen.setOnMouseClicked(new EventHandler<MouseEvent>() {
 

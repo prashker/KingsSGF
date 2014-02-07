@@ -1,6 +1,8 @@
 package hexModelSam;
 
-public class HexGrid {
+import modelTestSam.KNTObject;
+
+public class HexGrid extends KNTObject {
 
 	// https://github.com/cmelchior/asciihexgrid/blob/master/src/main/java/dk/ilios/asciihexgrid/AsciiBoard.java
 	// http://www.redblobgames.com/grids/hexagons/#map-storage
@@ -13,7 +15,7 @@ public class HexGrid {
 	private final int radius;
 	
 	
-	private HexModel grid[][];
+	public HexModel grid[][];
 	
 	//4 Player:
 	//minQ: -3
@@ -93,45 +95,49 @@ public class HexGrid {
 	
 	public void Demo1FixedGrid() {
 		//Future, from XML
-		/*
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -2, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -1, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -0, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		setHexFromQR(3, -3, new HexModel(HexModel.TileType.DESERT));
-		*/
+		
+		
+		//there's a small mistake here, verify once grid is fixed
+		setHexFromQR(3,-3, new HexModel(HexModel.TileType.JUNGLE, this));
+		setHexFromQR(3,-2, new HexModel(HexModel.TileType.SWAMP, this));
+		setHexFromQR(3,-1, new HexModel(HexModel.TileType.DESERT, this));
+		setHexFromQR(3,0, new HexModel(HexModel.TileType.FOREST, this));
+		setHexFromQR(2,1, new HexModel(HexModel.TileType.PLAINS, this));
+		setHexFromQR(1,2, new HexModel(HexModel.TileType.FOREST, this));
+		setHexFromQR(0,3, new HexModel(HexModel.TileType.FROZEN, this));
+		setHexFromQR(-1,3, new HexModel(HexModel.TileType.JUNGLE, this));
+		setHexFromQR(-2,3, new HexModel(HexModel.TileType.MOUNTAIN, this));
+		setHexFromQR(-3,3, new HexModel(HexModel.TileType.DESERT, this));
+		setHexFromQR(-3,2, new HexModel(HexModel.TileType.PLAINS, this));
+		setHexFromQR(-3,1, new HexModel(HexModel.TileType.JUNGLE, this));
+		setHexFromQR(-3,0, new HexModel(HexModel.TileType.MOUNTAIN, this));
+		setHexFromQR(-2,-1, new HexModel(HexModel.TileType.FOREST, this));
+		setHexFromQR(-1,-2, new HexModel(HexModel.TileType.FROZEN, this));
+		setHexFromQR(0,-3, new HexModel(HexModel.TileType.DESERT, this));
+		setHexFromQR(1,-3, new HexModel(HexModel.TileType.SWAMP, this));
+		setHexFromQR(2,-3, new HexModel(HexModel.TileType.MOUNTAIN, this));
+		setHexFromQR(2,-2, new HexModel(HexModel.TileType.FROZEN, this));
+		setHexFromQR(2,-1, new HexModel(HexModel.TileType.MOUNTAIN, this));
+		setHexFromQR(2,0, new HexModel(HexModel.TileType.FROZEN, this));
+		setHexFromQR(1,1, new HexModel(HexModel.TileType.SWAMP, this));
+		setHexFromQR(0,2, new HexModel(HexModel.TileType.DESERT, this));
+		setHexFromQR(-1,2, new HexModel(HexModel.TileType.SWAMP, this));
+		setHexFromQR(-2,2, new HexModel(HexModel.TileType.FOREST, this));
+		setHexFromQR(-2,1, new HexModel(HexModel.TileType.PLAINS, this));
+		setHexFromQR(-2,0, new HexModel(HexModel.TileType.MOUNTAIN, this));
+		setHexFromQR(-1,-1, new HexModel(HexModel.TileType.JUNGLE, this));
+		setHexFromQR(0,-2, new HexModel(HexModel.TileType.PLAINS, this));
+		setHexFromQR(1,-2, new HexModel(HexModel.TileType.FOREST, this));
+		setHexFromQR(1,-1, new HexModel(HexModel.TileType.JUNGLE, this));
+		setHexFromQR(1,0, new HexModel(HexModel.TileType.PLAINS, this));
+		setHexFromQR(0,1, new HexModel(HexModel.TileType.PLAINS, this));
+		setHexFromQR(-1,1, new HexModel(HexModel.TileType.SEA, this));
+		setHexFromQR(-1,0, new HexModel(HexModel.TileType.FOREST, this));
+		setHexFromQR(0,-1, new HexModel(HexModel.TileType.SWAMP, this));
+		setHexFromQR(0,0, new HexModel(HexModel.TileType.FROZEN, this));
+		
+
+		
 	}
 
 }

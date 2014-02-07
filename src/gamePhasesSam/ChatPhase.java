@@ -33,6 +33,10 @@ public class ChatPhase extends GamePhase {
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				chatCount++;
 								
+				String from = (String) event.get("FROM");
+				String content = (String) event.get("CONTENT");
+				
+				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.players.getPlayer(from).name, content));
 				
 				//Forward chat message to all (including sender)
 				network.sendAll(event.toJson());
@@ -53,12 +57,14 @@ public class ChatPhase extends GamePhase {
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
+				System.out.println("Got message");
+				
 				String from = (String) event.get("FROM");
+				String content = (String) event.get("CONTENT");
 				
-				System.out.printf("<%s> %s\n", 
-						referenceToModel.players.getPlayer(from).name, 
-						(String) event.get("CONTENT"));	
+				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.players.getPlayer(from).name, content));
 				
+
 				turn();
 			}
 			

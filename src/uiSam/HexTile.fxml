@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<HexTileView prefHeight="104.59414672851562" prefWidth="116.81314931640372" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.HexTileView">
+  <children>
+    <ImageView fx:id="tileView" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+</HexTileView>

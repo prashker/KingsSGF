@@ -27,12 +27,16 @@ public class GameModel extends Observable {
 	public ThingBowlModel bowl = new ThingBowlModel();
 	//public Bank bank;
 	
+	public Chat chat = new Chat();
+	
 	public Players players = new Players();
 	public PlayerModel localPlayer = null;
 	
 	public GameModel(Type modelType) {
 		this.modelType = modelType;
 		
+		//TEMPORARY REMIND TO REMOVE THIS FOR STUFF TO WORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+		grid.Demo1FixedGrid();
 		
 		//gameEventSetup(workerType);
 	}

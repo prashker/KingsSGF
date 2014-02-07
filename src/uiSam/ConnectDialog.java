@@ -39,12 +39,12 @@ public class ConnectDialog extends GridPane {
 			
 			//BoardGameWindow boardGame = loader.getController();
 			//boardGame.connect(host, port);
+
+			final BoardGameWindow gameWindow = loader.getController();
 			
 			stage.show();
 			
-			final BoardGameWindow gameWindow = loader.getController();
 			gameWindow.connect(host, port);
-
 			
 			stage.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
 

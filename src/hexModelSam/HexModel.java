@@ -28,6 +28,8 @@ public class HexModel extends KNTObject {
 		grid = null;
 	}
 	
+	
+	//to be removed in the future, if we have time, Tile shouldn't need to know the grid...
 	public HexModel(TileType t, HexGrid g) {
 		type = t;
 		grid = g;

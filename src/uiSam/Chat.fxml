@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<ChatView minHeight="213.9609375" minWidth="373.0" prefHeight="218.9609375" prefWidth="373.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BoardGameWindow">
+  <TextArea fx:id="chatArea" layoutX="0.0" layoutY="-5.0" prefHeight="194.0" prefWidth="373.0" wrapText="true" />
+  <TextField fx:id="chatInput" layoutX="0.0" layoutY="192.0" prefWidth="312.0" />
+  <Button fx:id="chatButton" alignment="CENTER" layoutX="313.0" layoutY="193.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="58.0" text="Chat" />
+</ChatView>

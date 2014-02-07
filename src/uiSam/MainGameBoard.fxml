@@ -18,7 +18,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Join" fx:id="joinMenu" />
             <MenuItem mnemonicParsing="false" text="Open…" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -57,17 +57,15 @@
       <children>
         <ThingBowlView fx:id="thingBowl" fitHeight="126.0" fitWidth="126.0" layoutX="12.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@images/Bowl.png" />
+            <Image url="Bowl.png" />
           </image>
         </ThingBowlView>
         <fx:include fx:id="playerOneRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="35.0" />
         <fx:include fx:id="playerTwoRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="163.0" />
         <fx:include fx:id="playerThreeRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="295.0" />
         <fx:include fx:id="playerFourRack" source="PlayerRack.fxml" layoutX="692.0" layoutY="419.0" />
-        <fx:include fx:id="hexGrid" source="HexGrid.fxml" layoutX="8.0" layoutY="106.0" />
-        <TextArea layoutX="649.0" layoutY="540.0" prefHeight="194.0" prefWidth="373.0" wrapText="true" />
-        <TextField layoutX="649.0" layoutY="737.0" prefWidth="312.0" />
-        <Button alignment="CENTER" layoutX="964.0" layoutY="737.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="58.0" text="Chat" />
+        <fx:include fx:id="hexGrid" source="HexGrid.fxml" layoutX="10.0" layoutY="106.0" />
+        <fx:include fx:id="chat" source="Chat.fxml" layoutX="645.0" layoutY="547.0" />
       </children>
       <stylesheets>
         <URL value="@style.css" />

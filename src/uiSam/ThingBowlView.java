@@ -8,7 +8,7 @@ import modelTestSam.ThingBowlModel;
 import modelTestSam.ThingModel;
 import javafx.scene.image.ImageView;
 
-public class ThingBowlView extends ImageView implements KingsAndThingView<ThingBowlModel> {
+public class ThingBowlView extends ImageView implements KingsAndThingsView<ThingBowlModel> {
 	
 	public ThingBowlModel thingBowl;
 
@@ -21,13 +21,14 @@ public class ThingBowlView extends ImageView implements KingsAndThingView<ThingB
 	@Override
 	public void setBind(ThingBowlModel m) {
 		thingBowl = m;
-		thingBowl.addObserver(this);		
+		thingBowl.addObserver(this);
+		updateUI();
 	}
 
 	@Override
 	public void updateUI() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this);
+		System.out.println("UI UpDATE BOWL");
 	}
 
 
