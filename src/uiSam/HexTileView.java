@@ -40,7 +40,8 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 
 	@Override
 	public void updateUI() {
-		tileView.setImage(new Image("FaceDownTile.png"));	
+		System.out.printf("Bound: %s\n", tile.type);
+		tileView.setImage(new Image(tile.type + ".png"));	
 	}
 
 

@@ -8,14 +8,14 @@ public class HexModel extends KNTObject {
 	//therefore no reason to subclass it when all that is different is TileType
 	
 	public static enum TileType {
-		DESERT,
-		FOREST,
-		FROZEN,
-		JUNGLE,
-		MOUNTAIN,
-		PLAINS,
-		SEA,
-		SWAMP
+		DesertTile,
+		ForestTile,
+		FrozenWasteTile,
+		JungleTile,
+		MountainTile,
+		PlainsTile,
+		SeaTile,
+		SwampTile
 	};
 	
 	public final TileType type;
