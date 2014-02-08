@@ -25,7 +25,6 @@ import modelTestSam.JacksonSingleton;
 import modelTestSam.ModelWorker;
 import modelTestSam.Networkable;
 import modelTestSam.NetworkedJSONGameLoop;
-import modelTestSam.ThingModel;
 
 public class GameClient extends Thread implements Networkable {
 	private final int port;

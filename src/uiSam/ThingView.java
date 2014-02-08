@@ -3,12 +3,12 @@ package uiSam;
 
 import java.util.Observable;
 
-import modelTestSam.ThingModel;
+import counterModelSam.Thing;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ThingView extends ImageView implements KingsAndThingsView<ThingModel> {
-	public ThingModel thing;
+public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
+	public Thing thing;
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -16,15 +16,22 @@ public class ThingView extends ImageView implements KingsAndThingsView<ThingMode
 	}
 
 	@Override
-	public void setBind(ThingModel m) {
-		thing = m;
-		thing.addObserver(this);
+	public void setBind(Thing m) {
+		if (m != null) {
+			thing = m;
+			thing.addObserver(this);
+		}
 		updateUI();
 	}
 
 	@Override
 	public void updateUI() {
-		this.setImage(new Image("/images/Things/Old Dragon.jpg"));
+		if (thing != null) {
+			this.setImage(new Image(thing.name + ".png"));
+		}
+		else {
+			this.setImage(null);
+		}
 	}
 
 }

@@ -136,6 +136,9 @@ public class BoardGameWindow extends VBox implements Observer {
 		//HEX GRID BIND SETUP
 		hexGridController.setBind(model.grid);
 		
+		//temporary as we do not know who is who in player order
+		playerOneRackController.setBind(model.localPlayer);
+		
 		
 	}
 	

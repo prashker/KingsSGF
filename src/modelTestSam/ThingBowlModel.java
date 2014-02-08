@@ -3,10 +3,11 @@ package modelTestSam;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import counterModelSam.Thing;;
 
 public class ThingBowlModel extends KNTObject implements Observer {
 
-	HashMap<String, ThingModel> things = new HashMap<String, ThingModel>();
+	HashMap<String,Thing> things = new HashMap<String,Thing>();
 	
 	public ThingBowlModel() {
 

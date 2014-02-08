@@ -3,7 +3,6 @@ package gamePhasesSam;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.ThingModel;
 
 //Game Phase
 //Abstract

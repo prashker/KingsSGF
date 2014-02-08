@@ -5,7 +5,6 @@ import java.util.Observer;
 
 import modelTestSam.KNTObject;
 import modelTestSam.ThingBowlModel;
-import modelTestSam.ThingModel;
 import javafx.scene.image.ImageView;
 
 public class ThingBowlView extends ImageView implements KingsAndThingsView<ThingBowlModel> {

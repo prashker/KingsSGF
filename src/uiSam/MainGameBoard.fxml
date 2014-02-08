@@ -60,10 +60,10 @@
             <Image url="Bowl.png" />
           </image>
         </ThingBowlView>
-        <fx:include fx:id="playerOneRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="35.0" />
-        <fx:include fx:id="playerTwoRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="163.0" />
-        <fx:include fx:id="playerThreeRack" source="PlayerRack.fxml" layoutX="691.0" layoutY="295.0" />
-        <fx:include fx:id="playerFourRack" source="PlayerRack.fxml" layoutX="692.0" layoutY="419.0" />
+        <fx:include fx:id="playerOneRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="35.0" />
+        <fx:include fx:id="playerTwoRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="163.0" />
+        <fx:include fx:id="playerThreeRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="295.0" />
+        <fx:include fx:id="playerFourRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="419.0" />
         <fx:include fx:id="hexGrid" source="HexGrid.fxml" layoutX="10.0" layoutY="106.0" />
         <fx:include fx:id="chat" source="Chat.fxml" layoutX="645.0" layoutY="547.0" />
       </children>

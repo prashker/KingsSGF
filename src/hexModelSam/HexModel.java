@@ -15,7 +15,8 @@ public class HexModel extends KNTObject {
 		MountainTile,
 		PlainsTile,
 		SeaTile,
-		SwampTile
+		SwampTile,
+		NONTYPE //might be needed for a Thing's Terrain Type (maybe)
 	};
 	
 	public final TileType type;

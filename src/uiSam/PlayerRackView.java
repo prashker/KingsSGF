@@ -6,6 +6,8 @@ import java.util.Observable;
 import modelTestSam.PlayerModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -23,6 +25,8 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 	@FXML private ThingView positionEight;
 	@FXML private ThingView positionNine;
 	@FXML private ThingView positionTen;
+	
+	@FXML private Label playerNameLabel;
 
 	
 	public PlayerModel player; //future, ArrayList<ThingModel> player.rack?
@@ -31,18 +35,26 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		setBind(player);
 	}
 
 	@Override
 	public void setBind(PlayerModel m) {
 		player = m;
 		player.addObserver(this);
+		
+		for (int i = 0; i < 10; i++) {
+			rackViewArray.get(i).setBind(m.getThingFromRack(i));
+		}
+		
+		playerNameLabel.setText(player.name);
+		
+		updateUI();
 	}
 
 	@Override
 	public void updateUI() {
-		
+		//What to do here???
 	}
 	
 	public void initialize() {
@@ -56,15 +68,6 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 		rackViewArray.add(positionEight);
 		rackViewArray.add(positionNine);
 		rackViewArray.add(positionTen);	
-		
-		positionTen.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				System.out.println("10 test");
-			}
-			
-		});
 	}
 	
 }
