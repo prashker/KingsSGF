@@ -30,7 +30,7 @@ public class GameModel extends Observable {
 	public Chat chat = new Chat();
 	
 	public Players players = new Players();
-	public PlayerModel localPlayer = null;
+	public PlayerModel localPlayer = new PlayerModel();
 	
 	public GameModel(Type modelType) {
 		this.modelType = modelType;

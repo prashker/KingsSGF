@@ -28,7 +28,7 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		System.out.println("Got update");
-		chatArea.appendText((String) arg1);		
+		chatArea.appendText((String) arg1);
 	}
 
 	@Override
@@ -45,6 +45,7 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 	}
 	
 	public void initialize() {
+		System.out.println("chat init");
 		chatArea.setEditable(false);
 		chatArea.setStyle("-fx-focus-color: transparent;"); //to move to CSS file, disable glow when clicked
 

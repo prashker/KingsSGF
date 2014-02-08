@@ -65,7 +65,7 @@ public class BoardGameWindow extends VBox implements Observer {
 	
 	@FXML private MenuItem joinMenu;
 	
-	@FXML private ChatView chat;
+	@FXML private ChatView chatController;
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -131,7 +131,7 @@ public class BoardGameWindow extends VBox implements Observer {
 		
 		
 		//CHAT BIND SETUP
-		chat.setBind(model.chat);
+		chatController.setBind(model.chat);
 		
 		//HEX GRID BIND SETUP
 		hexGridController.setBind(model.grid);

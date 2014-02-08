@@ -29,9 +29,8 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 
 	@Override
 	public void setBind(HexModel m) {
-		tile = m;
-
 		if (m != null) {
+			tile = m;
 			tile.addObserver(this);
 		}
 		updateUI();
@@ -40,8 +39,8 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 
 	@Override
 	public void updateUI() {
-		System.out.printf("Bound: %s\n", tile.type);
-		tileView.setImage(new Image(tile.type + ".png"));	
+		if (tile != null) 
+			tileView.setImage(new Image(tile.type + ".png"));	
 	}
 
 
