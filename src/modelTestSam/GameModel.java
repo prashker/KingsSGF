@@ -17,6 +17,8 @@ public class GameModel extends Observable {
 		CLIENT
 	};
 	
+	public int howManyPlayers = 2;
+	
 	public GamePhase state;
 	public Networkable network;
 	public Type modelType;
@@ -29,7 +31,7 @@ public class GameModel extends Observable {
 	
 	public Chat chat = new Chat();
 	
-	public Players players = new Players();
+	public Players gamePlayersManager = new Players();
 	public PlayerModel localPlayer = new PlayerModel();
 	
 	public GameModel(Type modelType) {

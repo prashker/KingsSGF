@@ -3,6 +3,7 @@ package uiSam;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 import hexModelSam.HexGrid;
 import javafx.event.EventHandler;
@@ -59,9 +60,7 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 	
 	
 	public void initialize() {
-		System.out.println("Hexgrid initialize: " + this);
-
-		hook();
+		hookControllers();
 	}
 
 
@@ -71,7 +70,7 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 		
 	}
 	
-	public void hook() {
+	public void hookControllers() {
 		tiles.add(hex1Controller);
 		tiles.add(hex2Controller);
 		tiles.add(hex3Controller);
@@ -112,25 +111,25 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 	}
 
 
-	public void setBind(HexGrid m) {
+	public void setBind(final HexGrid m) {
 		grid = m;
-		grid.addObserver(this);
 		
-		System.out.println("BIND CALLED");
-		System.out.println("but first lets see: " + tiles.size()); 
-		for (HexTileView x: tiles) {
-			System.out.println(x);
-		}
-		
-		//System.out.println();
-		
-		//hex1.test();		
-		//System.out.println(hex1.x);
-		//System.out.flush();
-		//hex1.setBind(m.getHexFromQR(3,-3));
+		grid.addObserver(new Observer() {
 
-		//lol...really
+			@Override
+			public void update(Observable o, Object arg) {
+				hookBind(m);
+			}
+			
+		});
 		
+		hookBind(m);
+		
+
+		
+	}
+	
+	public void hookBind(HexGrid m) {
 		hex1Controller.setBind(m.getHexFromQR(3,-3));
 		hex2Controller.setBind(m.getHexFromQR(3,-2));
 		hex3Controller.setBind(m.getHexFromQR(3,-1));
@@ -168,7 +167,6 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 		hex35Controller.setBind(m.getHexFromQR(-1,0));
 		hex36Controller.setBind(m.getHexFromQR(0,-1));
 		hex37Controller.setBind(m.getHexFromQR(0,0));
-		
 	}
 
 

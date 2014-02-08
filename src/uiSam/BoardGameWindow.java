@@ -102,10 +102,7 @@ public class BoardGameWindow extends VBox implements Observer {
 					model.localPlayer = new PlayerModel();
 			
 					GameEvent joinEvent = new GameEvent("JOIN");
-					joinEvent.put("PLAYER", model.localPlayer.getId());
-
-					//TEST
-					//hexGrid.getChildren().get(5).setVisible(false);
+					joinEvent.put("PLAYER", model.localPlayer);
 					
 					System.out.println("Sending: " + joinEvent.toJson());
 
@@ -140,6 +137,7 @@ public class BoardGameWindow extends VBox implements Observer {
 		playerOneRackController.setBind(model.localPlayer);
 		
 		
+		
 	}
 	
 	public BoardGameWindow() {
@@ -168,15 +166,9 @@ public class BoardGameWindow extends VBox implements Observer {
 	public void networkMessageSend(GameEvent gameEventSoonToBecomeJSONEncoded) {
 		//inject the FROM for every message
 		gameEventSoonToBecomeJSONEncoded.put("FROM", model.localPlayer.getId());
-		String serialized;
 		
-		try {
-			serialized = JacksonSingleton.getInstance().writeValueAsString(gameEventSoonToBecomeJSONEncoded);
-			model.network.sendAll(serialized);		
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		model.network.sendAll(gameEventSoonToBecomeJSONEncoded.toJson());
+		
 		
 	}
 	

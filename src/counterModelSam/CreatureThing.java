@@ -1,5 +1,7 @@
 package counterModelSam;
 
+import hexModelSam.HexModel.TileType;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -47,11 +49,11 @@ public class CreatureThing extends Thing {
 		BuffaloHerd
 	}
 
-	public CreatureThing(String name, String terrain, int value) {
+	public CreatureThing(String name, TileType terrain, int value) {
 		super(name, terrain, value);
 	}
 
-	public CreatureThing(String name, String terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
+	public CreatureThing(String name, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
 		super(name, terrain, value, isFlying, isMagic, isCharge, isRange, isSpecial, isMulti);
 	}
 	

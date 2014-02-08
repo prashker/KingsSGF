@@ -1,5 +1,7 @@
 package counterModelSam;
 
+import hexModelSam.HexModel.TileType;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,7 +21,7 @@ public abstract class Thing extends Counter {
 	Set<ThingAbility> abilitySet = new TreeSet<ThingAbility>();
 	
 	public String name;
-	public String validTerrain; //TypeOf HexTile.TileType???
+	public TileType validTerrain;
 	
 	public int value;
 	public int hitValue;
@@ -29,7 +31,7 @@ public abstract class Thing extends Counter {
 	}
 	
 	
-	public Thing(String name, String terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
+	public Thing(String name, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
 		this.name = name;
 		this.validTerrain = terrain;
 		this.value = value;
@@ -57,7 +59,7 @@ public abstract class Thing extends Counter {
 		
 	}
 	
-	public Thing(String name, String terrain, int value) {
+	public Thing(String name, TileType terrain, int value) {
 		this(name, terrain, value, false, false, false, false, false, false);
 	}
 	

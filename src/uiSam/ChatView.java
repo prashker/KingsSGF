@@ -1,6 +1,7 @@
 package uiSam;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import modelTestSam.Chat;
+import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.JacksonSingleton;
 
@@ -27,15 +29,20 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("Got update");
-		chatArea.appendText((String) arg1);
+		//System.out.println("Got update");
+		
+		//chatArea.appendText((String) arg1);
 	}
 
 	@Override
 	public void setBind(Chat m) {
 		chat = m;
-		chat.addObserver(this);
-		System.out.println("chat bound");
+
+		chat.addObserver(new Observer() {
+			public void update(Observable arg0, Object arg1) {
+				chatArea.appendText((String) arg1);				
+			}
+		});
 		updateUI();
 	}
 
@@ -45,7 +52,6 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 	}
 	
 	public void initialize() {
-		System.out.println("chat init");
 		chatArea.setEditable(false);
 		chatArea.setStyle("-fx-focus-color: transparent;"); //to move to CSS file, disable glow when clicked
 
@@ -74,19 +80,36 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 			}
 			
 		});
-
-		
-		System.out.println("Chat init");
 	}
 	
 	public void sendMessage() {
 		String possibleMsg = chatInput.getText();
 		if (!possibleMsg.isEmpty()) {
-			System.out.println("Sending: " + possibleMsg);
-			GameEvent chatMsgEvent = new GameEvent("CHAT");
-			chatMsgEvent.put("CONTENT", possibleMsg);
 			
-			BoardGameWindow.getInstance().networkMessageSend(chatMsgEvent);
+			//BYPASS TEMP
+			if (possibleMsg.startsWith("/end")) {
+				System.out.println("DEBUG: END TURN");
+				
+				GameEvent chatMsgEvent = new GameEvent("END");
+				BoardGameWindow.getInstance().networkMessageSend(chatMsgEvent);
+			}
+			else if (possibleMsg.startsWith("/roll")) {
+				System.out.println("DEBUG: ROLL");
+				GameEvent rollEvent = new GameEvent("ROLL-ORDER");
+				rollEvent.put("ROLL", Dice.Roll());
+				BoardGameWindow.getInstance().networkMessageSend(rollEvent);
+			}
+			else {
+				
+				//System.out.println("Sending: " + possibleMsg);
+				
+				GameEvent chatMsgEvent = new GameEvent("CHAT");
+				chatMsgEvent.put("CONTENT", possibleMsg);
+				
+				BoardGameWindow.getInstance().networkMessageSend(chatMsgEvent);
+				
+			}
+			
 			
 			chatInput.clear();
 		}

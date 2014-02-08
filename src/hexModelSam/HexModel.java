@@ -16,7 +16,12 @@ public class HexModel extends KNTObject {
 		PlainsTile,
 		SeaTile,
 		SwampTile,
-		NONTYPE //might be needed for a Thing's Terrain Type (maybe)
+		NONTYPE; //might be needed for a Thing's Terrain Type (maybe)
+		
+		//http://stackoverflow.com/questions/8114174/how-to-randomize-enum-elements
+		public static TileType getRandom() {
+			return values()[(int) (Math.random() * values().length)];
+		}
 	};
 	
 	public final TileType type;

@@ -2,6 +2,7 @@ package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
@@ -22,32 +23,30 @@ public class JoinGamePhase extends GamePhase {
 	}
 
 	@Override
-	public GamePhase turn() {
+	public void nextPhaseIfTime() {
 		
-		if (referenceToModel.players.numPlayers() == 2) {
-			System.out.printf("%d PLayers, New Phase\n", referenceToModel.players.numPlayers());
+		if (referenceToModel.gamePlayersManager.numPlayers() == referenceToModel.howManyPlayers) {
+			System.out.printf("%d PLayers, New Phase\n", referenceToModel.gamePlayersManager.numPlayers());
 			removeHandlers();
 			referenceToModel.state = new ChatPhase(referenceToModel);
 		}
 		
-		return null;
 	}
 
 	@Override
 	public void serverPhaseHandler() {
-		this.referenceToModel.network.getLoop().register("JOIN", new GameEventHandler() {
+		addPhaseHandler("JOIN", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
+				//now support polymorphic deserialization
+				PlayerModel playerFromNetwork = (PlayerModel) event.get("PLAYER");
 				
-				String playerFromNetwork = (String) event.get("PLAYER");
-				System.out.println("Player: " + playerFromNetwork + " joined");
-				
-				referenceToModel.players.addPlayer(new PlayerModel(playerFromNetwork));
+				referenceToModel.gamePlayersManager.addPlayer(playerFromNetwork);
 
 				GameEvent allPlayersEvent = new GameEvent("PLAYERS");
-				allPlayersEvent.put("PLAYERS", referenceToModel.players.playerIDS());
+				allPlayersEvent.put("PLAYERS", referenceToModel.gamePlayersManager.players);
 				
 				
 				//Send to joining player a list of all players
@@ -55,7 +54,7 @@ public class JoinGamePhase extends GamePhase {
 				network.sendAllExcept(socket, event.toJson());
 				network.sendTo(socket, allPlayersEvent.toJson());
 				
-				turn();
+				nextPhaseIfTime();
 				
 			}
 			
@@ -64,41 +63,35 @@ public class JoinGamePhase extends GamePhase {
 
 	@Override
 	public void clientPhaseHandler() {
-		this.referenceToModel.network.getLoop().register("JOIN", new GameEventHandler() {
+		addPhaseHandler("JOIN", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 								
-				String playerFromNetwork = (String) event.get("PLAYER");
+				PlayerModel playerFromNetwork = (PlayerModel) event.get("PLAYER");
 
-				referenceToModel.players.addPlayer(new PlayerModel(playerFromNetwork));
+				referenceToModel.gamePlayersManager.addPlayer(playerFromNetwork);
 				
-				turn();
+				nextPhaseIfTime();
 			}
 
 		});		
 		
-		this.referenceToModel.network.getLoop().register("PLAYERS", new GameEventHandler() {
+		addPhaseHandler("PLAYERS", new GameEventHandler() {
 
 			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {				
-				ArrayList<String> playersFromEvent = (ArrayList<String>) event.get("PLAYERS");
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {	
 				
+				HashMap<String, PlayerModel> playersFromEvent = new HashMap<String, PlayerModel>((HashMap<String, PlayerModel>)event.get("PLAYERS"));	
 				
-				for (String networkedPlayerID: playersFromEvent) {
-					referenceToModel.players.addPlayer(new PlayerModel(networkedPlayerID));
+				for (PlayerModel networkedPlayer: playersFromEvent.values()) {
+					referenceToModel.gamePlayersManager.addPlayer(networkedPlayer);
 				}
 				
-				turn();
+				nextPhaseIfTime();
 			}
 			
 		});
-	}
-
-	@Override
-	public void removeHandlers() {
-		referenceToModel.network.getLoop().deregister("JOIN");
-		referenceToModel.network.getLoop().deregister("PLAYERS");		
 	}
 
 }
