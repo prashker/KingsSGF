@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import modelTestSam.KNTObject;
 import modelTestSam.ThingBowlModel;
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 
 public class ThingBowlView extends ImageView implements KingsAndThingsView<ThingBowlModel> {
@@ -12,23 +13,33 @@ public class ThingBowlView extends ImageView implements KingsAndThingsView<Thing
 	public ThingBowlModel thingBowl;
 
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setBind(ThingBowlModel m) {
+	public void setBind(final ThingBowlModel m) {
 		thingBowl = m;
-		thingBowl.addObserver(this);
-		updateUI();
+		
+		thingBowl.addObserver(new Observer() {
+
+			@Override
+			public void update(Observable o, Object arg) {
+				updateBind(m);
+			}
+			
+		});
+		
+		updateBind(m);
 	}
 
 	@Override
-	public void updateUI() {
-		System.out.println(this);
-		System.out.println("UI UpDATE BOWL");
+	public void updateBind(ThingBowlModel m) {		
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println("Changed bowl, no UI updates yet");
+			}
+
+		});
 	}
+
 
 
 }

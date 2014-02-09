@@ -2,8 +2,10 @@ package uiSam;
 
 
 import java.util.Observable;
+import java.util.Observer;
 
 import counterModelSam.Thing;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -22,22 +24,39 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 	public Thing thing;
 	
 	ImageView dragImageView = new ImageView();
-	
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		
-	}
-
-	@Override
-	public void setBind(Thing m) {
+	public void setBind(final Thing m) {
 		if (m != null) {
 			thing = m;
-			thing.addObserver(this);
+			m.addObserver(new Observer() {
+
+				@Override
+				public void update(Observable o, Object arg) {
+					updateBind(m);
+				}
+				
+			});
 		}
+		
+		updateBind(m);
+		
 		registerDragability();
 		
-		updateUI();
+	}
+	
+	@Override
+	public void updateBind(final Thing m) {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				if (m != null) {
+					setImage(new Image(thing.name + ".png"));
+				}				
+			}
+
+		});
 	}
 
 	private void registerDragability() {
@@ -104,13 +123,6 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 				}
 			});
 	        
-	}
-
-	@Override
-	public void updateUI() {
-		if (thing != null) {
-			this.setImage(new Image(thing.name + ".png"));
-		}
 	}
 
 }

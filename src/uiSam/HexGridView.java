@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import hexModelSam.HexGrid;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -61,17 +62,6 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 	
 	
 	public void initialize() {
-		hookControllers();
-	}
-
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void hookControllers() {
 		tiles.add(hex1Controller);
 		tiles.add(hex2Controller);
 		tiles.add(hex3Controller);
@@ -110,8 +100,8 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 		tiles.add(hex36Controller);
 		tiles.add(hex37Controller);
 	}
-
-
+	
+	@Override
 	public void setBind(final HexGrid m) {
 		grid = m;
 		
@@ -119,58 +109,62 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 
 			@Override
 			public void update(Observable o, Object arg) {
-				hookBind(m);
+				updateBind(m);
 			}
 			
 		});
 		
-		hookBind(m);
+		updateBind(m);
 			
 	}
 	
-	public void hookBind(HexGrid m) {
-		hex1Controller.setBind(m.getHexFromQR(3,-3));
-		hex2Controller.setBind(m.getHexFromQR(3,-2));
-		hex3Controller.setBind(m.getHexFromQR(3,-1));
-		hex4Controller.setBind(m.getHexFromQR(3,0));
-		hex5Controller.setBind(m.getHexFromQR(2,1));
-		hex6Controller.setBind(m.getHexFromQR(1,2));
-		hex7Controller.setBind(m.getHexFromQR(0,3));
-		hex8Controller.setBind(m.getHexFromQR(-1,3));
-		hex9Controller.setBind(m.getHexFromQR(-2,3));
-		hex10Controller.setBind(m.getHexFromQR(-3,3));
-		hex11Controller.setBind(m.getHexFromQR(-3,2));
-		hex12Controller.setBind(m.getHexFromQR(-3,1));
-		hex13Controller.setBind(m.getHexFromQR(-3,0));
-		hex14Controller.setBind(m.getHexFromQR(-2,-1));
-		hex15Controller.setBind(m.getHexFromQR(-1,-2));
-		hex16Controller.setBind(m.getHexFromQR(0,-3));
-		hex17Controller.setBind(m.getHexFromQR(1,-3));
-		hex18Controller.setBind(m.getHexFromQR(2,-3));
-		hex19Controller.setBind(m.getHexFromQR(2,-2));
-		hex20Controller.setBind(m.getHexFromQR(2,-1));
-		hex21Controller.setBind(m.getHexFromQR(2,0));
-		hex22Controller.setBind(m.getHexFromQR(1,1));
-		hex23Controller.setBind(m.getHexFromQR(0,2));
-		hex24Controller.setBind(m.getHexFromQR(-1,2));
-		hex25Controller.setBind(m.getHexFromQR(-2,2));
-		hex26Controller.setBind(m.getHexFromQR(-2,1));
-		hex27Controller.setBind(m.getHexFromQR(-2,0));
-		hex28Controller.setBind(m.getHexFromQR(-1,-1));
-		hex29Controller.setBind(m.getHexFromQR(0,-2));
-		hex30Controller.setBind(m.getHexFromQR(1,-2));
-		hex31Controller.setBind(m.getHexFromQR(1,-1));
-		hex32Controller.setBind(m.getHexFromQR(1,0));
-		hex33Controller.setBind(m.getHexFromQR(0,1));
-		hex34Controller.setBind(m.getHexFromQR(-1,1));
-		hex35Controller.setBind(m.getHexFromQR(-1,0));
-		hex36Controller.setBind(m.getHexFromQR(0,-1));
-		hex37Controller.setBind(m.getHexFromQR(0,0));
-	}
-
-
 	@Override
-	public void updateUI() {
+	public void updateBind(final HexGrid m) {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				hex1Controller.setBind(m.getHexFromQR(3,-3));
+				hex2Controller.setBind(m.getHexFromQR(3,-2));
+				hex3Controller.setBind(m.getHexFromQR(3,-1));
+				hex4Controller.setBind(m.getHexFromQR(3,0));
+				hex5Controller.setBind(m.getHexFromQR(2,1));
+				hex6Controller.setBind(m.getHexFromQR(1,2));
+				hex7Controller.setBind(m.getHexFromQR(0,3));
+				hex8Controller.setBind(m.getHexFromQR(-1,3));
+				hex9Controller.setBind(m.getHexFromQR(-2,3));
+				hex10Controller.setBind(m.getHexFromQR(-3,3));
+				hex11Controller.setBind(m.getHexFromQR(-3,2));
+				hex12Controller.setBind(m.getHexFromQR(-3,1));
+				hex13Controller.setBind(m.getHexFromQR(-3,0));
+				hex14Controller.setBind(m.getHexFromQR(-2,-1));
+				hex15Controller.setBind(m.getHexFromQR(-1,-2));
+				hex16Controller.setBind(m.getHexFromQR(0,-3));
+				hex17Controller.setBind(m.getHexFromQR(1,-3));
+				hex18Controller.setBind(m.getHexFromQR(2,-3));
+				hex19Controller.setBind(m.getHexFromQR(2,-2));
+				hex20Controller.setBind(m.getHexFromQR(2,-1));
+				hex21Controller.setBind(m.getHexFromQR(2,0));
+				hex22Controller.setBind(m.getHexFromQR(1,1));
+				hex23Controller.setBind(m.getHexFromQR(0,2));
+				hex24Controller.setBind(m.getHexFromQR(-1,2));
+				hex25Controller.setBind(m.getHexFromQR(-2,2));
+				hex26Controller.setBind(m.getHexFromQR(-2,1));
+				hex27Controller.setBind(m.getHexFromQR(-2,0));
+				hex28Controller.setBind(m.getHexFromQR(-1,-1));
+				hex29Controller.setBind(m.getHexFromQR(0,-2));
+				hex30Controller.setBind(m.getHexFromQR(1,-2));
+				hex31Controller.setBind(m.getHexFromQR(1,-1));
+				hex32Controller.setBind(m.getHexFromQR(1,0));
+				hex33Controller.setBind(m.getHexFromQR(0,1));
+				hex34Controller.setBind(m.getHexFromQR(-1,1));
+				hex35Controller.setBind(m.getHexFromQR(-1,0));
+				hex36Controller.setBind(m.getHexFromQR(0,-1));
+				hex37Controller.setBind(m.getHexFromQR(0,0));
+			}
+			
+		});		
 		
 	}
+
 }

@@ -67,6 +67,7 @@ public class BoardGameWindow extends VBox implements Observer {
 	@FXML private HexGridView hexGridController;
 	
 	@FXML private MenuItem joinMenu;
+	@FXML private MenuItem startMenu;
 	
 	@FXML private ChatView chatController;
 	
@@ -95,13 +96,11 @@ public class BoardGameWindow extends VBox implements Observer {
 	}
 	
 	public void initializeBinds() {
-		thingBowl.setBind(model.bowl);
-		
-		thingBowl.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				
+		this.joinMenu.setOnAction(new EventHandler<ActionEvent>() {
+
 			@Override
-			public void handle(MouseEvent event) {
-				if (event.getClickCount() == 2) {
-					
+			public void handle(ActionEvent event) {							
 					model.localPlayer = new PlayerModel();
 			
 					GameEvent joinEvent = new GameEvent("JOIN");
@@ -110,34 +109,44 @@ public class BoardGameWindow extends VBox implements Observer {
 					System.out.println("Sending: " + joinEvent.toJson());
 
 					model.network.sendAll(joinEvent.toJson());
-				}
 			}
+			
 		});
-				
-		this.joinMenu.setOnAction(new EventHandler<ActionEvent>() {
+		
+		this.startMenu.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent arg0) {
-								
-
-				//hexGrid.hex1.tileView.setImage(new Image("FaceDownTile.png"));
-				//hexGrid.hex1.updateUI();
-				//hexGridController.setBind(model.grid);
-
+			public void handle(ActionEvent event) {			
 				
+					GameEvent startEvent = new GameEvent("STARTGAMESETUP");
+					
+					System.out.println("Sending: " + startEvent.toJson());
+
+					model.network.sendAll(startEvent.toJson());
 			}
 			
 		});
 	
+		//THING BOWL BIND SETUP
+		thingBowl.setBind(model.bowl);
 		
 		//CHAT BIND SETUP
 		chatController.setBind(model.chat);
 		
 		//HEX GRID BIND SETUP
 		hexGridController.setBind(model.grid);
-		
-		//temporary as we do not know who is who in player order
-		playerOneRackController.setBind(model.localPlayer);
+				
+		model.gamePlayersManager.addObserver(new Observer() {
+
+			@Override
+			public void update(Observable arg0, Object arg1) {
+				playerOneRackController.setBind(model.gamePlayersManager.getPlayerByTurnIndex(0));
+				playerTwoRackController.setBind(model.gamePlayersManager.getPlayerByTurnIndex(1));
+				playerThreeRackController.setBind(model.gamePlayersManager.getPlayerByTurnIndex(2));
+				playerFourRackController.setBind(model.gamePlayersManager.getPlayerByTurnIndex(3));
+			}
+			
+		});
 		
 		
 		

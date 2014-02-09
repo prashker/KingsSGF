@@ -37,10 +37,7 @@ public class GameModel extends Observable {
 	public GameModel(Type modelType) {
 		this.modelType = modelType;
 		
-		//TEMPORARY REMIND TO REMOVE THIS FOR STUFF TO WORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-		grid.Demo1FixedGrid();
 		
-		//gameEventSetup(workerType);
 	}
 	
 	public void setNetwork(Networkable n) {

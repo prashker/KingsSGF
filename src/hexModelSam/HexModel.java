@@ -24,21 +24,20 @@ public class HexModel extends KNTObject {
 		}
 	};
 	
-	public final TileType type;
-	
-	//Reference to grid it is associated to (may not be needed)
-	public final HexGrid grid;
+	public TileType type;
 	
 	public HexModel(TileType t) {
 		type = t;
-		grid = null;
 	}
 	
+	//demo workaround
+	public void changeHex(TileType t, String id) {
+		this.type = t;
+		this.setId(id);
+	}
 	
-	//to be removed in the future, if we have time, Tile shouldn't need to know the grid...
-	public HexModel(TileType t, HexGrid g) {
-		type = t;
-		grid = g;
+	protected HexModel() {
+		
 	}
 	
 }

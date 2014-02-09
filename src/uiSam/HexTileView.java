@@ -1,8 +1,10 @@
 package uiSam;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import hexModelSam.HexModel;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.effect.DropShadow;
@@ -23,22 +25,41 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 
 	public HexModel tile;
 	
-	@Override
-	public void update(Observable o, Object arg) {
-		
+	public void initialize() {		
+		System.out.println("hextile controller");
+		System.out.println("hextile init with: " + this);
 	}
 
 	@Override
-	public void setBind(HexModel m) {
+	public void setBind(final HexModel m) {
 		if (m != null) {
 			tile = m;
-			tile.addObserver(this);
+			tile.addObserver(new Observer() {
+
+				@Override
+				public void update(Observable o, Object arg) {
+					updateBind(m);
+				}
+				
+			});
 		}
-		updateUI();
 		
-		//System.out.printf("%s bound to %s\n", this, m);
-		
+		updateBind(m);	
 		registerDraggability();
+	}
+	
+
+	@Override
+	public void updateBind(final HexModel m) {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				if (m != null) 
+					tileView.setImage(new Image(m.type + ".png"));	
+			}
+			
+		});		
 	}
 
 	private void registerDraggability() {
@@ -78,34 +99,6 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		});	
 		
 
-	}
-
-	@Override
-	public void updateUI() {
-		if (tile != null) 
-			tileView.setImage(new Image(tile.type + ".png"));	
-	}
-
-
-	public void initialize() {		
-		System.out.println("hextile controller");
-		System.out.println("hextile init with: " + this + " - ");
-
-
-		/*
-		tileView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-			}
-			
-		});
-		*/
-		
-	}
-	
-	public void dragDrop() {
-		System.out.println("Z");
 	}
 	
 }

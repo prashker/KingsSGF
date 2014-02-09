@@ -8,9 +8,11 @@ import hexModelSam.*;
 
 public class PlayerModel extends KNTObject {
 	
-	private ArrayList<Thing> rack = new ArrayList<Thing>();
+	public ArrayList<Thing> rack = new ArrayList<Thing>();
 	public HashMap<String, HexModel> ownedTiles = new HashMap<String, HexModel>();
 	public String name;
+	
+	private int gold = 0;
 	
 	public PlayerModel (String id) {
 		super(id);
@@ -66,6 +68,27 @@ public class PlayerModel extends KNTObject {
 		if (i < 0 || i > 10)
 			return null;
 		return rack.get(i); //may also return null
+	}
+	
+	public int getGold() {
+		return gold;
+	}
+	
+	public void setGold(int i) {
+		gold = i;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public final ArrayList<Thing> getRack() {
+		return rack;
+	}
+	
+	public void changeName(String name) {
+		this.name = name;
+		this.setChanged();
+		this.notifyObservers(name);
 	}
 
 }

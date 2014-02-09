@@ -3,6 +3,7 @@ package uiSam;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,28 +28,39 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 	@FXML private TextField chatInput;
 	@FXML private Button chatButton;
 	
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		//System.out.println("Got update");
-		
-		//chatArea.appendText((String) arg1);
-	}
 
 	@Override
-	public void setBind(Chat m) {
+	public void setBind(final Chat m) {
 		chat = m;
 
 		chat.addObserver(new Observer() {
-			public void update(Observable arg0, Object arg1) {
-				chatArea.appendText((String) arg1);				
+			public void update(Observable arg0, final Object arg1) {
+				Platform.runLater(new Runnable() {
+
+					@Override
+					public void run() {
+						chatArea.appendText((String) arg1);
+					}
+					
+				});
+				//chatArea.appendText((String) arg1);				
 			}
 		});
-		updateUI();
+		
 	}
-
+	
 	@Override
-	public void updateUI() {
-		//????
+	public void updateBind(final Chat m) {
+		/*
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				chatArea.appendText(m.lastMessage());
+			}
+			
+		});
+		*/
 	}
 	
 	public void initialize() {

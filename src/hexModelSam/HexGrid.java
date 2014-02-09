@@ -44,7 +44,7 @@ public class HexGrid extends KNTObject {
 		//to modify when 2 player if we do 2 player
 		for (int q = -3; q <=3; q++) {
 			for (int r = -3; r <=3; r++) {
-				setHexFromQR(q,r, new HexModel(HexModel.TileType.DesertTile, this));
+				setHexFromQR(q,r, new HexModel(HexModel.TileType.DesertTile));
 			}
 		}
 	}
@@ -91,7 +91,7 @@ public class HexGrid extends KNTObject {
 			
 			System.out.println();
 			
-			HexModel t = new HexModel(HexModel.TileType.JungleTile, this);
+			HexModel t = new HexModel(HexModel.TileType.JungleTile);
 			
 			System.out.println(t.type.name());
 		}
@@ -102,46 +102,61 @@ public class HexGrid extends KNTObject {
 		
 		
 		//there's a small mistake here, verify once grid is fixed
-		setHexFromQR(3,-3, new HexModel(HexModel.TileType.JungleTile, this));
-		setHexFromQR(3,-2, new HexModel(HexModel.TileType.SwampTile, this));
-		setHexFromQR(3,-1, new HexModel(HexModel.TileType.DesertTile, this));
-		setHexFromQR(3,0, new HexModel(HexModel.TileType.ForestTile, this));
-		setHexFromQR(2,1, new HexModel(HexModel.TileType.PlainsTile, this));
-		setHexFromQR(1,2, new HexModel(HexModel.TileType.ForestTile, this));
-		setHexFromQR(0,3, new HexModel(HexModel.TileType.FrozenWasteTile, this));
-		setHexFromQR(-1,3, new HexModel(HexModel.TileType.JungleTile, this));
-		setHexFromQR(-2,3, new HexModel(HexModel.TileType.MountainTile, this));
-		setHexFromQR(-3,3, new HexModel(HexModel.TileType.DesertTile, this));
-		setHexFromQR(-3,2, new HexModel(HexModel.TileType.PlainsTile, this));
-		setHexFromQR(-3,1, new HexModel(HexModel.TileType.JungleTile, this));
-		setHexFromQR(-3,0, new HexModel(HexModel.TileType.MountainTile, this));
-		setHexFromQR(-2,-1, new HexModel(HexModel.TileType.ForestTile, this));
-		setHexFromQR(-1,-2, new HexModel(HexModel.TileType.FrozenWasteTile, this));
-		setHexFromQR(0,-3, new HexModel(HexModel.TileType.DesertTile, this));
-		setHexFromQR(1,-3, new HexModel(HexModel.TileType.SwampTile, this));
-		setHexFromQR(2,-3, new HexModel(HexModel.TileType.MountainTile, this));
-		setHexFromQR(2,-2, new HexModel(HexModel.TileType.FrozenWasteTile, this));
-		setHexFromQR(2,-1, new HexModel(HexModel.TileType.MountainTile, this));
-		setHexFromQR(2,0, new HexModel(HexModel.TileType.FrozenWasteTile, this));
-		setHexFromQR(1,1, new HexModel(HexModel.TileType.SwampTile, this));
-		setHexFromQR(0,2, new HexModel(HexModel.TileType.DesertTile, this));
-		setHexFromQR(-1,2, new HexModel(HexModel.TileType.SwampTile, this));
-		setHexFromQR(-2,2, new HexModel(HexModel.TileType.ForestTile, this));
-		setHexFromQR(-2,1, new HexModel(HexModel.TileType.PlainsTile, this));
-		setHexFromQR(-2,0, new HexModel(HexModel.TileType.MountainTile, this));
-		setHexFromQR(-1,-1, new HexModel(HexModel.TileType.JungleTile, this));
-		setHexFromQR(0,-2, new HexModel(HexModel.TileType.PlainsTile, this));
-		setHexFromQR(1,-2, new HexModel(HexModel.TileType.PlainsTile, this));
-		setHexFromQR(1,-1, new HexModel(HexModel.TileType.ForestTile, this));
-		setHexFromQR(1,0, new HexModel(HexModel.TileType.JungleTile, this));
-		setHexFromQR(0,1, new HexModel(HexModel.TileType.PlainsTile, this));
-		setHexFromQR(-1,1, new HexModel(HexModel.TileType.SeaTile, this));
-		setHexFromQR(-1,0, new HexModel(HexModel.TileType.ForestTile, this));
-		setHexFromQR(0,-1, new HexModel(HexModel.TileType.SwampTile, this));
-		setHexFromQR(0,0, new HexModel(HexModel.TileType.FrozenWasteTile, this));
+		setHexFromQR(3,-3, new HexModel(HexModel.TileType.JungleTile));
+		setHexFromQR(3,-2, new HexModel(HexModel.TileType.SwampTile));
+		setHexFromQR(3,-1, new HexModel(HexModel.TileType.DesertTile));
+		setHexFromQR(3,0, new HexModel(HexModel.TileType.ForestTile));
+		setHexFromQR(2,1, new HexModel(HexModel.TileType.PlainsTile));
+		setHexFromQR(1,2, new HexModel(HexModel.TileType.ForestTile));
+		setHexFromQR(0,3, new HexModel(HexModel.TileType.FrozenWasteTile));
+		setHexFromQR(-1,3, new HexModel(HexModel.TileType.JungleTile));
+		setHexFromQR(-2,3, new HexModel(HexModel.TileType.MountainTile));
+		setHexFromQR(-3,3, new HexModel(HexModel.TileType.DesertTile));
+		setHexFromQR(-3,2, new HexModel(HexModel.TileType.PlainsTile));
+		setHexFromQR(-3,1, new HexModel(HexModel.TileType.JungleTile));
+		setHexFromQR(-3,0, new HexModel(HexModel.TileType.MountainTile));
+		setHexFromQR(-2,-1, new HexModel(HexModel.TileType.ForestTile));
+		setHexFromQR(-1,-2, new HexModel(HexModel.TileType.FrozenWasteTile));
+		setHexFromQR(0,-3, new HexModel(HexModel.TileType.DesertTile));
+		setHexFromQR(1,-3, new HexModel(HexModel.TileType.SwampTile));
+		setHexFromQR(2,-3, new HexModel(HexModel.TileType.MountainTile));
+		setHexFromQR(2,-2, new HexModel(HexModel.TileType.FrozenWasteTile));
+		setHexFromQR(2,-1, new HexModel(HexModel.TileType.MountainTile));
+		setHexFromQR(2,0, new HexModel(HexModel.TileType.FrozenWasteTile));
+		setHexFromQR(1,1, new HexModel(HexModel.TileType.SwampTile));
+		setHexFromQR(0,2, new HexModel(HexModel.TileType.DesertTile));
+		setHexFromQR(-1,2, new HexModel(HexModel.TileType.SwampTile));
+		setHexFromQR(-2,2, new HexModel(HexModel.TileType.ForestTile));
+		setHexFromQR(-2,1, new HexModel(HexModel.TileType.PlainsTile));
+		setHexFromQR(-2,0, new HexModel(HexModel.TileType.MountainTile));
+		setHexFromQR(-1,-1, new HexModel(HexModel.TileType.JungleTile));
+		setHexFromQR(0,-2, new HexModel(HexModel.TileType.PlainsTile));
+		setHexFromQR(1,-2, new HexModel(HexModel.TileType.PlainsTile));
+		setHexFromQR(1,-1, new HexModel(HexModel.TileType.ForestTile));
+		setHexFromQR(1,0, new HexModel(HexModel.TileType.JungleTile));
+		setHexFromQR(0,1, new HexModel(HexModel.TileType.PlainsTile));
+		setHexFromQR(-1,1, new HexModel(HexModel.TileType.SeaTile));
+		setHexFromQR(-1,0, new HexModel(HexModel.TileType.ForestTile));
+		setHexFromQR(0,-1, new HexModel(HexModel.TileType.SwampTile));
+		setHexFromQR(0,0, new HexModel(HexModel.TileType.FrozenWasteTile));
 		
 
 		
 	}
+	
+	public void replaceHexGrid(HexModel[][] toReplace) {
+		for (int y = 0; y < toReplace[0].length; y++) {
+			for (int x = 0; x < toReplace[y].length; x++) {
+				if (grid[y][x] != null)
+					grid[y][x].changeHex(toReplace[y][x].type, toReplace[y][x].getId());
+			}
+		}
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	//replace hex
+	//replace grid by instance vars
+	
 
 }

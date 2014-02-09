@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import counterModelSam.CreatureThing;
 import counterModelSam.Thing;;
 
@@ -69,14 +71,32 @@ public class ThingBowlModel extends KNTObject implements Observer {
 		thingsInBowl.add(new CreatureThing("Cyclops", TileType.MountainTile, 5, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("Goblins", TileType.MountainTile, 1, false, false, false, false, false, false));
-
 		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
+	public void addThingToBowl(Thing t) {
+		thingsInBowl.add(t);
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	@JsonIgnore
 	public Thing getTopThing() {
 		//if empty return randomly generated
 		//future though
-		return thingsInBowl.removeFirst();
+		Thing tmp = thingsInBowl.removeFirst();
+		
+		this.setChanged();
+		this.notifyObservers();
+		
+		return tmp;
+	}
+	
+	public LinkedList<Thing> getBowl() {
+		return thingsInBowl;
 	}
 	
 	
@@ -94,6 +114,7 @@ public class ThingBowlModel extends KNTObject implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		//why???????
 		System.out.println(arg0 + ":::" + arg1);
 	}
 	

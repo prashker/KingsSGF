@@ -63,6 +63,10 @@ public abstract class Thing extends Counter {
 		this(name, terrain, value, false, false, false, false, false, false);
 	}
 	
+	protected Thing() {
+		
+	}
+	
 
 	
 	

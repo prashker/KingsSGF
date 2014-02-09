@@ -16,6 +16,7 @@ public class Players extends KNTObject {
 		public ArrayList<String> playerOrder = new ArrayList<String>();
 		
 		public Players() {
+			
 		}
 		
 		public void addPlayer(PlayerModel p) {
@@ -36,6 +37,15 @@ public class Players extends KNTObject {
 		
 		public int numPlayers() {
 			return players.size();
+		}
+		
+		public PlayerModel getPlayerByTurnIndex(int i) {
+			try { 
+				return players.get(playerOrder.get(i));
+			}
+			catch (IndexOutOfBoundsException e) {
+				return null;
+			}
 		}
 		
 		/*
@@ -67,6 +77,12 @@ public class Players extends KNTObject {
 		
 		public boolean isThisPlayerTurn(PlayerModel p) {
 			return (p.getId() == playerOrder.get(currentPlayerIndex));
+		}
+
+		public void addPlayerOrder(String id) {
+			playerOrder.add(id);
+			this.setChanged();
+			this.notifyObservers();
 		}
 
 

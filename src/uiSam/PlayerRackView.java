@@ -2,8 +2,10 @@ package uiSam;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 import modelTestSam.PlayerModel;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,35 +34,55 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 	@FXML private ThingView positionTen;
 	
 	@FXML private Label playerNameLabel;
+	@FXML private Label goldLabel;
 	
 	
 	public PlayerModel player; //future, ArrayList<ThingModel> player.rack?
 	
 	public ArrayList<ThingView> cells = new ArrayList<ThingView>();
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		setBind(player);
-	}
 
 	@Override
-	public void setBind(PlayerModel m) {
-		player = m;
-		player.addObserver(this);
+	public void setBind(final PlayerModel m) {
 		
-		for (int i = 0; i < 10; i++) {
-			rackViewArray.get(i).setBind(m.getThingFromRack(i));
+		if (m == null) {
+			this.setDisable(true);
+			
 		}
+		else {
+			this.setDisable(false);
+			player = m;
+			
+			player.addObserver(new Observer() {
+
+				@Override
+				public void update(Observable arg0, Object arg1) {
+					updateBind(m);
+				}
+				
+			});
+			
+			updateBind(m);
 		
-		playerNameLabel.setText(player.name);
-		
-		updateUI();
+		}
+	}
+	
+	public void updateBind(final PlayerModel m) {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				for (int i = 0; i < 10; i++) {
+					rackViewArray.get(i).setBind(m.getThingFromRack(i));
+				}
+				
+				playerNameLabel.setText(m.name);
+				goldLabel.setText("" + m.getGold());
+				
+			}
+			
+		});		
 	}
 
-	@Override
-	public void updateUI() {
-		//What to do here???
-	}
 	
 	public void initialize() {
 		rackViewArray.add(positionOne);

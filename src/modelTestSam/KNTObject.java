@@ -13,7 +13,7 @@ public abstract class KNTObject extends Observable {
 	//There are some concepts needed for network communication that need to be universal (the concept of a UUID for 2 different objects across PCs)
 	//Additionally the Observable property. Will be handy when doing major UI stuff.
 	
-	private final String id;
+	private String id;
 	private boolean isVisible;
 	
 	public KNTObject() {
@@ -24,6 +24,10 @@ public abstract class KNTObject extends Observable {
 	public KNTObject(String id) {
 		this.id = id;
 		setVisible(true);
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public String getId() {

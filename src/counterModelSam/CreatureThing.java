@@ -57,5 +57,9 @@ public class CreatureThing extends Thing {
 		super(name, terrain, value, isFlying, isMagic, isCharge, isRange, isSpecial, isMulti);
 	}
 	
+	protected CreatureThing() {
+		
+	}
+	
 	
 }
