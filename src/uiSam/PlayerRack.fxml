@@ -59,7 +59,7 @@
         <Image url="WIP.png" />
       </image>
     </ThingView>
-    <ThingView id="positionTenX" fx:id="positionTen" fitHeight="58.0" fitWidth="58.0" layoutX="260.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+    <ThingView fx:id="positionTen" fitHeight="58.0" fitWidth="58.0" layoutX="260.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="WIP.png" />
       </image>

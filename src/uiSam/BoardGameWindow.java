@@ -23,6 +23,9 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
@@ -110,7 +113,7 @@ public class BoardGameWindow extends VBox implements Observer {
 				}
 			}
 		});
-		
+				
 		this.joinMenu.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -125,7 +128,7 @@ public class BoardGameWindow extends VBox implements Observer {
 			}
 			
 		});
-		
+	
 		
 		//CHAT BIND SETUP
 		chatController.setBind(model.chat);

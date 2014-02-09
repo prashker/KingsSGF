@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -124,9 +125,7 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 		});
 		
 		hookBind(m);
-		
-
-		
+			
 	}
 	
 	public void hookBind(HexGrid m) {

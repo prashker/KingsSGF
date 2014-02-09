@@ -65,6 +65,12 @@ public class ThingBowlModel extends KNTObject implements Observer {
 		thingsInBowl.add(new CreatureThing("GiantApe", TileType.DesertTile, 5, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("BuffaloHerd", TileType.PlainsTile, 3, false, false, false, false, false, false));
 		
+		//buyables
+		thingsInBowl.add(new CreatureThing("Cyclops", TileType.MountainTile, 5, false, false, false, false, false, false));
+		thingsInBowl.add(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false));
+		thingsInBowl.add(new CreatureThing("Goblins", TileType.MountainTile, 1, false, false, false, false, false, false));
+
+		
 	}
 	
 	public Thing getTopThing() {
