@@ -27,7 +27,7 @@ public class GameModel extends Observable {
 	
 	public HexGrid grid = new HexGrid();
 	public ThingBowlModel bowl = new ThingBowlModel();
-	//public Bank bank;
+	public Bank bank;
 	
 	public Chat chat = new Chat();
 	

@@ -1,6 +1,7 @@
 package hexModelSam;
 
 import modelTestSam.KNTObject;
+import modelTestSam.PlayerModel;
 
 public class HexModel extends KNTObject {
 	
@@ -24,6 +25,8 @@ public class HexModel extends KNTObject {
 		}
 	};
 	
+	private PlayerModel owner = null;
+	
 	public TileType type;
 	
 	public HexModel(TileType t) {
@@ -34,6 +37,21 @@ public class HexModel extends KNTObject {
 	public void changeHex(TileType t, String id) {
 		this.type = t;
 		this.setId(id);
+		
+		//this.setChanged(); maybe
+		//this.notifyObservers();
+	}
+	
+	public void takeOwnership(PlayerModel p) {	
+		if (owner == null) {		
+			owner = p;
+			this.setChanged();
+			this.notifyObservers();
+		}
+	}
+	
+	public PlayerModel getOwner() {
+		return owner;
 	}
 	
 	protected HexModel() {

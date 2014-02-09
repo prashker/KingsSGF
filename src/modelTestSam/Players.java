@@ -61,7 +61,8 @@ public class Players extends KNTObject {
 		*/
 		
 		
-		public int nextPlayerTurn() {
+		//Boolean based on if it is the end of X players doing their round (SHIFTING)
+		public boolean nextPlayerTurn() {
 			//continually loop over the player turn order
 			currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
 			
@@ -69,20 +70,49 @@ public class Players extends KNTObject {
 			if (currentPlayerIndex == firstPlayerIndex) {
 				firstPlayerIndex = (firstPlayerIndex + 1) % playerOrder.size();
 				currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
+				return true;
 			}
 			
 			
-			return currentPlayerIndex;
+			return false;
+		}
+		
+		public boolean nextPlayerTurnNoShifting() {
+			//continually loop over the player turn order
+			currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
+			
+			if (currentPlayerIndex == firstPlayerIndex) {
+				return true;
+			}
+			
+			
+			return false;
 		}
 		
 		public boolean isThisPlayerTurn(PlayerModel p) {
 			return (p.getId() == playerOrder.get(currentPlayerIndex));
 		}
-
+		
+		public boolean isThisPlayerTurn(String id) {		
+			return (id.equals(getPlayerByTurn().getId()));
+		}
+		
+		public PlayerModel getPlayerByTurn() {
+			return players.get(playerOrder.get(currentPlayerIndex));
+		}
+		
 		public void addPlayerOrder(String id) {
 			playerOrder.add(id);
 			this.setChanged();
 			this.notifyObservers();
+		}
+		
+		public int whatPlayerIs(PlayerModel p) {
+			return whatPlayerIs(p.getId());
+		}
+		
+		public int whatPlayerIs(String id) {
+			return playerOrder.indexOf(id);
 		}
 
 

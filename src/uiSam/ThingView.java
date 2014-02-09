@@ -40,9 +40,7 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 		}
 		
 		updateBind(m);
-		
-		registerDragability();
-		
+				
 	}
 	
 	@Override
@@ -57,6 +55,8 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 			}
 
 		});
+		
+		registerDragability();
 	}
 
 	private void registerDragability() {

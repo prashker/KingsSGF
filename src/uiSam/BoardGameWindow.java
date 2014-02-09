@@ -50,7 +50,7 @@ public class BoardGameWindow extends VBox implements Observer {
 	}
 	
 	
-	private GameModel model; //we need this initial reference (HOWEVER OBSERVER PATTERN FORBIDS THIS FOR NOW)
+	public GameModel model; //we need this initial reference (HOWEVER OBSERVER PATTERN FORBIDS THIS FOR NOW)
 	private GameClient client;
 	
 	public String host;
@@ -70,6 +70,8 @@ public class BoardGameWindow extends VBox implements Observer {
 	@FXML private MenuItem startMenu;
 	
 	@FXML private ChatView chatController;
+	
+	@FXML private BankView bankController;
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -135,6 +137,8 @@ public class BoardGameWindow extends VBox implements Observer {
 		
 		//HEX GRID BIND SETUP
 		hexGridController.setBind(model.grid);
+		
+		bankController.setBind(model.bank);
 				
 		model.gamePlayersManager.addObserver(new Observer() {
 

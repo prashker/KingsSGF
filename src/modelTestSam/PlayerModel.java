@@ -8,11 +8,21 @@ import hexModelSam.*;
 
 public class PlayerModel extends KNTObject {
 	
+	public static enum PlayerType {
+		PlayerOneCounter,
+		PlayerTwoCounter,
+		PlayerThreeCounter,
+		PlayerFourCounter
+	}
+	
 	public ArrayList<Thing> rack = new ArrayList<Thing>();
-	public HashMap<String, HexModel> ownedTiles = new HashMap<String, HexModel>();
-	public String name;
+	//public ArrayList<String> ownedTiles = new ArrayList<String>(); needed?
+	public String name; //to make private
 	
 	private int gold = 0;
+	
+	private PlayerType controlMarker = null;
+	
 	
 	public PlayerModel (String id) {
 		super(id);
@@ -90,5 +100,23 @@ public class PlayerModel extends KNTObject {
 		this.setChanged();
 		this.notifyObservers(name);
 	}
+	
+	public void setControlMarker(PlayerType marker) {
+		controlMarker = marker;
+		
+		//notify needed?
+		//this.setChanged();
+		//this.notifyObservers();
+	}
+	
+	public PlayerType getControlMarker() {
+		return controlMarker;
+	}
+	
+	/*
+	public void addOwnedTile(String tileId) {
+		ownedTiles.add(tileId);
+	}
+	*/
 
 }

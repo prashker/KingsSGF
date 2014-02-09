@@ -114,8 +114,11 @@ public class GameBoardSetupPhase extends GamePhase {
 	@Override
 	public void nextPhaseIfTime() {
 		if (gavePlayersTheInfo) {
-			removeHandlers();
 			referenceToModel.chat.sysMessage("All player starter materials given. +10 Gold");
+			
+
+			removeHandlers();
+			referenceToModel.state = new StartGameControlHexesPhase(referenceToModel);
 		}
 	}
 

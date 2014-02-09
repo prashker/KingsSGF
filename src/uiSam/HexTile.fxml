@@ -15,6 +15,7 @@
 
 <HexTileView prefHeight="104.59414672851562" prefWidth="116.81314931640372" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.HexTileView">
   <children>
-    <ImageView fx:id="tileView" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="tileView" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="0.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="controlZone" fitHeight="40.0" fitWidth="40.0" layoutX="0.0" layoutY="32.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
   </children>
 </HexTileView>

@@ -163,7 +163,7 @@ public class HexGridView extends AnchorPane implements KingsAndThingsView<HexGri
 				hex37Controller.setBind(m.getHexFromQR(0,0));
 			}
 			
-		});		
+		});
 		
 	}
 

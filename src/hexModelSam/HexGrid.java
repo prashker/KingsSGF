@@ -15,6 +15,7 @@ public class HexGrid extends KNTObject {
 	private final int radius;
 	
 	
+	//public ArrayList<String, HexModel> hexMapById; future, so hold on tight and hold me close, you're my hero, ponyo ponyo fishy in the sea
 	public HexModel grid[][];
 	
 	//4 Player:
@@ -142,6 +143,18 @@ public class HexGrid extends KNTObject {
 		
 
 		
+	}
+	
+	public HexModel searchByID(String id) {
+		//n time but no way around this yet (until hashmap)
+		for (int y = 0; y < grid[0].length; y++) {
+			for (int x = 0; x < grid[y].length; x++) {
+				if (grid[y][x] != null && grid[y][x].getId().equals(id))
+					return grid[y][x];
+			}
+		}
+		
+		return null;
 	}
 	
 	public void replaceHexGrid(HexModel[][] toReplace) {

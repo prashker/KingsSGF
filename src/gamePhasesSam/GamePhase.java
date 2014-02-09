@@ -51,4 +51,5 @@ public abstract class GamePhase {
 			referenceToModel.network.getLoop().deregister(handler);
 		}
 	}
+	
 }

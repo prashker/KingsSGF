@@ -3,6 +3,8 @@ package uiSam;
 import java.util.Observable;
 import java.util.Observer;
 
+import modelTestSam.GameEvent;
+import gamePhasesSam.StartGameControlHexesPhase;
 import hexModelSam.HexModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -21,7 +23,10 @@ import javafx.scene.paint.Color;
 
 public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 	
-	@FXML public ImageView tileView = new ImageView();
+	@FXML public ImageView tileView;
+	@FXML public ImageView controlZone;
+	
+	
 
 	public HexModel tile;
 	
@@ -45,7 +50,6 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		}
 		
 		updateBind(m);	
-		registerDraggability();
 	}
 	
 
@@ -55,8 +59,14 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 
 			@Override
 			public void run() {
-				if (m != null) 
+				if (m != null)  {
 					tileView.setImage(new Image(m.type + ".png"));	
+					
+					if (m.getOwner() != null)
+						controlZone.setImage(new Image(tile.getOwner().getControlMarker().toString() + ".png"));
+					
+					registerDraggability();
+				}
 			}
 			
 		});		
@@ -64,14 +74,32 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 
 	private void registerDraggability() {
 				
-		
 		this.tileView.setOnDragDropped(new EventHandler<DragEvent>() {
 			@Override
 			public void handle(DragEvent event) {
 				Dragboard db = event.getDragboard();
 				String string = db.getString();
 				
-				System.out.println("DROP: " + string);
+				System.out.printf("Tile %s just had %s dropped on it\n", tile.getId(), string);
+				System.out.println("String dropped: " + string);
+				System.out.println("Game Phase: " + BoardGameWindow.getInstance().model.state);
+				
+				
+				//VERY HACKED WAY TO DOING THIS, BUT ONLY WAY I CAN THINK OF AT THE MOMENT
+				//future: switch statement based on model.getState()
+				
+				if (string.equals("CONTROLMARKER")) {
+					System.out.println("Dragged a control marker");
+					if (BoardGameWindow.getInstance().model.state instanceof StartGameControlHexesPhase) {
+						System.out.println("Right phase to drop the control marker");
+						GameEvent placeControlHex = new GameEvent("PLACECONTROL");
+						placeControlHex.put("HEX", tile.getId());
+						BoardGameWindow.getInstance().networkMessageSend(placeControlHex);
+					}
+				}
+				
+				event.setDropCompleted(true);
+				
 			}
 			
 		});

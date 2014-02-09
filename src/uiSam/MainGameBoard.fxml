@@ -60,6 +60,7 @@
             <Image url="Bowl.png" />
           </image>
         </ThingBowlView>
+        <fx:include fx:id="bank" source="Bank.fxml" layoutX="212.0" layoutY="12.0" />
         <fx:include fx:id="playerOneRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="35.0" />
         <fx:include fx:id="playerTwoRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="163.0" />
         <fx:include fx:id="playerThreeRack" source="PlayerRack.fxml" layoutX="679.0" layoutY="295.0" />

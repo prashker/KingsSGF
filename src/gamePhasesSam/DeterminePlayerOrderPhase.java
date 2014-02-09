@@ -15,6 +15,7 @@ import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
 import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
+import modelTestSam.PlayerModel.PlayerType;
 
 public class DeterminePlayerOrderPhase extends GamePhase {
 	
@@ -83,7 +84,6 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 	@Override
 	public void nextPhaseIfTime() {
 		if (referenceToModel.gamePlayersManager.players.size() == playerRolls.size()) {
-			System.out.println("Player order established: ");
 			
 			Collections.sort(playerRolls, new Comparator<RollPlayerPair>() {
 
@@ -103,6 +103,11 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 				
 				referenceToModel.gamePlayersManager.addPlayerOrder(orderedRoll.p.getId());
 				r++;
+			}
+			
+			PlayerType[] enumArray = PlayerType.values();
+			for (int i = 0; i < referenceToModel.gamePlayersManager.numPlayers(); i++) {
+				referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i).setControlMarker(enumArray[i]);
 			}
 			
 			removeHandlers();
