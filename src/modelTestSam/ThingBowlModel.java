@@ -56,12 +56,12 @@ public class ThingBowlModel extends KNTObject implements Observer {
 		thingsInBowl.add(new CreatureThing("GreatHunter", TileType.PlainsTile, 4, false, false, false, true, false, false));
 		thingsInBowl.add(new CreatureThing("Nomads", TileType.DesertTile, 1, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("WitchDoctor", TileType.JungleTile, 2, false, false, false, false, true, false));
-		thingsInBowl.add(new CreatureThing("Tribesman", TileType.PlainsTile, 2, false, false, false, false, false, false));
+		thingsInBowl.add(new CreatureThing("Tribesmen", TileType.PlainsTile, 2, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("Villains", TileType.PlainsTile, 2, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("Tigers", TileType.JungleTile, 3, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("VampireBat", TileType.SwampTile, 4, true, false, false, false, false, false));
-		thingsInBowl.add(new CreatureThing("Tribesman", TileType.PlainsTile, 2, false, false, false, false, false, false));
+		thingsInBowl.add(new CreatureThing("Tribesmen", TileType.PlainsTile, 2, false, false, false, false, false, false));
 		thingsInBowl.add(new CreatureThing("DarkWizard", TileType.SwampTile, 1, true, false, false, false, true, false));
 		thingsInBowl.add(new CreatureThing("BlackKnight", TileType.SwampTile, 3, false, false, true, false, false, false));
 		thingsInBowl.add(new CreatureThing("GiantApe", TileType.DesertTile, 5, false, false, false, false, false, false));
