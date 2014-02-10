@@ -22,11 +22,11 @@ public class RecruitThingsPhase extends GamePhase {
 		super(m);
 		
 		for (PlayerModel p: m.gamePlayersManager.players.values()) {
-			int howManyFree = round(m.grid.searchForAllOwnedByPlayer(p).size(), 2) / 2;
+			int howManyFree = roundHelper(m.grid.searchForAllOwnedByPlayer(p).size(), 2) / 2;
 			
 			numFreeMoves.put(p, howManyFree);
 			
-			System.out.printf("Player %s has %d free picks", p.name, howManyFree);
+			System.out.printf("Player %s has %d free picks\n", p.name, howManyFree);
 		}
 
 		referenceToModel.chat.sysMessage("Recruit Things Phase");
@@ -56,8 +56,10 @@ public class RecruitThingsPhase extends GamePhase {
 					if (freePicks > 0) {
 						numFreeMoves.put(playerFound, freePicks - 1);
 						referenceToModel.chat.sysMessage(playerFound.name + " got a Free Thing from the bowl");
+						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 					}
-					else {
+					else if (playerFound.getGold() > 5) {
+						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 						playerFound.decrementGold(5);
 						referenceToModel.chat.sysMessage(playerFound.name + " bought a Thing from the bowl");
 					}
@@ -141,14 +143,15 @@ public class RecruitThingsPhase extends GamePhase {
 					
 					int freePicks = numFreeMoves.get(playerFound);
 					
-					playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 					
 					//Free pick
 					if (freePicks > 0) {
 						numFreeMoves.put(playerFound, freePicks - 1);
 						referenceToModel.chat.sysMessage(playerFound.name + " got a Free Thing from the bowl");
+						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 					}
-					else {
+					else if (playerFound.getGold() > 5) {
+						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 						playerFound.decrementGold(5);
 						referenceToModel.chat.sysMessage(playerFound.name + " bought a Thing from the bowl");
 					}
@@ -214,11 +217,11 @@ public class RecruitThingsPhase extends GamePhase {
 		if (ended == referenceToModel.gamePlayersManager.numPlayers()) {
 			referenceToModel.chat.sysMessage("All things collected from bowl");
 			removeHandlers();
-
+			referenceToModel.state = new MovementPhase(referenceToModel);
 		}
 	}
 	
-	public int round(int num, int multipleOf) {
+	public int roundHelper(int num, int multipleOf) {
 		  return Math.round((num + multipleOf/2) / multipleOf) * multipleOf;
 	}
 

@@ -72,7 +72,43 @@ public class ConnectDialog extends GridPane {
 	
 	@FXML
 	public void hostButtonClick() {
+		int port = Integer.parseInt(portField.getText());
+				
 		
+		Parent root;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("HostWindow.fxml"));
+			root = (Parent) loader.load();	
+			Stage stage = new Stage();
+			stage.setTitle("KINGS AND THINGS Server Port: " + port);
+			stage.setScene(new Scene(root));
+			stage.setResizable(false);
+			
+			Stage s = (Stage) hostButton.getScene().getWindow();
+			s.close();
+
+
+			final HostWindow gameWindow = loader.getController();
+			
+			stage.show();
+			
+			gameWindow.connect(null, port);
+			
+			stage.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+				@Override
+				public void handle(WindowEvent arg0) {
+					System.out.println("Killing server");
+					gameWindow.killNetwork();
+				}
+				
+			});
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

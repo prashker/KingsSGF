@@ -22,6 +22,7 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 	
 	@FXML ImageView controlMarker;
 	@FXML ImageView towerMarker;
+	@FXML ImageView combatMarker;
 	
 	@FXML ImageView dragImageView = new ImageView(); //draggable resource
 
@@ -50,8 +51,10 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 			public void run() {
 				controlMarker.setImage(new Image("ControlMarker.png"));	
 				towerMarker.setImage(new Image("Tower.png"));
+				combatMarker.setImage(new Image("BattleCounter.png"));
 				registerDragability(controlMarker, "CONTROLMARKER");
 				registerDragability(towerMarker, "TOWERMARKER");
+				registerDragability(combatMarker, "COMBATMARKER");
 			}
 
 		});

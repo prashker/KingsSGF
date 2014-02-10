@@ -26,11 +26,11 @@ public class GameServer extends Thread implements Networkable {
 	public Thread gameLoopThread = null;
 	
  
-	GameServer(int port) throws IOException {
+	public GameServer(int port) throws IOException {
 		this.port = port;
 	}
 	
-	GameServer(int port, GameModel m) {
+	public GameServer(int port, GameModel m) {
 		this.port = port;
 		this.gameModel = m;
 		this.gameLoop = new NetworkedJSONGameLoop();

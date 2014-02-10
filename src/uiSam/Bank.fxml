@@ -17,5 +17,6 @@
   <children>
     <ImageView fx:id="controlMarker" fitHeight="55.0" fitWidth="55.0" layoutX="325.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="towerMarker" fitHeight="36.0" fitWidth="36.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView id="towerMarker" fx:id="combatMarker" fitHeight="36.0" fitWidth="36.0" layoutX="36.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
   </children>
 </BankView>
