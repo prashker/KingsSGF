@@ -32,6 +32,14 @@ public abstract class Thing extends Counter {
 	
 	
 	public Thing(String name, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
+		setAfter(name, terrain, value, isFlying, isMagic, isCharge, isRange, isSpecial, isMulti);
+	}
+	
+	public Thing(String name, TileType terrain, int value) {
+		setAfter(name, terrain, value, false, false, false, false, false, false);
+	}
+	
+	public void setAfter(String name, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
 		this.name = name;
 		this.validTerrain = terrain;
 		this.value = value;
@@ -56,11 +64,6 @@ public abstract class Thing extends Counter {
 			this.abilitySet.add(ThingAbility.MULTIHIT);
 			this.hitValue = value;
 		}
-		
-	}
-	
-	public Thing(String name, TileType terrain, int value) {
-		this(name, terrain, value, false, false, false, false, false, false);
 	}
 	
 	protected Thing() {

@@ -1,5 +1,7 @@
 package modelTestSam;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JacksonSingleton {
@@ -15,6 +17,7 @@ public class JacksonSingleton {
 	    	  //https://github.com/FasterXML/jackson-docs/wiki/JacksonPolymorphicDeserialization
 	    	  //Support for polymorphic deserialization
 	    	  instance.enableDefaultTyping();
+	    	  instance.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 	      }
 	      return instance;
 	   }

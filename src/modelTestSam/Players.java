@@ -71,8 +71,7 @@ public class Players extends KNTObject {
 				firstPlayerIndex = (firstPlayerIndex + 1) % playerOrder.size();
 				currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
 				return true;
-			}
-			
+			}	
 			
 			return false;
 		}
@@ -87,6 +86,10 @@ public class Players extends KNTObject {
 			
 			
 			return false;
+		}
+		
+		public boolean isStartOfTurns() {
+			return (currentPlayerIndex == firstPlayerIndex);
 		}
 		
 		public boolean isThisPlayerTurn(PlayerModel p) {

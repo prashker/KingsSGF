@@ -1,5 +1,10 @@
 package hexModelSam;
 
+import java.util.ArrayList;
+
+import counterModelSam.Fort;
+import counterModelSam.Thing;
+import counterModelSam.ThingStack;
 import modelTestSam.KNTObject;
 import modelTestSam.PlayerModel;
 
@@ -17,6 +22,7 @@ public class HexModel extends KNTObject {
 		PlainsTile,
 		SeaTile,
 		SwampTile,
+		FaceDownTile,
 		NONTYPE; //might be needed for a Thing's Terrain Type (maybe)
 		
 		//http://stackoverflow.com/questions/8114174/how-to-randomize-enum-elements
@@ -26,11 +32,29 @@ public class HexModel extends KNTObject {
 	};
 	
 	private PlayerModel owner = null;
+	private Fort fort = null;
+	
+	
+	//PRIVATE IN THE FUTURE
+	public ArrayList<ThingStack> stackByPlayer = new ArrayList<ThingStack>();
+
+	public void addPlayerOwnedThingToHex(Thing t, int playerId) {
+		stackByPlayer.get(playerId).addThingToStack(t);
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
 	
 	public TileType type;
 	
 	public HexModel(TileType t) {
 		type = t;
+		
+		//four players max (better yet this should be some hash based on the players anyways, but...)
+		stackByPlayer.add(new ThingStack());
+		stackByPlayer.add(new ThingStack());
+		stackByPlayer.add(new ThingStack());
+		stackByPlayer.add(new ThingStack());
 	}
 	
 	//demo workaround
@@ -50,12 +74,27 @@ public class HexModel extends KNTObject {
 		}
 	}
 	
+	public void setFort(Fort f) {
+		fort = f;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public Fort getFort() {
+		return fort;
+	}
+	
 	public PlayerModel getOwner() {
 		return owner;
 	}
 	
+	public String toString() {
+		return "Tile: " + type.toString();
+	}
+	
 	protected HexModel() {
-		
+
 	}
 	
 }

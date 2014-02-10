@@ -2,6 +2,9 @@ package modelTestSam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import counterModelSam.Thing;
 import hexModelSam.*;
@@ -21,7 +24,7 @@ public class PlayerModel extends KNTObject {
 	
 	private int gold = 0;
 	
-	private PlayerType controlMarker = null;
+	private PlayerType controlMarker = PlayerType.PlayerOneCounter;
 	
 	
 	public PlayerModel (String id) {
@@ -65,13 +68,27 @@ public class PlayerModel extends KNTObject {
 	}
 	
 	public void removeThing(Thing t) {
-		/*
-		for (int i=0; i < 10; i++) {
-			
+		if (rack.remove(t)) {
+			System.out.println("Removed succesfully");
 		}
-		*/
 		
+		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public Thing removeThingById(String id) {
+		for (int i = 0; i < rack.size(); i++) {
+			if (rack.get(i) != null) {
+				if (rack.get(i).getId().equals(id)) {
+					Thing x = rack.set(i, null);
+					
+					this.setChanged();
+					this.notifyObservers();
+					return x;
+				}
+			}
+		}
+		return null;
 	}
 	
 	public Thing getThingFromRack(int i) {
@@ -86,6 +103,13 @@ public class PlayerModel extends KNTObject {
 	
 	public void setGold(int i) {
 		gold = i;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void incrementGold(int i) {
+		gold = gold + i;
 		
 		this.setChanged();
 		this.notifyObservers();
@@ -111,6 +135,11 @@ public class PlayerModel extends KNTObject {
 	
 	public PlayerType getControlMarker() {
 		return controlMarker;
+	}
+	
+	@JsonIgnore
+	public int getMyTurnOrder(){
+		return PlayerType.valueOf(controlMarker.toString()).ordinal();
 	}
 	
 	/*

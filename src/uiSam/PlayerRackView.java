@@ -43,13 +43,7 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 
 	@Override
 	public void setBind(final PlayerModel m) {
-		
-		if (m == null) {
-			this.setDisable(true);
-			
-		}
-		else {
-			this.setDisable(false);
+		if (m != null) {
 			player = m;
 			
 			player.addObserver(new Observer() {

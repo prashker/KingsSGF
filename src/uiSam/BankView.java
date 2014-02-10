@@ -21,6 +21,7 @@ import modelTestSam.Bank;
 public class BankView extends Pane implements KingsAndThingsView<Bank> {
 	
 	@FXML ImageView controlMarker;
+	@FXML ImageView towerMarker;
 	
 	@FXML ImageView dragImageView = new ImageView(); //draggable resource
 
@@ -48,24 +49,26 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 			@Override
 			public void run() {
 				controlMarker.setImage(new Image("ControlMarker.png"));	
-				registerDraggability();
+				towerMarker.setImage(new Image("Tower.png"));
+				registerDragability(controlMarker, "CONTROLMARKER");
+				registerDragability(towerMarker, "TOWERMARKER");
 			}
 
 		});
 
 	}
 	
-	private void registerDraggability() {
+	private void registerDragability(final ImageView element, final String data) {
 		
-		dragImageView.setImage(controlMarker.getImage());
-        dragImageView.setFitHeight(50);
-        dragImageView.setFitWidth(50);
-        	
-		final VBox mainGameSomehow = (VBox) controlMarker.getScene().getRoot();
+		final VBox mainGameSomehow = (VBox) element.getScene().getRoot();
 		
-        controlMarker.setOnDragDetected(new EventHandler<MouseEvent>() {
+        element.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
+            	
+        		dragImageView.setImage(element.getImage());
+                dragImageView.setFitHeight(50);
+                dragImageView.setFitWidth(50);
 
                 if (!mainGameSomehow.getChildren().contains(dragImageView)) {
                     mainGameSomehow.getChildren().add(dragImageView);
@@ -77,10 +80,10 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
                 dragImageView.setVisible(true);		
                 
                 
-                Dragboard db = controlMarker.startDragAndDrop(TransferMode.ANY);
+                Dragboard db = element.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
 
-                content.putString("CONTROLMARKER");
+                content.putString(data);
 
                 db.setContent(content);
                 
@@ -102,13 +105,13 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
             }
         });		
         
-		controlMarker.setOnDragDone(new EventHandler<DragEvent>() {
+		element.setOnDragDone(new EventHandler<DragEvent>() {
 			public void handle(DragEvent e) {
 				dragImageView.setVisible(false);
-				e.consume();
-				//mainGameSomehow.getChildren().remove(dragImageView); memory optimization???
 			}
 		});
+		
+		
 		
 	}
 

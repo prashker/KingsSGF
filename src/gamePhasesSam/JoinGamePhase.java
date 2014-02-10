@@ -23,17 +23,6 @@ public class JoinGamePhase extends GamePhase {
 	}
 
 	@Override
-	public void nextPhaseIfTime() {
-		
-		if (referenceToModel.gamePlayersManager.numPlayers() == referenceToModel.howManyPlayers) {
-			System.out.printf("%d PLayers, New Phase\n", referenceToModel.gamePlayersManager.numPlayers());
-			removeHandlers();
-			referenceToModel.state = new ChatPhase(referenceToModel);
-		}
-		
-	}
-
-	@Override
 	public void serverPhaseHandler() {
 		addPhaseHandler("JOIN", new GameEventHandler() {
 
@@ -47,7 +36,6 @@ public class JoinGamePhase extends GamePhase {
 
 				GameEvent allPlayersEvent = new GameEvent("PLAYERS");
 				allPlayersEvent.put("PLAYERS", referenceToModel.gamePlayersManager.players);
-				
 				
 				//Send to joining player a list of all players
 				//Send to existing player the joining player
@@ -72,6 +60,8 @@ public class JoinGamePhase extends GamePhase {
 
 				referenceToModel.gamePlayersManager.addPlayer(playerFromNetwork);
 				
+				referenceToModel.chat.sysMessage("JOINED: " + playerFromNetwork.name);
+				
 				nextPhaseIfTime();
 			}
 
@@ -86,12 +76,24 @@ public class JoinGamePhase extends GamePhase {
 				
 				for (PlayerModel networkedPlayer: playersFromEvent.values()) {
 					referenceToModel.gamePlayersManager.addPlayer(networkedPlayer);
+					referenceToModel.chat.sysMessage("PLAYER: " + networkedPlayer.name);
 				}
 				
 				nextPhaseIfTime();
 			}
 			
 		});
+	}
+	
+	@Override
+	public void nextPhaseIfTime() {
+		
+		if (referenceToModel.gamePlayersManager.numPlayers() == referenceToModel.howManyPlayers) {
+			referenceToModel.chat.sysMessage(String.format("%d Players joined", referenceToModel.gamePlayersManager.numPlayers()));
+			removeHandlers();
+			referenceToModel.state = new ChatPhase(referenceToModel);
+		}
+		
 	}
 
 }

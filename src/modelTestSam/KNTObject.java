@@ -43,5 +43,9 @@ public abstract class KNTObject extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+	
+	public boolean equals(KNTObject o) {
+		return id.equals(o.id);
+	}
 
 }

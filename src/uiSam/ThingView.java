@@ -50,13 +50,17 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 			@Override
 			public void run() {
 				if (m != null) {
-					setImage(new Image(thing.name + ".png"));
-				}				
+					setImage(new Image(m.name + ".png"));
+					registerDragability();
+				}
+				else {
+					setImage(null);
+					disableDragability();
+				}
 			}
 
 		});
 		
-		registerDragability();
 	}
 
 	private void registerDragability() {
@@ -70,7 +74,7 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 	        this.setOnDragDetected(new EventHandler<MouseEvent>() {
 	            @Override
 	            public void handle(MouseEvent t) {
-
+	            	
 	                if (!mainGameSomehow.getChildren().contains(dragImageView)) {
 	                    mainGameSomehow.getChildren().add(dragImageView);
 	                }
@@ -93,7 +97,7 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 	                	content.putString("You've dragged a nullpiece, how?");
 	                }
 	                else {
-	                	content.putString(thing.getId());
+	                	content.putString("RACK:" + thing.getId());
 	                }
 	            
 	                db.setContent(content);
@@ -123,6 +127,11 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 				}
 			});
 	        
+	}
+	
+	public void disableDragability() {
+		//bug not sure how to disable drag ability, so if it is a null in a rack for example, we in trouble???
+		//this.removeEventHandler(eventType, eventHandler);
 	}
 
 }

@@ -20,6 +20,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,20 +59,22 @@ public class BoardGameWindow extends VBox implements Observer {
 	
 	@FXML private ThingBowlView thingBowl;
 	@FXML private MenuItem quitMenuItem;
+	@FXML private MenuItem joinMenu;
+	@FXML private MenuItem startMenu;
+	
 	
 	@FXML private PlayerRackView playerOneRackController;
 	@FXML private PlayerRackView playerTwoRackController;
 	@FXML private PlayerRackView playerThreeRackController;
 	@FXML private PlayerRackView playerFourRackController;
-	
 	@FXML private HexGridView hexGridController;
-	
-	@FXML private MenuItem joinMenu;
-	@FXML private MenuItem startMenu;
-	
 	@FXML private ChatView chatController;
-	
 	@FXML private BankView bankController;
+	
+	@FXML private Button endTurnButton;
+	
+
+
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -110,7 +113,7 @@ public class BoardGameWindow extends VBox implements Observer {
 					
 					System.out.println("Sending: " + joinEvent.toJson());
 
-					model.network.sendAll(joinEvent.toJson());
+					networkMessageSend(joinEvent);
 			}
 			
 		});
@@ -124,7 +127,7 @@ public class BoardGameWindow extends VBox implements Observer {
 					
 					System.out.println("Sending: " + startEvent.toJson());
 
-					model.network.sendAll(startEvent.toJson());
+					networkMessageSend(startEvent);
 			}
 			
 		});
@@ -151,6 +154,17 @@ public class BoardGameWindow extends VBox implements Observer {
 			}
 			
 		});
+		
+		endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				GameEvent universalEnd = new GameEvent("ENDTURN");
+				networkMessageSend(universalEnd);
+			}
+			
+		});
+
 		
 		
 		
@@ -182,6 +196,9 @@ public class BoardGameWindow extends VBox implements Observer {
 	public void networkMessageSend(GameEvent gameEventSoonToBecomeJSONEncoded) {
 		//inject the FROM for every message
 		gameEventSoonToBecomeJSONEncoded.put("FROM", model.localPlayer.getId());
+		
+		System.out.println("SENDING DEBUG");
+		System.out.println(gameEventSoonToBecomeJSONEncoded.toJson());
 		
 		model.network.sendAll(gameEventSoonToBecomeJSONEncoded.toJson());
 		

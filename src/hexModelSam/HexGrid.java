@@ -1,6 +1,9 @@
 package hexModelSam;
 
+import java.util.ArrayList;
+
 import modelTestSam.KNTObject;
+import modelTestSam.PlayerModel;
 
 public class HexGrid extends KNTObject {
 
@@ -35,6 +38,7 @@ public class HexGrid extends KNTObject {
 		this.height = maxR - minR + 1;
 		this.radius = (maxQ + maxR)/2; //future????
 		this.grid = new HexModel[width][height];
+		setAllFaceDown();
 	}
 	
 	public HexGrid() {
@@ -46,6 +50,14 @@ public class HexGrid extends KNTObject {
 		for (int q = -3; q <=3; q++) {
 			for (int r = -3; r <=3; r++) {
 				setHexFromQR(q,r, new HexModel(HexModel.TileType.DesertTile));
+			}
+		}
+	}
+	
+	public void setAllFaceDown() {
+		for (int q = -3; q <=3; q++) {
+			for (int r = -3; r <=3; r++) {
+				setHexFromQR(q,r, new HexModel(HexModel.TileType.FaceDownTile));
 			}
 		}
 	}
@@ -160,12 +172,32 @@ public class HexGrid extends KNTObject {
 	public void replaceHexGrid(HexModel[][] toReplace) {
 		for (int y = 0; y < toReplace[0].length; y++) {
 			for (int x = 0; x < toReplace[y].length; x++) {
-				if (grid[y][x] != null)
+				if (grid[y][x] != null) {
 					grid[y][x].changeHex(toReplace[y][x].type, toReplace[y][x].getId());
+				}
+				else if (grid[y][x] == null && toReplace[y][x] != null) {
+					//not sure when this case is needed, but might as well add
+					grid[y][x] = toReplace[y][x];
+				}
 			}
 		}
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public ArrayList<HexModel> searchForAllOwnedByPlayer(PlayerModel p) {
+		ArrayList<HexModel> results = new ArrayList<HexModel>();
+		
+		for (int y = 0; y < grid[0].length; y++) {
+			for (int x = 0; x < grid[y].length; x++) {
+				if (grid[y][x] != null) {
+					if (grid[y][x].getOwner() != null && grid[y][x].getOwner() == p)
+						results.add(grid[y][x]);
+				}
+			}
+		}
+		
+		return results;
 	}
 	
 	//replace hex
