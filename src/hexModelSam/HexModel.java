@@ -2,6 +2,8 @@ package hexModelSam;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import counterModelSam.Fort;
 import counterModelSam.Thing;
 import counterModelSam.ThingStack;
@@ -98,6 +100,20 @@ public class HexModel extends KNTObject {
 	
 	public String toString() {
 		return "Tile: " + type.toString();
+	}
+	
+	@JsonIgnore
+	public boolean isUnexplored() {
+		return (getOwner() == null);
+	}
+	
+	public int howManyPlayersOnIt() {
+		int numAvailable = 0;
+		for (ThingStack playerStack: stackByPlayer) {
+			if (playerStack.hasThings()) 
+				numAvailable++;
+		}
+		return numAvailable;
 	}
 	
 	protected HexModel() {

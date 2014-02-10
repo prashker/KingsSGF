@@ -154,6 +154,8 @@ public class MovementPhase extends GamePhase {
 	public void nextPhaseIfTime() {
 		if (ended == referenceToModel.gamePlayersManager.numPlayers()) {
 			referenceToModel.chat.sysMessage("All done movement for all players");
+			removeHandlers();
+			referenceToModel.state = new CombatPickPhase(referenceToModel);
 		}
 	}
 

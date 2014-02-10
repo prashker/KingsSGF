@@ -200,6 +200,22 @@ public class HexGrid extends KNTObject {
 		return results;
 	}
 	
+	public ArrayList<HexModel> getHexesWithBattleConditions() {
+		ArrayList<HexModel> results = new ArrayList<HexModel>();
+
+		for (int y = 0; y < grid[0].length; y++) {
+			for (int x = 0; x < grid[y].length; x++) {
+				if (grid[y][x] != null) {
+					int playersOnHex = grid[y][x].howManyPlayersOnIt();
+					if ((grid[y][x].isUnexplored() && playersOnHex == 1) || (playersOnHex > 1))
+						results.add(grid[y][x]);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
 	//replace hex
 	//replace grid by instance vars
 	
