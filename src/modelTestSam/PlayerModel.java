@@ -57,12 +57,11 @@ public class PlayerModel extends KNTObject {
 		for (int i=0; i < 10; i++) {
 			if (rack.get(i) == null) {
 				rack.set(i, t);
+				this.setChanged();
+				this.notifyObservers(t);
 				return i;
 			}
 		}
-
-		this.setChanged();
-		this.notifyObservers(t);
 		
 		return -1;
 	}
@@ -110,6 +109,13 @@ public class PlayerModel extends KNTObject {
 	
 	public void incrementGold(int i) {
 		gold = gold + i;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void decrementGold(int i) {
+		gold = gold - i;
 		
 		this.setChanged();
 		this.notifyObservers();

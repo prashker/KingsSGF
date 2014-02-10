@@ -36,7 +36,7 @@ public class GoldCollectionPhase extends GamePhase {
 				
 				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);				
 				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					
 					//COLLECT GOLD BASED ON
 					//1 for each owned hex (PART OF DEMO1)
@@ -117,6 +117,8 @@ public class GoldCollectionPhase extends GamePhase {
 	public void nextPhaseIfTime() {
 		if (collected == referenceToModel.gamePlayersManager.numPlayers()) {
 			referenceToModel.chat.sysMessage("All Gold Collected");
+			removeHandlers();
+			referenceToModel.state = new RecruitThingsPhase(referenceToModel);
 		}
 	}
 

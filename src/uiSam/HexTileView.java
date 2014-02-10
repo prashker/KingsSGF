@@ -13,6 +13,7 @@ import counterModelSam.Fort.FortType;
 import modelTestSam.GameEvent;
 import modelTestSam.JacksonSingleton;
 import modelTestSam.PlayerModel.PlayerType;
+import gamePhasesSam.RecruitThingsPhase;
 import gamePhasesSam.StartGameControlHexesPhase;
 import gamePhasesSam.StartGamePlayThings;
 import gamePhasesSam.StartGamePlayTowerPhase;
@@ -176,7 +177,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 				}
 				else if (clip.startsWith("RACK:")) {
 					//Rack to Hex Drag
-					if (BoardGameWindow.getInstance().model.state instanceof StartGamePlayThings) {
+					if (BoardGameWindow.getInstance().model.state instanceof StartGamePlayThings || BoardGameWindow.getInstance().model.state instanceof RecruitThingsPhase) {
 						GameEvent placeThingFromRack = new GameEvent("PLACETHING");
 						placeThingFromRack.put("RACK", clip.replace("RACK:", ""));
 						placeThingFromRack.put("HEX", tile.getId()); 

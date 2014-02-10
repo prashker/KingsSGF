@@ -16,7 +16,10 @@ public abstract class GamePhase {
 	protected abstract void serverPhaseHandler();
 	protected abstract void clientPhaseHandler();
 	
-	//Maintain a reference to the model to modify varying data
+	//Maintain a reference to the model to modify varying data 
+	
+	//NOTE THIS CAN BE REMOVED AT SOME POINT WITH UPDATES TO PHASE METHODS ONLY
+	//THEY WILL BECOME FINAL AND IT WILL BE GREAT :)
 	GameModel referenceToModel;
 
 	public GamePhase(GameModel m) { 

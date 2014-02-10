@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import counterModelSam.Thing;
+
 public class Players extends KNTObject {
 
 		private int firstPlayerIndex = 0;

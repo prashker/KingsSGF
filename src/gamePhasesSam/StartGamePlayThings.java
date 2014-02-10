@@ -42,9 +42,11 @@ public class StartGamePlayThings extends GamePhase {
 				HexModel gridFound = referenceToModel.grid.searchByID(hexToPlaceThing);
 				
 				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {				
 					Thing thing = playerFound.removeThingById(thingToPlace);
-					gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+					if (thing != null) {
+						gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+					}
 				}
 				
 				network.sendAll(event.toJson());
@@ -101,7 +103,9 @@ public class StartGamePlayThings extends GamePhase {
 				
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
 					Thing thing = playerFound.removeThingById(thingToPlace);
-					gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+					if (thing != null) {
+						gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+					}
 				}
 				
 				nextPhaseIfTime();
