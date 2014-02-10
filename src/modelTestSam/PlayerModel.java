@@ -57,6 +57,7 @@ public class PlayerModel extends KNTObject {
 		for (int i=0; i < 10; i++) {
 			if (rack.get(i) == null) {
 				rack.set(i, t);
+				
 				this.setChanged();
 				this.notifyObservers(t);
 				return i;
@@ -64,6 +65,20 @@ public class PlayerModel extends KNTObject {
 		}
 		
 		return -1;
+	}
+	
+	public void addThingsToRack(ArrayList<Thing> t) {
+		int indexToAdd = 0;
+		for (int i=0; i < 10; i++) {
+			if (rack.get(i) == null) {
+				if (indexToAdd < t.size()) {
+					rack.set(i, t.get(indexToAdd++));
+					this.setChanged();
+				}
+			}
+		}
+
+		this.notifyObservers();
 	}
 	
 	public void removeThing(Thing t) {

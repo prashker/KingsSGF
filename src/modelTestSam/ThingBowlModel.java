@@ -2,6 +2,8 @@ package modelTestSam;
 
 import hexModelSam.HexModel.TileType;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -83,6 +85,13 @@ public class ThingBowlModel extends KNTObject implements Observer {
 		this.notifyObservers();
 	}
 	
+	public void addThingsToBowl(Collection<Thing> t) {
+		thingsInBowl.addAll(t); //ordering may cause issue, to returnto
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	@JsonIgnore
 	public Thing getTopThing() {
 		//if empty return randomly generated
@@ -93,6 +102,19 @@ public class ThingBowlModel extends KNTObject implements Observer {
 		this.notifyObservers();
 		
 		return tmp;
+	}
+	
+	public ArrayList<Thing> getTopThings(int howMany) {
+		ArrayList<Thing> arrayOfThings = new ArrayList<Thing>();
+		
+		for (int x = 0; x < howMany; x++) {
+			arrayOfThings.add(thingsInBowl.removeFirst());
+		}
+		
+		this.setChanged();
+		this.notifyObservers();
+		
+		return arrayOfThings;
 	}
 	
 	public LinkedList<Thing> getBowl() {

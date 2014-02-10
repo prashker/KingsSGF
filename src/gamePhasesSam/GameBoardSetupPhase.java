@@ -44,9 +44,7 @@ public class GameBoardSetupPhase extends GamePhase {
 				
 				for (int i=0; i < referenceToModel.gamePlayersManager.numPlayers(); i++) {
 					referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i);
-					for (int x=0; x<10; x++) {
-						referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i).addThingToRack(referenceToModel.bowl.getTopThing());
-					}
+					referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i).addThingsToRack(referenceToModel.bowl.getTopThings(10));
 				}
 				
 				for (PlayerModel p: referenceToModel.gamePlayersManager.players.values()) {
@@ -84,15 +82,12 @@ public class GameBoardSetupPhase extends GamePhase {
 				HexGrid board = (HexGrid) event.get("BOARD");
 				
 				//loop through everything and update
-				for (Thing t: bowl.getBowl()) {
-					referenceToModel.bowl.addThingToBowl(t);
-				}
+				
+				referenceToModel.bowl.addThingsToBowl(bowl.getBowl());
 				
 				for (String key: players.keySet()) {
 					referenceToModel.gamePlayersManager.getPlayer(key).setGold(players.get(key).getGold());
-					for (Thing t: players.get(key).rack) {
-						referenceToModel.gamePlayersManager.getPlayer(key).addThingToRack(t);
-					}
+					referenceToModel.gamePlayersManager.getPlayer(key).addThingsToRack(players.get(key).rack);
 				}
 				
 				referenceToModel.grid.replaceHexGrid(board.grid);
