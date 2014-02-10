@@ -9,7 +9,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import counterModelSam.Fort;
+import counterModelSam.Thing;
 import counterModelSam.Fort.FortType;
+import counterModelSam.ThingStack;
 import modelTestSam.GameEvent;
 import modelTestSam.JacksonSingleton;
 import modelTestSam.PlayerModel.PlayerType;
@@ -130,8 +132,19 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		tileView.setOnMouseMoved(new EventHandler<MouseEvent>() {  
 		    @Override  
 		    public void handle(MouseEvent e) {
-		    			    	
-		    	tileTooltip.setText(tile.toString());
+		    	StringBuilder pretty = new StringBuilder(tile.toString() + "\n");
+		    	
+		    	if (tile.getOwner() != null) {
+		    		pretty.append("Owned By: " + tile.getOwner().name + "\n");
+		    	}
+
+		    	for (ThingStack s: tile.stackByPlayer) {
+		    		pretty.append("Stack:\n");
+		    		for (Thing t: s.getStack().values()) {
+		    			pretty.append("       " + t.name +"\n");
+		    		}
+		    	}
+		    	tileTooltip.setText(pretty.toString());
 	    		tileTooltip.show(tileView, e.getScreenX() + 3, e.getScreenY() + 3);
 		    }  
 		});  
