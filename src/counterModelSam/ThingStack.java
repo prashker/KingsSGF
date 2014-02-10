@@ -10,7 +10,7 @@ public class ThingStack {
 	
 	private HashMap<String, Thing> stack = new HashMap<String, Thing>();
 	
-	private HashMap<String, Thing> getStack() {
+	public HashMap<String, Thing> getStack() {
 		return stack;
 	}
 	
@@ -29,6 +29,10 @@ public class ThingStack {
 	
 	public boolean hasThings() {
 		return !stack.isEmpty();
+	}
+	
+	public void clearAll() {
+		stack.clear();
 	}
 	
 	public ThingStack() {

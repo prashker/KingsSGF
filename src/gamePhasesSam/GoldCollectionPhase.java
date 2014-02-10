@@ -99,7 +99,6 @@ public class GoldCollectionPhase extends GamePhase {
 					collected++;
 					
 					referenceToModel.chat.sysMessage(playerFound.name + " collected " + goldToAdd + " gold");
-					referenceToModel.gamePlayersManager.nextPlayerTurn();
 					
 					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
 						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");

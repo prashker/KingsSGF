@@ -147,8 +147,8 @@ public class GameServer extends Thread implements Networkable {
 	
 	public void sendAllExcept(SocketChannel socketChannel, String data) {
 		System.out.println("Sending back to all except 1: " + data);
-		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 		for(SelectionKey key : selector.keys()) {
+			ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
 				System.out.println("Comparing " + sch + " to " + socketChannel);
@@ -159,7 +159,6 @@ public class GameServer extends Thread implements Networkable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					msgBuf.rewind();
 				}
 				else {
 					System.out.println("Skipping this one");

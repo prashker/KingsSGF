@@ -45,6 +45,13 @@ public class HexModel extends KNTObject {
 		this.notifyObservers();
 	}
 	
+	public void removeAllThingsInStack(int playerId) {
+		stackByPlayer.get(playerId).clearAll();
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	public TileType type;
 	
 	public HexModel(TileType t) {

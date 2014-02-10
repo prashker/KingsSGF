@@ -49,6 +49,7 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 			GameEvent generatedEvent;
 			try {
 				generatedEvent = JacksonSingleton.getInstance().readValue(dataEvent.data, GameEvent.class);
+				System.out.println("DEBUG: " + dataEvent.data);
 				if (handleMap.containsKey(generatedEvent.type)) {
 					handleMap.get(generatedEvent.type).handleEvent(dataEvent.network, dataEvent.socket, generatedEvent);
 				}

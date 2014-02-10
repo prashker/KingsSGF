@@ -13,6 +13,7 @@ import counterModelSam.Fort.FortType;
 import modelTestSam.GameEvent;
 import modelTestSam.JacksonSingleton;
 import modelTestSam.PlayerModel.PlayerType;
+import gamePhasesSam.MovementPhase;
 import gamePhasesSam.RecruitThingsPhase;
 import gamePhasesSam.StartGameControlHexesPhase;
 import gamePhasesSam.StartGamePlayThings;
@@ -104,7 +105,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 							
 							GameEvent dragStack = new GameEvent("MOVESTACK");
 							dragStack.put("PLAYER", i);
-							dragStack.put("FROM", tile.getId());
+							dragStack.put("FROMHEX", tile.getId());
 							registerDragability(playerStack.get(i), dragStack.toJson());
 							
 							playerStack.get(i).setMouseTransparent(false);
@@ -190,8 +191,10 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 						GameEvent generatedEvent = JacksonSingleton.getInstance().readValue(clip, GameEvent.class);
 						
 						if (generatedEvent.getType().equals("MOVESTACK")) {
-							//if BoardGameWindow.getInstance().model.state instanceof MovementPhase {
-							//}
+							if (BoardGameWindow.getInstance().model.state instanceof MovementPhase) {
+								generatedEvent.put("TOHEX", tile.getId());
+								BoardGameWindow.getInstance().networkMessageSend(generatedEvent);
+							}
 						}
 						
 					} 

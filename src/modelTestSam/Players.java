@@ -95,7 +95,7 @@ public class Players extends KNTObject {
 		}
 		
 		public boolean isThisPlayerTurn(PlayerModel p) {
-			return (p.getId() == playerOrder.get(currentPlayerIndex));
+			return (p.getId().equals(playerOrder.get(currentPlayerIndex)));
 		}
 		
 		public boolean isThisPlayerTurn(String id) {		
