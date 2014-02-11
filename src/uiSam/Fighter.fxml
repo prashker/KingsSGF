@@ -13,8 +13,7 @@
 <?import uiSam.*?>
 <?scenebuilder-classpath-element ../../bin?>
 
-<fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml" prefHeight="92.0" prefWidth="340.3333282470703">
-  <!-- TODO Add Nodes -->
+<fx:root type="javafx.scene.layout.Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="340.3333282470703" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <Button fx:id="roll1Button" layoutX="23.0" layoutY="54.0" mnemonicParsing="false" text="Roll" />
     <Button fx:id="roll2Button" layoutX="23.0" layoutY="17.0" mnemonicParsing="false" text="Roll" />

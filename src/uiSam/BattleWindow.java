@@ -31,7 +31,8 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	
 	public CombatZone com;
 	
-	@FXML GridPane fighterGrid;
+	@FXML VBox attackerGrid;
+	@FXML VBox defenderGrid;
 	@FXML Label attackerLabel;
 	@FXML Label defenderLabel;
 	@FXML Label attackerPoints;
@@ -48,6 +49,7 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	public ArrayList<FighterView> defenderFighters = new ArrayList<FighterView>();
 	
 	public BattleWindow() {
+		
 	}
 	
 	@Override
@@ -56,20 +58,18 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 
 		m.addObserver(this);
 		
-		int a = 0;
 		for (Thing attackerThing: m.attackerThingsSorted) {
 			System.out.println("Trying to add thing: " + attackerThing.name);
 			FighterView f = new FighterView();
 			f.setBind(attackerThing);
-			fighterGrid.add(f, 0, a++);
+			attackerGrid.getChildren().add(f);
 		}
 		
-		int d = 0;
 		for (Thing defenderThing: m.defenderThingsSorted) {
 			System.out.println("Trying to add thing: " + defenderThing.name);
 			FighterView f = new FighterView();
 			f.setBind(defenderThing);
-			fighterGrid.add(f, 1, d++);
+			defenderGrid.getChildren().add(f);
 		}
 		
 		updateBind(m);
@@ -95,5 +95,9 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	public void update(Observable o, Object arg) {
 			updateBind((CombatZone)o);
 	}	
+	
+	public void initialize() {
+		System.out.println("battle init");
+	}
 
 }
