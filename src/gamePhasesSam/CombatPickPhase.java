@@ -24,7 +24,7 @@ public class CombatPickPhase extends GamePhase {
 		//loop through each hex where there it is unexplored or has 2 stacks of players
 		
 		battlesToResolve.addAll(referenceToModel.grid.getHexesWithBattleConditions());
-		
+				
 		referenceToModel.chat.sysMessage("Combat Phase");
 		referenceToModel.chat.sysMessage("Players must resolve all PVP battles and Unexplored Hexes");
 		referenceToModel.chat.sysMessage("Drag Combat Marker to Valid Hex to Resolve");
@@ -89,8 +89,8 @@ public class CombatPickPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
-					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(playerFound.name + " skipped battle phase...wait what? This isn't right");
+					//referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
 					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}
 				
@@ -156,8 +156,8 @@ public class CombatPickPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
-					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(playerFound.name + " skipped battle phase...wait what? This isn't right");
+					//referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
 					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}
 												
@@ -178,7 +178,18 @@ public class CombatPickPhase extends GamePhase {
 			referenceToModel.state = new GoldCollectionPhase(referenceToModel);
 		}
 		else {
-			System.out.println("Still battles to resolve");
+			boolean playerHasAnyFightsToResolve = false;
+			for (HexModel h: battlesToResolve){
+				if (h.playerHasTilesOnThisHex(referenceToModel.gamePlayersManager.getPlayerByTurn())) {
+					playerHasAnyFightsToResolve = true;
+				}
+			}
+			if (!playerHasAnyFightsToResolve) {
+				referenceToModel.chat.sysMessage("No fights for " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+				referenceToModel.gamePlayersManager.nextPlayerTurn();
+				referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+			}
+			
 		}
 	}
 	

@@ -126,6 +126,11 @@ public class HexModel extends KNTObject {
 		return p;
 	}
 	
+	public boolean playerHasTilesOnThisHex(PlayerModel p) {
+		return this.stackByPlayer.get(p.getMyTurnOrder()).hasThings();
+		
+	}
+	
 	protected HexModel() {
 
 	}
