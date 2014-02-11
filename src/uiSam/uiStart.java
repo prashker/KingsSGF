@@ -1,5 +1,6 @@
 package uiSam;
 
+import modelTestSam.CombatZone;
 import javafx.application.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ public class uiStart extends Application {
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 						
-			stage.show();			
+			stage.show();						
 		}
 		
 }

@@ -104,8 +104,15 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 				BoardGameWindow.getInstance().networkMessageSend(chatMsgEvent);
 			}
 			else if (possibleMsg.startsWith("/roll")) {
-				GameEvent rollEvent = new GameEvent("ROLL-ORDER");
-				rollEvent.put("ROLL", Dice.Roll());
+				GameEvent rollEvent = new GameEvent("ROLL");
+				
+				String manualRoll = possibleMsg.replace("/roll", "");
+				if (!manualRoll.isEmpty()) {
+					rollEvent.put("ROLL", Integer.parseInt(manualRoll));
+				}
+				else {
+					rollEvent.put("ROLL", Dice.Roll());
+				}
 				BoardGameWindow.getInstance().networkMessageSend(rollEvent);
 			}
 			else {

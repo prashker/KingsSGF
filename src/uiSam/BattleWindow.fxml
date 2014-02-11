@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<BattleWindow xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BattleWindow">
+  <children>
+    <Pane prefHeight="73.0" prefWidth="716.0">
+      <children>
+        <Label alignment="CENTER" layoutX="212.0" layoutY="0.0" minHeight="28.0" prefHeight="44.9609375" prefWidth="292.0" text="BATTLE Z0N3!">
+          <font>
+            <Font size="35.0" />
+          </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="16.0" prefWidth="124.0" text="Attacker">
+          <font>
+            <Font name="System Bold" size="12.0" fx:id="x1" />
+          </font>
+        </Label>
+        <Label alignment="CENTER" font="$x1" layoutX="574.0" layoutY="14.0" prefHeight="16.0" prefWidth="124.0" text="Defender" />
+        <Label fx:id="roundLabel" alignment="CENTER" layoutX="237.0" layoutY="46.0" prefWidth="242.0" text="" />
+        <Label fx:id="attackerLabel" alignment="CENTER" layoutX="110.0" layoutY="14.0" prefWidth="127.0" text="" />
+        <Label fx:id="defenderLabel" alignment="CENTER" layoutX="479.0" layoutY="14.0" prefWidth="120.0" text="" />
+        <Label fx:id="attackerPoints" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="" />
+        <Label fx:id="defenderPoints" alignment="CENTER" font="$x1" layoutX="574.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="" />
+      </children>
+    </Pane>
+    <ScrollPane prefHeight="332.0" prefWidth="716.0">
+      <content>
+        <GridPane fx:id="fighterGrid" prefHeight="318.0" prefWidth="701.0">
+          <children>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </content>
+    </ScrollPane>
+    <Pane prefHeight="62.0" prefWidth="716.0">
+      <children>
+        <Button fx:id="retreatButton" layoutX="560.0" layoutY="9.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="142.0" text="Retreat" />
+        <Button fx:id="rollButton" layoutX="22.0" layoutY="9.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="336.0000999999975" text="This is a button that does a Roll for an Unexplored Hex" />
+      </children>
+    </Pane>
+  </children>
+</BattleWindow>

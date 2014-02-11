@@ -5,11 +5,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import counterModelSam.Thing;
+import counterModelSam.ThingStack;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -25,6 +27,8 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 	
 	ImageView dragImageView = new ImageView();
 
+	Tooltip tileTooltip = new Tooltip();
+	
 	@Override
 	public void setBind(final Thing m) {
 		if (m != null) {
@@ -52,6 +56,7 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 				if (m != null) {
 					setImage(new Image(m.name + ".png"));
 					registerDragability();
+					registerHoverability();
 				}
 				else {
 					setImage(null);
@@ -61,6 +66,31 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 
 		});
 		
+	}
+	
+	private void registerHoverability() {
+		
+		final ThingView context = this;
+		
+		this.setOnMouseMoved(new EventHandler<MouseEvent>() {  
+		    @Override  
+		    public void handle(MouseEvent e) {
+		    	StringBuilder pretty = new StringBuilder(thing.name + "\n");
+		   
+		    	pretty.append(thing.validTerrain.toString());
+
+		    	tileTooltip.setText(pretty.toString());
+	    		tileTooltip.show(context, e.getScreenX() + 3, e.getScreenY() + 3);
+		    }  
+		});  
+
+		this.setOnMouseExited(new EventHandler<MouseEvent>() {  
+		  
+		    @Override  
+		    public void handle(MouseEvent e) {  
+		        tileTooltip.hide();  
+		    }  
+		});  
 	}
 
 	private void registerDragability() {

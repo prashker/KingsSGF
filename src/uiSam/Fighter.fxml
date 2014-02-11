@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml" prefHeight="92.0" prefWidth="340.3333282470703">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Button fx:id="roll1Button" layoutX="23.0" layoutY="54.0" mnemonicParsing="false" text="Roll" />
+    <Button fx:id="roll2Button" layoutX="23.0" layoutY="17.0" mnemonicParsing="false" text="Roll" />
+    <ThingView fx:id="fighterThing" fitHeight="91.99980844726815" fitWidth="91.99980844726815" layoutX="77.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Things/YellowKnight.png" />
+      </image>
+    </ThingView>
+    <Button fx:id="bluffButton" layoutX="182.0" layoutY="17.0" mnemonicParsing="false" text="Bluff" />
+    <Button fx:id="hitButton" layoutX="183.0" layoutY="55.0" mnemonicParsing="false" text="Take Hit" />
+    <Label fx:id="thingHPLabel" layoutX="279.0" layoutY="38.0" prefHeight="20.960845947265625" prefWidth="45.0" text="0" />
+  </children>
+</fx:root>

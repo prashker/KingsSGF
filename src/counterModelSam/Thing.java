@@ -2,8 +2,11 @@ package counterModelSam;
 
 import hexModelSam.HexModel.TileType;
 
+import java.util.EnumSet;
 import java.util.Set;
 import java.util.TreeSet;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class Thing extends Counter {
 
@@ -18,7 +21,7 @@ public abstract class Thing extends Counter {
 		MULTIHIT
 	}
 	
-	Set<ThingAbility> abilitySet = new TreeSet<ThingAbility>();
+	Set<ThingAbility> abilitySet = EnumSet.noneOf(ThingAbility.class);
 	
 	public String name;
 	public TileType validTerrain;
@@ -64,6 +67,15 @@ public abstract class Thing extends Counter {
 			this.abilitySet.add(ThingAbility.MULTIHIT);
 			this.hitValue = value;
 		}
+	}
+	
+	public void takeHit() {
+		hitValue--;
+	}
+	
+	@JsonIgnore
+	public boolean isDead() {
+		return hitValue <= 0;
 	}
 	
 	protected Thing() {

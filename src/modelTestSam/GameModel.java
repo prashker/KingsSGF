@@ -34,9 +34,10 @@ public class GameModel extends Observable {
 	public Players gamePlayersManager = new Players();
 	public PlayerModel localPlayer = new PlayerModel();
 	
+	public CombatZone battleData = new CombatZone();
+	
 	public GameModel(Type modelType) {
 		this.modelType = modelType;
-		
 		
 	}
 	

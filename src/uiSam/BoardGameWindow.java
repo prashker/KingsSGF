@@ -2,6 +2,7 @@ package uiSam;
 
 import hexModelSam.HexGrid;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Observable;
@@ -11,15 +12,20 @@ import java.util.ResourceBundle;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import networkingClientSam.GameClient;
+import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.GameModel;
 import modelTestSam.JacksonSingleton;
 import modelTestSam.PlayerModel;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -29,6 +35,8 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class BoardGameWindow extends VBox implements Observer {
@@ -72,9 +80,9 @@ public class BoardGameWindow extends VBox implements Observer {
 	@FXML private BankView bankController;
 	
 	@FXML private Button endTurnButton;
+	@FXML private Button rollButton;
 	
-
-
+	private BattleWindow singleBattleWindow;
 	
 	public void connect(String host, int port) {
 		this.host = host;
@@ -96,8 +104,11 @@ public class BoardGameWindow extends VBox implements Observer {
 	
 	//Deprecation suppression for now...
 	public void killNetwork() {
-		client.gameLoopThread.interrupt();
-		client.interrupt();
+		//
+		//client.gameLoopThread.interrupt();
+		//client.interrupt();
+		//
+		System.exit(0);
 	}
 	
 	public void initializeBinds() {
@@ -164,8 +175,40 @@ public class BoardGameWindow extends VBox implements Observer {
 			}
 			
 		});
-
 		
+		
+		rollButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				GameEvent rollEvent = new GameEvent("ROLL");
+				rollEvent.put("ROLL", Dice.Roll());
+				BoardGameWindow.getInstance().networkMessageSend(rollEvent);
+			}
+			
+		});
+		
+		model.battleData.addObserver(new Observer() {
+
+			@Override
+			public void update(Observable arg0, Object arg1) {
+				if (arg1 instanceof String) {
+					if (((String) arg1).equals("BATTLEINIT")) {
+						Platform.runLater(new Runnable() {
+
+							@Override
+							public void run() {
+								startBattleScreen();								
+							}
+							
+						});
+						//new BattleWindow().setBind(model.battleData);;
+						//singleBattleWindow.setBind(model.battleData);
+					}
+				}
+			}
+			
+		});	
 		
 		
 	}
@@ -182,12 +225,6 @@ public class BoardGameWindow extends VBox implements Observer {
 		}
 	}
 
-	/*
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-	}
-	*/
 	
 	public void initialize() { 
 
@@ -203,6 +240,35 @@ public class BoardGameWindow extends VBox implements Observer {
 		model.network.sendAll(gameEventSoonToBecomeJSONEncoded.toJson());
 		
 		
+	}
+	
+	public void startBattleScreen() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("BattleWindow.fxml"));
+		Parent root;
+		try {
+			root = (Parent) loader.load();
+			Stage stage = new Stage();
+			stage.setTitle("----------------KINGS AND THINGS------------------");
+			stage.setScene(new Scene(root));
+			stage.setResizable(false);
+
+			final BattleWindow gameWindow = loader.getController();
+			gameWindow.setBind(model.battleData);
+			
+			stage.show();
+
+			stage.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+				@Override
+				public void handle(WindowEvent arg0) {
+					arg0.consume();
+				}
+				
+			});
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 }

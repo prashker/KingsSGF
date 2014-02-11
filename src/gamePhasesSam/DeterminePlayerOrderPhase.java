@@ -23,14 +23,22 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 
 	public DeterminePlayerOrderPhase(GameModel m) {
 		super(m);
+		
+		referenceToModel.chat.sysMessage("Determine Order Phase");
+		referenceToModel.chat.sysMessage("/roll in Chat or via Roll Button");
+		referenceToModel.chat.sysMessage("Game start when all players roll");
+		
 	}
 
+	//TO ADD:
+	//When a player rolls, announce RIGHT then that they rolled, not when all players rolled
+	
 	@Override
 	protected void serverPhaseHandler() {
 		//ROLL-ORDER
 		//FROM:
 		//ROLL:
-		addPhaseHandler("ROLL-ORDER", new GameEventHandler() {
+		addPhaseHandler("ROLL", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
@@ -59,7 +67,7 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 		//ROLL-ORDER
 		//FROM:
 		//ROLL:
-		addPhaseHandler("ROLL-ORDER", new GameEventHandler() {
+		addPhaseHandler("ROLL", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {

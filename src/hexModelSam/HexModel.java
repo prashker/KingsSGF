@@ -116,6 +116,16 @@ public class HexModel extends KNTObject {
 		return numAvailable;
 	}
 	
+	public ArrayList<Integer> playerIDOnThisHex() {
+		ArrayList<Integer> p = new ArrayList<Integer>();
+		for (int i = 0; i < stackByPlayer.size(); i++) {
+			if (stackByPlayer.get(i).hasThings()) {
+				p.add(i);
+			}
+		}
+		return p;
+	}
+	
 	protected HexModel() {
 
 	}
