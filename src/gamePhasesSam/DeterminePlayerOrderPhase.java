@@ -35,7 +35,7 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 	
 	@Override
 	protected void serverPhaseHandler() {
-		//ROLL-ORDER
+		//ROLL
 		//FROM:
 		//ROLL:
 		addPhaseHandler("ROLL", new GameEventHandler() {
@@ -64,7 +64,7 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 
 	@Override
 	protected void clientPhaseHandler() {
-		//ROLL-ORDER
+		//ROLL
 		//FROM:
 		//ROLL:
 		addPhaseHandler("ROLL", new GameEventHandler() {

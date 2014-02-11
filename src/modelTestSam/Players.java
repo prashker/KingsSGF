@@ -119,6 +119,17 @@ public class Players extends KNTObject {
 		public int whatPlayerIs(String id) {
 			return playerOrder.indexOf(id);
 		}
-
+		
+		public int getNextPlayerID() {
+			return (currentPlayerIndex + 1) % playerOrder.size();
+		}
+		
+		public PlayerModel getNextPlayer() {
+			return players.get(playerOrder.get((currentPlayerIndex + 1) % playerOrder.size()));
+		}
+		
+		public PlayerModel getNextPlayerFromPlayer(PlayerModel p) {
+			return players.get(playerOrder.get((p.getMyTurnOrder() + 1) % playerOrder.size()));
+		}
 
 }

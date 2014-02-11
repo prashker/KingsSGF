@@ -91,7 +91,7 @@ public class CombatPickPhase extends GamePhase {
 					
 					referenceToModel.gamePlayersManager.nextPlayerTurn();
 					referenceToModel.chat.sysMessage(playerFound.name + " skipped battle phase...wait what? This isn't right");
-										
+					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}
 				
 				network.sendAll(event.toJson());
@@ -158,7 +158,7 @@ public class CombatPickPhase extends GamePhase {
 					
 					referenceToModel.gamePlayersManager.nextPlayerTurn();
 					referenceToModel.chat.sysMessage(playerFound.name + " skipped battle phase...wait what? This isn't right");
-										
+					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}
 												
 				nextPhaseIfTime();
