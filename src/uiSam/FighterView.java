@@ -38,6 +38,7 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 	@FXML public Button takeHitButton;
 	@FXML public Button roll1Button;
 	@FXML public Label howManyRollsLabel;
+	@FXML public Label lastRollLabel;
 	
 	public FighterView() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -104,7 +105,7 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 				GameEvent rollHit = new GameEvent("ROLLHIT");
 				rollHit.put("THING", thing.getId());
 				rollHit.put("ROLL", roll);
-				roll1Button.setText("LR:" + roll);
+				lastRollLabel.setText("Roll: " + roll);
 				
 				BoardGameWindow.getInstance().networkMessageSend(rollHit);
 			}

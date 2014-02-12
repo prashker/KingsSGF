@@ -112,7 +112,7 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 							f.roll1Button.setDisable(true);
 						}
 						f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-						if (m.attackerHitPoints > 0) {
+						if (m.attackerHitPoints > 0 && !f.thing.isDead()) {
 							f.takeHitButton.setDisable(false);
 						}
 						else {
@@ -128,7 +128,7 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 							f.roll1Button.setDisable(true);
 						}
 						f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-						if (m.defenderHitPoints > 0) {
+						if (m.defenderHitPoints > 0 && !f.thing.isDead()) {
 							f.takeHitButton.setDisable(false);
 						}
 						else {

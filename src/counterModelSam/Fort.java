@@ -12,7 +12,6 @@ public class Fort extends Thing {
 	}
 	
 	private FortType type;
-	private boolean isNeutralised = false;
 	
 	public Fort(FortType type) {
 		this.type = type;
@@ -34,7 +33,7 @@ public class Fort extends Thing {
 	}
 	
 	public String getName() {
-		return name + (isNeutralised ? "Neutralised" : "");
+		return name + (isDead() ? "Neutralised" : "");
 	}
 	
 	protected Fort() {

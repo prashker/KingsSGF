@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import counterModelSam.Fort;
 import counterModelSam.Thing;
 import counterModelSam.Thing.ThingAbility;
 
@@ -119,6 +120,20 @@ public class CombatZone extends Observable {
 				else {
 					defenderMeleeThings.add(findOrder);
 				}
+			}
+		}
+		
+		//add the fort to the fight
+		Fort hexOwner = battleHex.getFort();
+		if (hexOwner != null) {
+			if (hexOwner.hasAbility(ThingAbility.MAGIC)) {
+					defenderMagicThings.add(hexOwner);
+			}
+			else if (hexOwner.hasAbility(ThingAbility.RANGED)) {
+					defenderRangedThings.add(hexOwner);
+			}
+			else {
+					defenderMeleeThings.add(hexOwner);
 			}
 		}
 		

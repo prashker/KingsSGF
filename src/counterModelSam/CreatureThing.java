@@ -60,6 +60,11 @@ public class CreatureThing extends Thing {
 	protected CreatureThing() {
 		
 	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
 	
 	
 }

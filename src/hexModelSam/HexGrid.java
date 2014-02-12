@@ -106,7 +106,7 @@ public class HexGrid extends KNTObject {
 			
 			HexModel t = new HexModel(HexModel.TileType.JungleTile);
 			
-			System.out.println(t.type.name());
+			System.out.println(t.type.toString());
 		}
 	}
 	

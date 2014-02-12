@@ -13,6 +13,8 @@ public abstract class Counter extends KNTObject {
 	
 	//private TileType terrainType;
 	
+	public abstract String getName();
+	
 	public Counter() {
 
 	}

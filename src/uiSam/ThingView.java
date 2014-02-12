@@ -62,7 +62,7 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 						setOpacity(0.5);
 					else
 						setOpacity(1);
-					setImage(new Image(m.name + ".png"));
+					setImage(new Image(m.getName() + ".png"));
 					registerDragability();
 					registerHoverability();
 				}
