@@ -117,8 +117,12 @@ public class GameServer extends Thread implements Networkable {
 	
 	public void sendTo(SocketChannel socketChannel, String data) { 
 		System.out.println("Sending back to Individual: " + data);
+		ByteBuffer headerBuf = ByteBuffer.allocate(4);
+		headerBuf.putInt(data.getBytes().length);
+		headerBuf.flip();
 		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 		try {
+			socketChannel.write(headerBuf);
 			socketChannel.write(msgBuf);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -130,11 +134,15 @@ public class GameServer extends Thread implements Networkable {
 	//
 	public void sendAll(String data) {
 		System.out.println("Sending back to all: " + data);
+		ByteBuffer headerBuf = ByteBuffer.allocate(4);
+		headerBuf.putInt(data.getBytes().length);
+		headerBuf.flip();
 		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 		for(SelectionKey key : selector.keys()) {
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
 				try {
+					sch.write(headerBuf);
 					sch.write(msgBuf);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -148,12 +156,16 @@ public class GameServer extends Thread implements Networkable {
 	public void sendAllExcept(SocketChannel socketChannel, String data) {
 		System.out.println("Sending back to all except 1: " + data);
 		for(SelectionKey key : selector.keys()) {
+			ByteBuffer headerBuf = ByteBuffer.allocate(4);
+			headerBuf.putInt(data.getBytes().length);
+			headerBuf.flip();
 			ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
 				System.out.println("Comparing " + sch + " to " + socketChannel);
 				if (sch != socketChannel) {
 					try {
+						sch.write(headerBuf);
 						sch.write(msgBuf);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block

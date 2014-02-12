@@ -32,13 +32,9 @@ public class GameClient extends Thread implements Networkable {
 	
 	private Selector selector;
 	private SocketChannel socketChannel;
-	private ByteBuffer buf = ByteBuffer.allocate(8192);
-	private InputThread it;
 	
 	public Thread gameLoopThread = null;
 
-
-	
 	public GameModel gameModel;
 	public ModelWorker gameLoop;
 	
@@ -98,16 +94,25 @@ public class GameClient extends Thread implements Networkable {
 	private void handleConnection(SelectionKey key) throws IOException {
 		SocketChannel socketChannel = (SocketChannel) key.channel();
 		
+		ByteBuffer headerBuf = ByteBuffer.allocate(4);
+		socketChannel.read(headerBuf);
+		headerBuf.flip();
+		int messageLen = headerBuf.getInt();
+		
+		ByteBuffer msgBuf = ByteBuffer.allocate(messageLen);
+
 		StringBuilder sb = new StringBuilder();
  
-		buf.clear();
+		msgBuf.clear();
 		int read = 0;
-		while((read = socketChannel.read(buf)) > 0) {
-			buf.flip();
-			byte[] bytes = new byte[buf.limit()];
-			buf.get(bytes);
+		while(read < messageLen) {
+			read += socketChannel.read(msgBuf);
+			
+			msgBuf.flip();
+			byte[] bytes = new byte[msgBuf.limit()];
+			msgBuf.get(bytes);
 			sb.append(new String(bytes));
-			buf.clear();
+			msgBuf.clear();
 		}
 		
 		//this is why its broken, because it needs a GameServer here
@@ -117,105 +122,10 @@ public class GameClient extends Thread implements Networkable {
 		this.gameLoop.processData(this, socketChannel, sb.toString());		
 	}
 
-	/*
-	private void sendMessage(String mesg) {
-		
-		GameEvent chatMsgEvent = new GameEvent("CHAT");
-		chatMsgEvent.put("CONTENT", mesg);
-		
-		String serialized = gsonInstance.toJson(chatMsgEvent);
-		
-		System.out.println("anubis");
-		System.out.println("going to client write " + serialized);
-		
-		prepWriteBuffer(serialized);
-		channelWrite(channel, writeBuffer);
-	}
-	*/
 
-	/*
-	private void prepWriteBuffer(String mesg) {
-		// fills the buffer from the given string
-		// and prepares it for a channel write
-		writeBuffer.clear();
-		writeBuffer.put(mesg.getBytes());
-		//writeBuffer.putChar('\n');
-		writeBuffer.flip();
-	}
-
-	private void channelWrite(SocketChannel channel, ByteBuffer writeBuffer) {
-		long nbytes = 0;
-		long toWrite = writeBuffer.remaining();
-
-		// loop on the channel.write() call since it will not necessarily
-		// write all bytes in one shot
-		try {
-			while (nbytes != toWrite) {
-				nbytes += channel.write(writeBuffer);
-
-				try {
-					Thread.sleep(CHANNEL_WRITE_SLEEP);
-				} catch (InterruptedException e) {
-				}
-			}
-		} catch (ClosedChannelException cce) {
-			
-		} catch (Exception e) {
-			
-		}
-
-		// get ready for another write if needed
-		writeBuffer.rewind();
-	}
-	*/
 	
 	public void shutdown() {
 		interrupt();
-	}
-
-	/**
-	 * InputThread reads user input from STDIN (DEBUGGING FOR SAM)
-	 */
-	class InputThread extends Thread {
-		private GameClient cc;
-		private boolean running;
-
-		public InputThread(GameClient cc) {
-			this.cc = cc;
-		}
-
-		public void run() {
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					System.in));
-			running = true;
-			while (running) {
-				try {
-					String s;
-					System.out.print("> ");
-					System.out.flush();
-					s = br.readLine();
-					if (s.length() > 0) {
-						GameEvent chatMsgEvent = new GameEvent("CHAT");
-						chatMsgEvent.put("FROM",  gameModel.localPlayer.getId());
-						chatMsgEvent.put("CONTENT", s);
-						
-						String serialized = JacksonSingleton.getInstance().writeValueAsString(chatMsgEvent);
-						
-						cc.sendTo(socketChannel, serialized);
-					}
-					if (s.equals("quit"))
-						running = false;
-				} catch (IOException ioe) {
-					running = false;
-				}
-			}
-			cc.shutdown();
-		}
-
-		public void shutdown() {
-			running = false;
-			interrupt();
-		}
 	}
 
 	@Override
@@ -225,8 +135,12 @@ public class GameClient extends Thread implements Networkable {
 
 	@Override
 	public void sendTo(SocketChannel socketChannel, String data) {
+		ByteBuffer headerBuf = ByteBuffer.allocate(4);
+		headerBuf.putInt(data.getBytes().length);
+		headerBuf.flip();
 		ByteBuffer msgBuf=ByteBuffer.wrap(data.getBytes());
 		try {
+			socketChannel.write(headerBuf);
 			socketChannel.write(msgBuf);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
