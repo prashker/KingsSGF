@@ -23,7 +23,7 @@ public class ConnectionByteHandler implements CanHandleConnection {
 		headerBuf.flip();
 		int messageLen = headerBuf.getInt();
 		
-		System.out.println("Server get: " + messageLen);
+		System.out.println("Server getLEN: " + messageLen);
 
 		
 		ByteBuffer msgBuf = ByteBuffer.allocate(messageLen);
@@ -40,7 +40,6 @@ public class ConnectionByteHandler implements CanHandleConnection {
 			msgBuf.get(bytes);
 			sb.append(new String(bytes));
 			msgBuf.clear();
-			System.out.println("Server get: " + sb.toString());
 		}
 		
 		network.getLoop().processData(network, socketChannel, sb.toString());

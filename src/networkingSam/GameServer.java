@@ -144,11 +144,12 @@ public class GameServer extends Thread implements Networkable {
 				try {
 					sch.write(headerBuf);
 					sch.write(msgBuf);
+					headerBuf.rewind();
+					msgBuf.rewind();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				msgBuf.rewind();
 			}
 		}
 	}
@@ -167,6 +168,8 @@ public class GameServer extends Thread implements Networkable {
 					try {
 						sch.write(headerBuf);
 						sch.write(msgBuf);
+						headerBuf.rewind();
+						msgBuf.rewind();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

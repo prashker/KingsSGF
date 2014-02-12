@@ -98,12 +98,10 @@ public class GameClient extends Thread implements Networkable {
 		socketChannel.read(headerBuf);
 		headerBuf.flip();
 		int messageLen = headerBuf.getInt();
-		
 		ByteBuffer msgBuf = ByteBuffer.allocate(messageLen);
 
 		StringBuilder sb = new StringBuilder();
  
-		msgBuf.clear();
 		int read = 0;
 		while(read < messageLen) {
 			read += socketChannel.read(msgBuf);
@@ -142,11 +140,12 @@ public class GameClient extends Thread implements Networkable {
 		try {
 			socketChannel.write(headerBuf);
 			socketChannel.write(msgBuf);
+			headerBuf.rewind();
+			msgBuf.rewind();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		msgBuf.rewind();		
 	}
 
 	@Override
