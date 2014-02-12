@@ -1,4 +1,4 @@
-Dillinger
+KingsSGF
 =========
 
 KingsSGF is a magical game.
