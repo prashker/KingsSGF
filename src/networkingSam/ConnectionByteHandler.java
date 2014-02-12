@@ -13,7 +13,7 @@ public class ConnectionByteHandler implements CanHandleConnection {
 	//also currently dealing with bytes and strings, so dynamically work on that....yo
 	
 
-	private ByteBuffer buf = ByteBuffer.allocate(8192);
+	private ByteBuffer readBuffer = ByteBuffer.allocate(65536);
 		
 	@Override
 	public boolean handleConnection(Networkable network, SelectionKey key) throws IOException {
@@ -21,15 +21,33 @@ public class ConnectionByteHandler implements CanHandleConnection {
 		
 		StringBuilder sb = new StringBuilder();
  
-		buf.clear();
-		int read = 0;
-		while((read = socketChannel.read(buf)) > 0) {
-			buf.flip();
-			byte[] bytes = new byte[buf.limit()];
-			buf.get(bytes);
-			sb.append(new String(bytes));
-			buf.clear();
+		// Clear out our read buffer so it's ready for new data
+		readBuffer.clear();
+
+		// Attempt to read off the channel
+		int numRead;
+		try {
+			numRead = socketChannel.read(readBuffer);
+		} 
+		catch (IOException e) {
+			// The remote forcibly closed the connection, cancel
+			// the selection key and close the channel.
+			key.cancel();
+			socketChannel.close();
+			return false;
 		}
+
+		if (numRead == -1) {
+			// Remote entity shut the socket down cleanly. Do the
+			// same from our end and cancel the channel.
+			key.channel().close();
+			key.cancel();
+			return false;
+		}
+		
+	    byte[] dataCopy = new byte[numRead];
+	    System.arraycopy(readBuffer.array(), 0, dataCopy, 0, numRead);
+	    sb.append(new String(dataCopy));
 		
 		network.getLoop().processData(network, socketChannel, sb.toString());
 				
