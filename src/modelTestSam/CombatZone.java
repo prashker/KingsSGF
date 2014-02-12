@@ -305,6 +305,9 @@ public class CombatZone extends Observable {
 	}
 
 	public boolean playerHasThing(PlayerModel p, Thing t) {
+		if (getThingArmyOrderByPlayer(p) == null)
+			return false;
+		
 		for (Thing th: getThingArmyOrderByPlayer(p)) {
 			if (th.equals(t))
 				return true;
