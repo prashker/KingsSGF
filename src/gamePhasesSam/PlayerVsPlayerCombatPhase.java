@@ -63,7 +63,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 						
 						//end of battle
 						if (referenceToModel.battleData.endBattle()) {
-							referenceToModel.chat.sysMessage("BATTLE OVER");
+							referenceToModel.battleData.giveTileToWinner();
 						}
 						//end of all rounds (all damage resolved)
 						else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
@@ -106,7 +106,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 					referenceToModel.battleData.takeHit(playerFound, thingFound);
 					//end of battle
 					if (referenceToModel.battleData.endBattle()) {
-						referenceToModel.chat.sysMessage("BATTLE OVER");
+						referenceToModel.battleData.giveTileToWinner();
 					}
 					//end of all rounds (all damage resolved)
 					else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
@@ -156,7 +156,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 						
 						//end of battle
 						if (referenceToModel.battleData.endBattle()) {
-							referenceToModel.chat.sysMessage("BATTLE OVER");
+							referenceToModel.battleData.giveTileToWinner();
 						}
 						//end of all rounds (all damage resolved)
 						else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
@@ -197,7 +197,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 					referenceToModel.battleData.takeHit(playerFound, thingFound);
 					//end of battle
 					if (referenceToModel.battleData.endBattle()) {
-						referenceToModel.chat.sysMessage("BATTLE OVER");
+						referenceToModel.battleData.giveTileToWinner();
 					}
 					//end of all rounds (all damage resolved)
 					else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
@@ -221,8 +221,13 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 
 	@Override
 	public void nextPhaseIfTime() {
-		// TODO Auto-generated method stub
-		
+		if (!referenceToModel.battleData.activeBattle) {
+			removeHandlers();
+			referenceToModel.state = new CombatPickPhase(referenceToModel);
+		}
+		else {
+			//Nothing
+		}
 	}
 
 }

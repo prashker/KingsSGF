@@ -106,7 +106,6 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 	}
 
 	private void registerDragability() {
-		
 			dragImageView.setImage(this.getImage());
 	        dragImageView.setFitHeight(50);
 	        dragImageView.setFitWidth(50);

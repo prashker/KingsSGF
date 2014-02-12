@@ -38,6 +38,8 @@ public abstract class GamePhase {
 		else {
 			clientPhaseHandler();
 		}
+		
+		System.out.println("HAVE BEGUN PHASE: " + getClass().getSimpleName());
 	}
 	
 	//Call turn after every GameEvent to see if we should shift to the next GamePhase

@@ -5,11 +5,13 @@ import hexModelSam.HexGrid;
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
+import modelTestSam.GameModel.Type;
 import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 import modelTestSam.ThingBowlModel;
@@ -22,8 +24,10 @@ public class GameBoardSetupPhase extends GamePhase {
 	public GameBoardSetupPhase(GameModel m) {
 		super(m);
 		
-		m.bowl.Demo1Population();
-		m.grid.Demo1FixedGrid();
+		if (m.modelType == Type.SERVER) {
+			m.bowl.Demo1Population();
+			m.grid.Demo1FixedGrid();
+		}
 	}
 
 	@Override
@@ -54,7 +58,7 @@ public class GameBoardSetupPhase extends GamePhase {
 				gameStartInfo.put("PLAYERS", referenceToModel.gamePlayersManager.players);
 
 				
-				gameStartInfo.put("BOWL", referenceToModel.bowl);
+				gameStartInfo.put("BOWL", referenceToModel.bowl.getBowl());
 				
 				referenceToModel.network.sendAll(gameStartInfo.toJson());
 				
@@ -77,13 +81,13 @@ public class GameBoardSetupPhase extends GamePhase {
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket,	GameEvent event) {
 				
-				ThingBowlModel bowl = (ThingBowlModel) event.get("BOWL");
+				LinkedList<Thing> bowl = (LinkedList<Thing>) event.get("BOWL");
 				HashMap<String, PlayerModel> players = (HashMap<String, PlayerModel>) event.get("PLAYERS");
 				HexGrid board = (HexGrid) event.get("BOARD");
 				
 				//loop through everything and update
 				
-				referenceToModel.bowl.addThingsToBowl(bowl.getBowl());
+				referenceToModel.bowl.loadInBowl(bowl);
 				
 				for (String key: players.keySet()) {
 					referenceToModel.gamePlayersManager.getPlayer(key).setGold(players.get(key).getGold());

@@ -88,48 +88,54 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 
 			@Override
 			public void run() {
-				attackerLabel.setText(com.attacker.name);
-				defenderLabel.setText(com.defender.name);
-				roundLabel.setText("Current Phase: " + com.getBattleOrder().toString());
-				attackerPoints.setText("Hit: " + com.attackerHitPoints);
-				defenderPoints.setText("Hit: " + com.defenderHitPoints);
-				
-				
-				//Roll Button
-				//Number of Rolls Still Can Do
-				//Take Hit Button (based on other players rolls)
-				for (FighterView f: attackerFighterViews) {
-					if (m.canAttack(f.thing)) {
-						f.roll1Button.setDisable(false);
+				if (com.activeBattle == false) {
+					//close window
+					Stage s = (Stage) rollButton.getScene().getWindow();
+					s.close();
+				}
+				else {
+					attackerLabel.setText(com.attacker.name);
+					defenderLabel.setText(com.defender.name);
+					roundLabel.setText("Current Phase: " + com.getBattleOrder().toString());
+					attackerPoints.setText("Hit: " + com.attackerHitPoints);
+					defenderPoints.setText("Hit: " + com.defenderHitPoints);
+					
+					
+					//Roll Button
+					//Number of Rolls Still Can Do
+					//Take Hit Button (based on other players rolls)
+					for (FighterView f: attackerFighterViews) {
+						if (m.canAttack(f.thing)) {
+							f.roll1Button.setDisable(false);
+						}
+						else {
+							f.roll1Button.setDisable(true);
+						}
+						f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
+						if (m.attackerHitPoints > 0) {
+							f.takeHitButton.setDisable(false);
+						}
+						else {
+							f.takeHitButton.setDisable(true);
+						}
 					}
-					else {
-						f.roll1Button.setDisable(true);
-					}
-					f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-					if (m.attackerHitPoints > 0) {
-						f.takeHitButton.setDisable(false);
-					}
-					else {
-						f.takeHitButton.setDisable(true);
+					
+					for (FighterView f: defenderFighterViews) {
+						if (m.canAttack(f.thing)) {
+							f.roll1Button.setDisable(false);
+						}
+						else {
+							f.roll1Button.setDisable(true);
+						}
+						f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
+						if (m.defenderHitPoints > 0) {
+							f.takeHitButton.setDisable(false);
+						}
+						else {
+							f.takeHitButton.setDisable(true);
+						}
 					}
 				}
-				
-				for (FighterView f: defenderFighterViews) {
-					if (m.canAttack(f.thing)) {
-						f.roll1Button.setDisable(false);
-					}
-					else {
-						f.roll1Button.setDisable(true);
-					}
-					f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-					if (m.defenderHitPoints > 0) {
-						f.takeHitButton.setDisable(false);
-					}
-					else {
-						f.takeHitButton.setDisable(true);
-					}
-				}
-				
 			}
 
 		});

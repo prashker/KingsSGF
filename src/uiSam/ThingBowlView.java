@@ -6,11 +6,14 @@ import gamePhasesSam.StartGamePlayTowerPhase;
 import java.util.Observable;
 import java.util.Observer;
 
+import counterModelSam.Thing;
+import counterModelSam.ThingStack;
 import modelTestSam.GameEvent;
 import modelTestSam.KNTObject;
 import modelTestSam.ThingBowlModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +21,8 @@ import javafx.scene.input.MouseEvent;
 public class ThingBowlView extends ImageView implements KingsAndThingsView<ThingBowlModel> {
 	
 	public ThingBowlModel thingBowl;
+	
+	Tooltip tileTooltip = new Tooltip();
 
 	@Override
 	public void setBind(final ThingBowlModel m) {
@@ -44,7 +49,10 @@ public class ThingBowlView extends ImageView implements KingsAndThingsView<Thing
 				System.out.println("Changed bowl, no UI updates yet");
 				
 				registerClickability();
+				registerHoverability();
 			}
+
+
 
 		});
 	}
@@ -67,6 +75,36 @@ public class ThingBowlView extends ImageView implements KingsAndThingsView<Thing
 			
 		});		
 	}
+	
+	private void registerHoverability() {
+		
+		final ThingBowlView context = this;
+
+		this.setOnMouseMoved(new EventHandler<MouseEvent>() {  
+		    @Override  
+		    public void handle(MouseEvent e) {
+		    	StringBuilder pretty = new StringBuilder("ThingBowl\n");
+		    	
+		    	for (Thing t: thingBowl.getBowl()) {
+		    		pretty.append("       \n" + t.name);
+		    	}
+		    	
+
+		    	tileTooltip.setText(pretty.toString());
+	    		tileTooltip.show(context, e.getScreenX() + 3, e.getScreenY() + 3);
+		    }  
+		});  
+
+		this.setOnMouseExited(new EventHandler<MouseEvent>() {  
+		  
+		    @Override  
+		    public void handle(MouseEvent e) {  
+		        tileTooltip.hide();  
+		    }  
+		});  
+	}
+	
+	
 
 
 

@@ -104,7 +104,7 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 				GameEvent rollHit = new GameEvent("ROLLHIT");
 				rollHit.put("THING", thing.getId());
 				rollHit.put("ROLL", roll);
-				roll1Button.setText("" + roll);
+				roll1Button.setText("LR:" + roll);
 				
 				BoardGameWindow.getInstance().networkMessageSend(rollHit);
 			}

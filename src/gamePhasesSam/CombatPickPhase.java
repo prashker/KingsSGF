@@ -89,7 +89,6 @@ public class CombatPickPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
-					//referenceToModel.gamePlayersManager.nextPlayerTurn();
 					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
 					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}
@@ -156,7 +155,6 @@ public class CombatPickPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
-					//referenceToModel.gamePlayersManager.nextPlayerTurn();
 					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
 					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}

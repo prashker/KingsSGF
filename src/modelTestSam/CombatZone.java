@@ -62,6 +62,15 @@ public class CombatZone extends Observable {
 		this.notifyObservers("BATTLEINIT");
 	}
 	
+	public void giveTileToWinner() {
+		PlayerModel winner = getWinner();
+		PlayerModel loser = getLoser();
+		if (winner != null && loser != null) { 
+			battleHex.takeOwnership(winner);
+			battleHex.removeAllThingsInStack(loser.getMyTurnOrder());
+		}
+	}
+	
 	public boolean endBattle() {
 		if (isBattleOver()) {
 			activeBattle = false;
@@ -283,20 +292,7 @@ public class CombatZone extends Observable {
 	}
 	
 	public boolean isBattleOver() {
-		boolean aDead = true;
-		boolean bDead = true;
-		
-		for (Thing t: attackerThingsSorted) {
-			if (!t.isDead()) 
-				aDead = false;
-		}
-		
-		for (Thing t: defenderThingsSorted) {
-			if (!t.isDead()) 
-				bDead = false;
-		}
-		
-		return (aDead || bDead);
+		return (getWinner() != null);
 	}
 	
 	public Thing getThingById(String id) {
@@ -314,6 +310,56 @@ public class CombatZone extends Observable {
 				return true;
 		}
 		return false;
+	}
+	
+	public PlayerModel getWinner() {
+		boolean aDead = true;
+		boolean bDead = true;
+		
+		for (Thing t: attackerThingsSorted) {
+			if (!t.isDead()) 
+				aDead = false;
+		}
+		
+		for (Thing t: defenderThingsSorted) {
+			if (!t.isDead()) 
+				bDead = false;
+		}
+		
+		if (aDead && !bDead) {
+			return defender;
+		}
+		else if (!aDead && bDead) {
+			return attacker;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	public PlayerModel getLoser() {
+		boolean aDead = true;
+		boolean bDead = true;
+		
+		for (Thing t: attackerThingsSorted) {
+			if (!t.isDead()) 
+				aDead = false;
+		}
+		
+		for (Thing t: defenderThingsSorted) {
+			if (!t.isDead()) 
+				bDead = false;
+		}
+		
+		if (aDead && !bDead) {
+			return attacker;
+		}
+		else if (!aDead && bDead) {
+			return defender;
+		}
+		else {
+			return null;
+		}
 	}
 
 }

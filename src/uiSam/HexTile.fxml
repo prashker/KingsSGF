@@ -18,9 +18,9 @@
     <ImageView fx:id="tileView" fitHeight="104.5941417528574" fitWidth="116.81307983398438" layoutX="0.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="controlZone" fitHeight="40.0" fitWidth="40.0" layoutX="0.0" layoutY="32.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="fortZone" fitHeight="40.0" fitWidth="40.0" layoutX="38.0" layoutY="32.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="playerOneThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="8.0" layoutY="0.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="playerOneThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="33.0" layoutY="60.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="playerTwoThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="33.0" layoutY="1.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="playerThreeThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="58.0" layoutY="1.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="playerFourThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="83.0" layoutY="1.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="playerFourThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="58.0" layoutY="61.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
   </children>
 </HexTileView>

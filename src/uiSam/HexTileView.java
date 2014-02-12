@@ -67,6 +67,8 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		playerStack.add(playerTwoThingStack);
 		playerStack.add(playerThreeThingStack);
 		playerStack.add(playerFourThingStack);
+		
+		tileView.setPickOnBounds(false);		
 	}
 
 	@Override
