@@ -19,7 +19,7 @@ public class GameModel extends Observable {
 	
 	//NOTES TO TA'S
 	//CHANGE TO 2 PLAYERS AND THE GAME WILL WORK WITH 2 PLAYERS
-	public int howManyPlayers = 4;
+	public int howManyPlayers = 2;
 	
 	public GamePhase state;
 	public Networkable network;

@@ -63,7 +63,7 @@ public class UndiscoveredCombatPhase extends GamePhase {
 				
 				if (playerFound == attacker) {
 					if (roll == 1 || roll == 6) {
-						referenceToModel.chat.sysMessage("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING");
+						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING", playerFound.name, roll));
 						battleHex.takeOwnership(playerFound);
 						wonFight = true;
 					}
@@ -105,7 +105,7 @@ public class UndiscoveredCombatPhase extends GamePhase {
 				
 				if (playerFound == attacker) {
 					if (roll == 1 || roll == 6) {
-						referenceToModel.chat.sysMessage("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING");
+						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING", playerFound.name, roll));
 						battleHex.takeOwnership(playerFound);
 						wonFight = true;
 					}

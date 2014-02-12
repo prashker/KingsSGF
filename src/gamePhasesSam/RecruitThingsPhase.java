@@ -110,9 +110,8 @@ public class RecruitThingsPhase extends GamePhase {
 				String player = (String) event.get("FROM");
 								
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					}
+					referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
 					ended++;
 				}
 				
@@ -198,9 +197,8 @@ public class RecruitThingsPhase extends GamePhase {
 				String player = (String) event.get("FROM");
 								
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					}
+					referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
 					ended++;
 				}
 								

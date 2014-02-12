@@ -116,7 +116,10 @@ public class BoardGameWindow extends VBox implements Observer {
 		this.joinMenu.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {							
+			public void handle(ActionEvent event) {			
+					
+					joinMenu.setDisable(true); //1 time use, not for all players though...
+				
 					model.localPlayer = new PlayerModel();
 			
 					GameEvent joinEvent = new GameEvent("JOIN");
@@ -132,7 +135,10 @@ public class BoardGameWindow extends VBox implements Observer {
 		this.startMenu.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {			
+			public void handle(ActionEvent event) {		
+				
+					startMenu.setDisable(true); //1 time use, not for all players though...
+
 				
 					GameEvent startEvent = new GameEvent("STARTGAMESETUP");
 					

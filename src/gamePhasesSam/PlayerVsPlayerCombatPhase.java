@@ -27,8 +27,10 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		
 		//2 PLAYER BATTLE ONLY FOR THE MOMENT
 		ArrayList<Integer> playerIDs = battleHex.playerIDOnThisHex();
-		PlayerModel defender = referenceToModel.gamePlayersManager.getPlayerByTurnIndex(
-				playerIDs.remove(battleHex.getOwner().getMyTurnOrder()));
+		
+		PlayerModel defender = battleHex.getOwner();
+		
+		playerIDs.remove(playerIDs.indexOf(battleHex.getOwner().getMyTurnOrder())); //leaving just the attacker
 		PlayerModel attacker = referenceToModel.gamePlayersManager.getPlayerByTurnIndex(playerIDs.get(0));
 		
 		referenceToModel.chat.sysMessage("PVP BATTLE START");

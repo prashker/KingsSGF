@@ -170,6 +170,10 @@ public class CombatPickPhase extends GamePhase {
 	public void nextPhaseIfTime() {
 		//currently for demo 1
 		
+		//currently it keeps going through the player list until all battles resolved
+		//however if the last player is not the first player, the player order is skewed
+		//FUTURE BUG
+		
 		if (battlesToResolve.isEmpty()) {
 			referenceToModel.chat.sysMessage("ALL BATTLES RESOLVED, NEXT PHASE");
 			removeHandlers();

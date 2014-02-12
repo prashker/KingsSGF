@@ -76,11 +76,11 @@ public class HexModel extends KNTObject {
 	}
 	
 	public void takeOwnership(PlayerModel p) {	
-		if (owner == null) {		
+		//if (owner == null) {	prevents battlewin takeover	
 			owner = p;
 			this.setChanged();
 			this.notifyObservers();
-		}
+		//}
 	}
 	
 	public void setFort(Fort f) {
