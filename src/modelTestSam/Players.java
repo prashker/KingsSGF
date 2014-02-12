@@ -65,6 +65,7 @@ public class Players extends KNTObject {
 		
 		//Boolean based on if it is the end of X players doing their round (SHIFTING)
 		public boolean nextPlayerTurn() {
+			/*
 			//continually loop over the player turn order
 			currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
 			
@@ -74,6 +75,20 @@ public class Players extends KNTObject {
 				currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
 				return true;
 			}	
+			
+			return false;
+			*/
+			
+			//DEMO 1 NOTES -- USING NONSHIFT
+			//APPARENTLY YOU SHIFT AFTER _ALL_ PHASES.
+			
+			//continually loop over the player turn order
+			currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
+			
+			if (currentPlayerIndex == firstPlayerIndex) {
+				return true;
+			}
+			
 			
 			return false;
 		}

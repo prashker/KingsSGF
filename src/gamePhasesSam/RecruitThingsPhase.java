@@ -49,9 +49,7 @@ public class RecruitThingsPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					
 					int freePicks = numFreeMoves.get(playerFound);
-					
-					playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
-					
+										
 					//Free pick
 					if (freePicks > 0) {
 						numFreeMoves.put(playerFound, freePicks - 1);
