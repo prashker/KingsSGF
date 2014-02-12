@@ -52,6 +52,9 @@ public class CombatZone extends Observable {
 		defenderThingsSorted.clear();
 		currentBattleOrder = -1;
 		thingAttacksRound.clear();
+		
+		attackerHitPoints = 0;
+		defenderHitPoints = 0;
 				
 		addPlayerMonstersToBattleInSortedOrder();
 		setRoundStartBattleOrder();
