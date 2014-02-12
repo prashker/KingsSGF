@@ -17,6 +17,8 @@ public class GameModel extends Observable {
 		CLIENT
 	};
 	
+	//NOTES TO TA'S
+	//CHANGE TO 2 PLAYERS AND THE GAME WILL WORK WITH 2 PLAYERS
 	public int howManyPlayers = 2;
 	
 	public GamePhase state;

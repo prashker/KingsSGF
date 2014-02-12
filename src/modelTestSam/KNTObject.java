@@ -1,14 +1,27 @@
 package modelTestSam;
 
+import hexModelSam.HexModel.TileType;
+
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
-public abstract class KNTObject extends Observable {
+import counterModelSam.CreatureThing;
+import counterModelSam.Thing;
+
+//ignore when serializing the Observable added "obs" and "changed"
+@JsonIgnoreProperties({"obs", "changed"})
+public class KNTObject extends Observable {
 	//Basically this is a superclass below class Object for which all Kings and Things objects inherit from.
 	//There are some concepts needed for network communication that need to be universal (the concept of a UUID for 2 different objects across PCs)
 	//Additionally the Observable property. Will be handy when doing major UI stuff.
@@ -43,9 +56,31 @@ public abstract class KNTObject extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
-	public boolean equals(KNTObject o) {
-		return id.equals(o.id);
-	}
 
+	//overloaded wrong
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		
+		if (o == null)
+			return false;
+		
+		/*
+		if (o instanceof String) 
+			return id.equals((String)o);
+		*/
+		
+		if (!(o instanceof KNTObject)) {
+			return false;
+		}
+				
+		return id.equals(((KNTObject) o).getId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+	
 }

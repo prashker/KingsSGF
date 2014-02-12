@@ -94,7 +94,16 @@ public class GoldCollectionPhase extends GamePhase {
 					//special income (not part of demo)
 					//gold character for special character owned
 					
-					int goldToAdd = referenceToModel.grid.searchForAllOwnedByPlayer(playerFound).size();
+					ArrayList<HexModel> ownedHex = referenceToModel.grid.searchForAllOwnedByPlayer(playerFound);
+					
+					int goldToAdd = ownedHex.size();
+							
+					for (HexModel m: ownedHex) {
+						if (m.getFort() != null) {
+							goldToAdd += m.getFort().value;
+						}
+					}
+					
 					playerFound.incrementGold(goldToAdd);
 					collected++;
 					

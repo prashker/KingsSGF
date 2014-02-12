@@ -29,6 +29,10 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 
 	Tooltip tileTooltip = new Tooltip();
 	
+	public ThingView() {
+		
+	}
+	
 	@Override
 	public void setBind(final Thing m) {
 		if (m != null) {
@@ -54,6 +58,10 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 			@Override
 			public void run() {
 				if (m != null) {
+					if (m.isDead())
+						setOpacity(0.5);
+					else
+						setOpacity(1);
 					setImage(new Image(m.name + ".png"));
 					registerDragability();
 					registerHoverability();
@@ -77,7 +85,11 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 		    public void handle(MouseEvent e) {
 		    	StringBuilder pretty = new StringBuilder(thing.name + "\n");
 		   
-		    	pretty.append(thing.validTerrain.toString());
+		    	pretty.append("       " + thing.validTerrain.toString() + "\n");
+		    	pretty.append("Hit: " + thing.getHitValue() + "\n");
+		    	if (thing.isDead()) {
+		    		pretty.append("DEAD");
+		    	}
 
 		    	tileTooltip.setText(pretty.toString());
 	    		tileTooltip.show(context, e.getScreenX() + 3, e.getScreenY() + 3);

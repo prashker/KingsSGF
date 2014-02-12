@@ -13,7 +13,7 @@
 <?import uiSam.*?>
 <?scenebuilder-classpath-element ../../bin?>
 
-<BattleWindow prefHeight="529.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BattleWindow">
+<BattleWindow prefHeight="579.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BattleWindow">
   <children>
     <Pane prefHeight="73.0" prefWidth="716.0">
       <children>
@@ -28,27 +28,28 @@
           </font>
         </Label>
         <Label alignment="CENTER" font="$x1" layoutX="574.0" layoutY="14.0" prefHeight="16.0" prefWidth="124.0" text="Defender" />
-        <Label fx:id="roundLabel" alignment="CENTER" layoutX="237.0" layoutY="46.0" prefWidth="242.0" text="" />
-        <Label fx:id="attackerLabel" alignment="CENTER" layoutX="110.0" layoutY="14.0" prefWidth="127.0" text="" />
-        <Label fx:id="defenderLabel" alignment="CENTER" layoutX="479.0" layoutY="14.0" prefWidth="120.0" text="" />
-        <Label fx:id="attackerPoints" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="" />
-        <Label fx:id="defenderPoints" alignment="CENTER" font="$x1" layoutX="574.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="" />
+        <Label fx:id="roundLabel" alignment="CENTER" layoutX="237.0" layoutY="46.0" prefWidth="242.0" text="Initial Text for This" />
+        <Label fx:id="attackerLabel" alignment="CENTER" layoutX="110.0" layoutY="14.0" prefWidth="127.0" text="Attacker Name" />
+        <Label fx:id="defenderLabel" alignment="CENTER" layoutX="479.0" layoutY="14.0" prefWidth="120.0" text="Defender Name" />
+        <Label fx:id="attackerPoints" alignment="CENTER" font="$x1" layoutX="22.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="Hit Points Attacker" />
+        <Label fx:id="defenderPoints" alignment="CENTER" font="$x1" layoutX="574.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="Hit Points Defender" />
       </children>
     </Pane>
-    <ScrollPane prefHeight="390.0" prefWidth="716.0">
+    <ScrollPane prefHeight="395.0" prefWidth="716.0">
       <content>
         <HBox prefHeight="375.0" prefWidth="697.0">
           <children>
             <VBox fx:id="attackerGrid" prefHeight="375.0" prefWidth="357.0001220703125" />
-            <VBox fx:id="defenderGrid" prefHeight="375.0" prefWidth="325.0" />
+            <VBox fx:id="defenderGrid" prefHeight="374.9998779296875" prefWidth="324.9999000000025" />
           </children>
         </HBox>
       </content>
     </ScrollPane>
-    <Pane prefHeight="62.0" prefWidth="716.0">
+    <Pane prefHeight="106.0" prefWidth="716.0">
       <children>
-        <Button fx:id="retreatButton" layoutX="560.0" layoutY="9.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="142.0" text="Retreat" />
-        <Button fx:id="rollButton" layoutX="22.0" layoutY="9.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="336.0000999999975" text="This is a button that does a Roll for an Unexplored Hex" />
+        <Button fx:id="retreatButton" layoutX="560.0" layoutY="32.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="142.0" text="Retreat" />
+        <Button fx:id="rollButton" layoutX="22.0" layoutY="32.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="335.999977929685" text="This is a button that does Nothing Yet" />
+        <fx:include fx:id="battleHex" source="HexTile.fxml" layoutX="404.0" layoutY="2.0" />
       </children>
     </Pane>
   </children>

@@ -42,11 +42,13 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	@FXML Button retreatButton;
 	@FXML Button rollButton;
 	
+	@FXML HexTileView battleHexController;
+	
 	//private AtomicBoolean fightStart = new AtomicBoolean(false);
 	public boolean fightStarted = false;
 	
-	public ArrayList<FighterView> attackerFighters = new ArrayList<FighterView>();
-	public ArrayList<FighterView> defenderFighters = new ArrayList<FighterView>();
+	public ArrayList<FighterView> attackerFighterViews = new ArrayList<FighterView>();
+	public ArrayList<FighterView> defenderFighterViews = new ArrayList<FighterView>();
 	
 	public BattleWindow() {
 		
@@ -58,9 +60,11 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 
 		m.addObserver(this);
 		
+		//one time thing
 		for (Thing attackerThing: m.attackerThingsSorted) {
 			System.out.println("Trying to add thing: " + attackerThing.name);
 			FighterView f = new FighterView();
+			attackerFighterViews.add(f);
 			f.setBind(attackerThing);
 			attackerGrid.getChildren().add(f);
 		}
@@ -68,22 +72,64 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 		for (Thing defenderThing: m.defenderThingsSorted) {
 			System.out.println("Trying to add thing: " + defenderThing.name);
 			FighterView f = new FighterView();
+			defenderFighterViews.add(f);
 			f.setBind(defenderThing);
 			defenderGrid.getChildren().add(f);
 		}
+		
+		battleHexController.setBind(m.battleHex);
 		
 		updateBind(m);
 		
 	}
 	@Override
-	public void updateBind(CombatZone m) {
+	public void updateBind(final CombatZone m) {
 		Platform.runLater(new Runnable() {
 
 			@Override
 			public void run() {
 				attackerLabel.setText(com.attacker.name);
 				defenderLabel.setText(com.defender.name);
-				roundLabel.setText("ORK");
+				roundLabel.setText("Current Phase: " + com.getBattleOrder().toString());
+				attackerPoints.setText("Hit: " + com.attackerHitPoints);
+				defenderPoints.setText("Hit: " + com.defenderHitPoints);
+				
+				
+				//Roll Button
+				//Number of Rolls Still Can Do
+				//Take Hit Button (based on other players rolls)
+				for (FighterView f: attackerFighterViews) {
+					if (m.canAttack(f.thing)) {
+						f.roll1Button.setDisable(false);
+					}
+					else {
+						f.roll1Button.setDisable(true);
+					}
+					f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
+					if (m.attackerHitPoints > 0) {
+						f.takeHitButton.setDisable(false);
+					}
+					else {
+						f.takeHitButton.setDisable(true);
+					}
+				}
+				
+				for (FighterView f: defenderFighterViews) {
+					if (m.canAttack(f.thing)) {
+						f.roll1Button.setDisable(false);
+					}
+					else {
+						f.roll1Button.setDisable(true);
+					}
+					f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
+					if (m.defenderHitPoints > 0) {
+						f.takeHitButton.setDisable(false);
+					}
+					else {
+						f.takeHitButton.setDisable(true);
+					}
+				}
+				
 			}
 
 		});

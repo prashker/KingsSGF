@@ -15,15 +15,15 @@
 
 <fx:root type="javafx.scene.layout.Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="340.3333282470703" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <Button fx:id="roll1Button" layoutX="23.0" layoutY="54.0" mnemonicParsing="false" text="Roll" />
-    <Button fx:id="roll2Button" layoutX="23.0" layoutY="17.0" mnemonicParsing="false" text="Roll" />
+    <Button id="roll2Button" fx:id="roll1Button" layoutX="20.0" layoutY="48.0" mnemonicParsing="false" text="Roll" />
     <ThingView fx:id="fighterThing" fitHeight="91.99980844726815" fitWidth="91.99980844726815" layoutX="77.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@images/Things/YellowKnight.png" />
       </image>
     </ThingView>
     <Button fx:id="bluffButton" layoutX="182.0" layoutY="17.0" mnemonicParsing="false" text="Bluff" />
-    <Button fx:id="hitButton" layoutX="183.0" layoutY="55.0" mnemonicParsing="false" text="Take Hit" />
+    <Button fx:id="takeHitButton" layoutX="183.0" layoutY="55.0" mnemonicParsing="false" text="Take Hit" />
     <Label fx:id="thingHPLabel" layoutX="279.0" layoutY="38.0" prefHeight="20.960845947265625" prefWidth="45.0" text="0" />
+    <Label id="isChargedLabel" fx:id="howManyRollsLabel" alignment="CENTER" layoutX="18.0" layoutY="21.0" text="Charged" />
   </children>
 </fx:root>

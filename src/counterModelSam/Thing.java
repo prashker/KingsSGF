@@ -18,7 +18,8 @@ public abstract class Thing extends Counter {
 		CHARGE,
 		RANGED,
 		SPECIAL,
-		MULTIHIT
+		MULTIHIT,
+		MELEE
 	}
 	
 	Set<ThingAbility> abilitySet = EnumSet.noneOf(ThingAbility.class);
@@ -67,10 +68,31 @@ public abstract class Thing extends Counter {
 			this.abilitySet.add(ThingAbility.MULTIHIT);
 			this.hitValue = value;
 		}
+		
+		//MELEE IF NO SPECIAL TYPES
+		if (!abilitySet.contains(ThingAbility.MAGIC) && !abilitySet.contains(ThingAbility.RANGED)) {
+			this.abilitySet.add(ThingAbility.MELEE);
+		}
 	}
 	
 	public void takeHit() {
 		hitValue--;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void reviveHit() {
+		if (abilitySet.contains(ThingAbility.MULTIHIT)) {
+			this.hitValue = value;
+		}
+		else {
+			this.hitValue = 1;
+		}
+	}
+	
+	public int getHitValue() {
+		return hitValue;
 	}
 	
 	@JsonIgnore
