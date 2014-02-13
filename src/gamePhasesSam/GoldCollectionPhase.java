@@ -59,9 +59,8 @@ public class GoldCollectionPhase extends GamePhase {
 					
 					referenceToModel.chat.sysMessage(playerFound.name + " collected " + goldToAdd + " gold");
 					
-					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					}
+					referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
 				}
 				
 				network.sendAll(event.toJson());
@@ -109,9 +108,8 @@ public class GoldCollectionPhase extends GamePhase {
 					
 					referenceToModel.chat.sysMessage(playerFound.name + " collected " + goldToAdd + " gold");
 					
-					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					}
+					referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
 				}
 				
 				nextPhaseIfTime();
