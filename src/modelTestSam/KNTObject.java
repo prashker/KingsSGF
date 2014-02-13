@@ -1,23 +1,8 @@
 package modelTestSam;
 
-import hexModelSam.HexModel.TileType;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import counterModelSam.CreatureThing;
-import counterModelSam.Thing;
 
 //ignore when serializing the Observable added "obs" and "changed"
 @JsonIgnoreProperties({"obs", "changed"})

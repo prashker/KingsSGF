@@ -1,7 +1,6 @@
 package counterModelSam;
 
 import modelTestSam.KNTObject;
-import hexModelSam.HexModel.TileType;
 
 //Subclass of a Thing
 public abstract class Counter extends KNTObject {

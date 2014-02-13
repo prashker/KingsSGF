@@ -1,7 +1,6 @@
 package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import modelTestSam.GameEvent;
@@ -9,7 +8,6 @@ import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
 import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
-import modelTestSam.Players;
 
 public class JoinGamePhase extends GamePhase {
 	//API REFERENCE (TYPE: KEYS)

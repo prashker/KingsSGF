@@ -2,9 +2,6 @@ package counterModelSam;
 
 import hexModelSam.HexModel.TileType;
 
-import java.util.Set;
-import java.util.TreeSet;
-
 public class CreatureThing extends Thing {
 	
 	//not used now but for future would be good to restrict to defined

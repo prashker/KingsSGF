@@ -1,12 +1,8 @@
 package modelTestSam;
 
-import gamePhasesSam.ChatPhase;
 import gamePhasesSam.GamePhase;
 import gamePhasesSam.JoinGamePhase;
 import hexModelSam.HexGrid;
-import hexModelSam.HexModel;
-
-import java.util.ArrayList;
 import java.util.Observable;
 
 public class GameModel extends Observable {

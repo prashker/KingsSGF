@@ -2,7 +2,6 @@ package gamePhasesSam;
 
 import java.util.ArrayList;
 
-import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
 

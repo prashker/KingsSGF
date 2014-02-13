@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import counterModelSam.Thing;
-import counterModelSam.Thing.ThingAbility;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

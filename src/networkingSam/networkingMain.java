@@ -3,8 +3,6 @@ package networkingSam;
 import java.io.IOException;
 
 import modelTestSam.GameModel;
-import modelTestSam.ModelWorker;
-import modelTestSam.NetworkedJSONGameLoop;
 
 public class networkingMain {
 

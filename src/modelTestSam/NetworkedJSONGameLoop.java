@@ -6,16 +6,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
-import networkingSam.GameServer;
 
 public class NetworkedJSONGameLoop implements ModelWorker {
 	
 	public HashMap<String, GameEventHandler> handleMap = new HashMap<String, GameEventHandler>();
 	
-	private List queue = new LinkedList();
+	private List<NetworkDataEvent> queue = new LinkedList<NetworkDataEvent>();
 	
 	private boolean running = true;
 
@@ -86,7 +83,6 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void processData(Networkable sender, SocketChannel socket, String data) {
 	    synchronized(queue) {

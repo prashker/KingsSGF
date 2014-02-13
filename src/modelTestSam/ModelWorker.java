@@ -2,8 +2,6 @@ package modelTestSam;
 
 import java.nio.channels.SocketChannel;
 
-import networkingSam.GameServer;
-
 public interface ModelWorker extends Runnable {
 	//blockingqueue?
 	

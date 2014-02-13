@@ -4,7 +4,6 @@ import hexModelSam.HexGrid;
 
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import counterModelSam.Thing;
@@ -14,7 +13,6 @@ import modelTestSam.GameModel;
 import modelTestSam.GameModel.Type;
 import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
-import modelTestSam.ThingBowlModel;
 
 public class GameBoardSetupPhase extends GamePhase {
 	//responsible for setting game board and giving players starting stuff

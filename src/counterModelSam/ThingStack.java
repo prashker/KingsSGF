@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import modelTestSam.KNTObject;
-
 public class ThingStack {
 	
 	private HashMap<String, Thing> stack = new HashMap<String, Thing>();

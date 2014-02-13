@@ -4,8 +4,6 @@ import hexModelSam.HexModel.TileType;
 
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.TreeSet;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class Thing extends Counter {

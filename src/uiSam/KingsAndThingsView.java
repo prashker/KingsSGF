@@ -1,10 +1,5 @@
 package uiSam;
 
-import java.util.Observable;
-import java.util.Observer;
-
-import javafx.fxml.FXML;
-
 public interface KingsAndThingsView<T> {
 	
 	//Not to use now, but all views implement this to hold a required setBind()

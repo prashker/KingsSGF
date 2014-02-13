@@ -1,42 +1,24 @@
 package uiSam;
 
-import hexModelSam.HexGrid;
-
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import networkingClientSam.GameClient;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.GameModel;
-import modelTestSam.JacksonSingleton;
 import modelTestSam.PlayerModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class BoardGameWindow extends VBox implements Observer {
@@ -82,7 +64,7 @@ public class BoardGameWindow extends VBox implements Observer {
 	@FXML private Button endTurnButton;
 	@FXML private Button rollButton;
 	
-	private BattleWindow singleBattleWindow;
+	//private BattleWindow singleBattleWindow;
 	
 	public void connect(String host, int port) {
 		this.host = host;

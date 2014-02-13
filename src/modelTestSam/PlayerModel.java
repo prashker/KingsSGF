@@ -1,13 +1,9 @@
 package modelTestSam;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import counterModelSam.Thing;
-import hexModelSam.*;
 
 public class PlayerModel extends KNTObject {
 	

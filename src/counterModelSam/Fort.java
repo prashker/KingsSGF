@@ -36,6 +36,10 @@ public class Fort extends Thing {
 		return name + (isDead() ? "Neutralised" : "");
 	}
 	
+	public String getType() {
+		return type.toString();
+	}
+	
 	protected Fort() {
 		
 	}

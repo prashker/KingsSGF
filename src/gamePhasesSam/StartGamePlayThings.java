@@ -4,7 +4,6 @@ import hexModelSam.HexModel;
 
 import java.nio.channels.SocketChannel;
 
-import counterModelSam.Fort;
 import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;

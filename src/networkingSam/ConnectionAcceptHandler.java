@@ -1,9 +1,7 @@
 package networkingSam;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
@@ -11,9 +9,7 @@ import modelTestSam.Networkable;
 
 //Responsible for accepting a connection and passing it off to the appropriate Reader Handler (forced to Byte now, future: param to JSON as example)
 public class ConnectionAcceptHandler implements CanHandleConnection {
-	
-	private final ByteBuffer welcomeBuf = ByteBuffer.wrap("Connection Accept Handler, Hi!!\n".getBytes());
-		
+			
 	@Override
 	public boolean handleConnection(Networkable network, SelectionKey key) throws IOException {
 		SocketChannel socketChannel = ((ServerSocketChannel) key.channel()).accept();

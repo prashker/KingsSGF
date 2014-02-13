@@ -1,6 +1,5 @@
 package uiSam;
 
-import modelTestSam.CombatZone;
 import javafx.application.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -3,11 +3,9 @@ package gamePhasesSam;
 import hexModelSam.HexModel;
 
 import java.nio.channels.SocketChannel;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
@@ -86,7 +84,7 @@ public class CombatPickPhase extends GamePhase {
 				String player = (String) event.get("FROM");
 				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
 
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(playerFound)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
 					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
@@ -152,7 +150,7 @@ public class CombatPickPhase extends GamePhase {
 				String player = (String) event.get("FROM");
 				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
 
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(playerFound)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
 					referenceToModel.chat.sysMessage("Lol you can't skip a battle");

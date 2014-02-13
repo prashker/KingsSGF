@@ -1,15 +1,11 @@
 package uiSam;
 
 import gamePhasesSam.RecruitThingsPhase;
-import gamePhasesSam.StartGamePlayTowerPhase;
-
 import java.util.Observable;
 import java.util.Observer;
 
 import counterModelSam.Thing;
-import counterModelSam.ThingStack;
 import modelTestSam.GameEvent;
-import modelTestSam.KNTObject;
 import modelTestSam.ThingBowlModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;

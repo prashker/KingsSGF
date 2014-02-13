@@ -5,12 +5,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import counterModelSam.Thing;
-import counterModelSam.ThingStack;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.Parent;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,12 +1,6 @@
 package networkingClientSam;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import networkingSam.GameServer;
 import modelTestSam.GameModel;
-import modelTestSam.NetworkedJSONGameLoop;
 
 public class gameClientStart {
 
