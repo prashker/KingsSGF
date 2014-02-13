@@ -44,6 +44,23 @@ KingsSGF was coded using the following technologies:
   1. Import the Project into Eclipse (File -> Import Project into Workspace)
   2. File -> Export -> Runnable JAR
   3. Or alternatively, RunAs from within Eclipse
+  
+### How To Run
+Server:
+
+  1. Open JAR or Start uiStart.java.
+  2. Select port (host address does not matter)
+  3. Click "Host"
+  
+Client:
+
+  1. Open JAR or Start uiStart.java.
+  2. Input port and address of server (defaults to localhost)
+  3. Click Connect
+  4. Once game window pops up, click File -> Join Game
+  5. Once all players joined (game will tell you), do roll and then
+  6. File -> Start Game once it says.
+  7. PLAY!
 
 ### Version
 Demo1.0
