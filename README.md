@@ -3,6 +3,8 @@ KingsSGF
 
 KingsSGF is a magical game.
 
+__NOTE: WE SUPPORT IN-GAME CHAT :)__
+
   - Super fun!
   - Much game!
   - Very quirky!
