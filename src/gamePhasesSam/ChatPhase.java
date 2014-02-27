@@ -12,9 +12,7 @@ public class ChatPhase extends GamePhase {
 	
 	public ChatPhase(GameModel m) {
 		super(m);
-		
-		//force the next phase
-		
+				
 		System.out.println("Chat engaged, quickswitch");
 		
 		nextPhaseIfTime();
@@ -22,6 +20,8 @@ public class ChatPhase extends GamePhase {
 
 	@Override
 	public void nextPhaseIfTime() {
+		//There are no conditions to prevent the next phase
+		//This is a start game phase that will permanently
 		referenceToModel.state = new DeterminePlayerOrderPhase(referenceToModel);
 	}
 
@@ -34,7 +34,6 @@ public class ChatPhase extends GamePhase {
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {	
 				
-				//REMINDER -- change from to PlayerModel from
 				String from = (String) event.get("FROM");
 				String content = (String) event.get("CONTENT");
 				
@@ -52,19 +51,15 @@ public class ChatPhase extends GamePhase {
 		
 		//CHAT: When client receives a CHAT message, display it (future: ChatObject in Model?)
 		//PARAMS: FROM, CONTENT
-		
-		
 		addPhaseHandler("CHAT", new GameEventHandler() {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
-				//System.out.println("MODEL CLIENT GOT MESSAGE FROM NETWORK");
-				
-				//REMINDER -- change from to PlayerModel from
 				String from = (String) event.get("FROM");
 				String content = (String) event.get("CONTENT");
 				
+				//Simply add a chat message
 				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.gamePlayersManager.getPlayer(from).name, content));
 
 			}

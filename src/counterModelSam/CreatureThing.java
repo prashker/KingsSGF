@@ -4,9 +4,6 @@ import hexModelSam.HexModel.TileType;
 
 public class CreatureThing extends Thing {
 	
-	//not used now but for future would be good to restrict to defined
-	//but name has no notion of the terrain field
-	//but does that matter??? 
 	public static enum CreatureThingNames {
 		OldDragon,
 		GiantSpider,

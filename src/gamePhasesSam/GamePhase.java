@@ -45,11 +45,13 @@ public abstract class GamePhase {
 	//Example: Once all 4 players join, switch from JoinGamePhase to PlayerOrderDeterminePhase (TBD)
 	public abstract void nextPhaseIfTime();
 	
+	//Add a phase handler
 	protected void addPhaseHandler(String type, GameEventHandler e) {
 		handlersRegistered.add(type);
 		referenceToModel.network.getLoop().register(type, e);		
 	}
 	
+	//Removing all handlers from the gameLoop
 	protected void removeHandlers() {
 		for (String handler: handlersRegistered) {
 			referenceToModel.network.getLoop().deregister(handler);

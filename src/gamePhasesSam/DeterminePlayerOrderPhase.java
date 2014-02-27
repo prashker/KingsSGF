@@ -86,8 +86,11 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 
 	@Override
 	public void nextPhaseIfTime() {
+		//Once all players have rolled, we are ready to determine player order and go to the next phase
 		if (referenceToModel.gamePlayersManager.players.size() == playerRolls.size()) {
 			
+			//Sort playerRolls based on biggest roll to smallest roll
+			//Biggest roll goes first, smallest goes last...
 			Collections.sort(playerRolls, new Comparator<RollPlayerPair>() {
 
 				@Override
@@ -120,6 +123,7 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 		
 	}
 	
+	//Inner class responsible for wrapping the Player with their Roll.
 	class RollPlayerPair {
 		private PlayerModel p;
 		private Integer roll;

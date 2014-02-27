@@ -11,6 +11,7 @@ public class Fort extends Thing {
 		Citadel		
 	}
 	
+	//What type of Fort is this?
 	private FortType type;
 	
 	public Fort(FortType type) {
@@ -32,6 +33,7 @@ public class Fort extends Thing {
 		}
 	}
 	
+	//When Forts are dead, they are Neutralised
 	public String getName() {
 		return name + (isDead() ? "Neutralised" : "");
 	}

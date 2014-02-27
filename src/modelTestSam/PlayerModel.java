@@ -7,6 +7,7 @@ import counterModelSam.Thing;
 
 public class PlayerModel extends KNTObject {
 	
+	//WARNING: If I recall we call we use the ordinal value on this, therefore the order of 1, 2, 3, 4 is REQUIRED.
 	public static enum PlayerType {
 		PlayerOneCounter,
 		PlayerTwoCounter,

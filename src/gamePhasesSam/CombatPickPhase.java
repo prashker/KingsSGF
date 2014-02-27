@@ -20,7 +20,6 @@ public class CombatPickPhase extends GamePhase {
 		super(m);
 		
 		//loop through each hex where there it is unexplored or has 2 stacks of players
-		
 		battlesToResolve.addAll(referenceToModel.grid.getHexesWithBattleConditions());
 				
 		referenceToModel.chat.sysMessage("Combat Phase");

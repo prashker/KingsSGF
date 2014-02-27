@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class Thing extends Counter {
 
-	//going with no re-usability in mind we have the following
-	
+	//Fixed set of abilities for each thing
 	public static enum ThingAbility {
 		FLYING,
 		MAGIC,
@@ -20,6 +19,7 @@ public abstract class Thing extends Counter {
 		MELEE
 	}
 	
+	//Abilities associated with the instantiated Thing
 	Set<ThingAbility> abilitySet = EnumSet.noneOf(ThingAbility.class);
 	
 	public String name;
@@ -73,6 +73,8 @@ public abstract class Thing extends Counter {
 		}
 	}
 	
+	//Take damage for this Thing
+	//Once hitValue becomes 0, this piece is essentially dead/powerless
 	public void takeHit() {
 		hitValue--;
 		
@@ -80,6 +82,7 @@ public abstract class Thing extends Counter {
 		this.notifyObservers();
 	}
 	
+	//Useful in the future when we have a Fort. Post-battle we have an opportunity to kill/review a Fort
 	public void reviveHit() {
 		if (abilitySet.contains(ThingAbility.MULTIHIT)) {
 			this.hitValue = value;

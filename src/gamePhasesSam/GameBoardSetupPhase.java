@@ -16,12 +16,13 @@ import modelTestSam.PlayerModel;
 
 public class GameBoardSetupPhase extends GamePhase {
 	//responsible for setting game board and giving players starting stuff
-	
+	//Currently coded that the server generates the data and passes it around to each user
 	private boolean gavePlayersTheInfo = false;
 
 	public GameBoardSetupPhase(GameModel m) {
 		super(m);
 		
+		//SERVER Currently automatically generates data
 		if (m.modelType == Type.SERVER) {
 			m.bowl.Demo1Population();
 			m.grid.Demo1FixedGrid();
@@ -62,7 +63,6 @@ public class GameBoardSetupPhase extends GamePhase {
 				
 				gavePlayersTheInfo = true;
 				nextPhaseIfTime();
-				
 			}
 			
 		});
