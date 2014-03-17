@@ -21,8 +21,12 @@ import modelTestSam.Bank;
 public class BankView extends Pane implements KingsAndThingsView<Bank> {
 	
 	@FXML ImageView controlMarker;
-	@FXML ImageView towerMarker;
 	@FXML ImageView combatMarker;
+	@FXML ImageView towerMarker;
+	@FXML ImageView keepMarker;
+	@FXML ImageView castleMarker;
+	@FXML ImageView citadelMarker;
+
 	
 	@FXML ImageView dragImageView = new ImageView(); //draggable resource
 
@@ -50,11 +54,19 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 			@Override
 			public void run() {
 				controlMarker.setImage(new Image("ControlMarker.png"));	
-				towerMarker.setImage(new Image("Tower.png"));
 				combatMarker.setImage(new Image("BattleCounter.png"));
+				towerMarker.setImage(new Image("Tower.png"));
+				keepMarker.setImage(new Image("Keep.png"));
+				castleMarker.setImage(new Image("Castle.png"));
+				citadelMarker.setImage(new Image("Citadel.png"));
+
 				registerDragability(controlMarker, "CONTROLMARKER");
-				registerDragability(towerMarker, "TOWERMARKER");
 				registerDragability(combatMarker, "COMBATMARKER");
+				
+				registerDragability(towerMarker, "TOWERMARKER");
+				registerDragability(keepMarker, "KEEPMARKER");
+				registerDragability(castleMarker, "CASTLEMARKER");
+				registerDragability(citadelMarker, "CITADELMARKER");
 			}
 
 		});
