@@ -13,6 +13,7 @@ import modelTestSam.GameEvent;
 import modelTestSam.JacksonSingleton;
 import modelTestSam.PlayerModel.PlayerType;
 import gamePhasesSam.CombatPickPhase;
+import gamePhasesSam.ConstructionPhase;
 import gamePhasesSam.MovementPhase;
 import gamePhasesSam.RecruitThingsPhase;
 import gamePhasesSam.StartGameControlHexesPhase;
@@ -168,6 +169,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 				
 				//VERY HACKED WAY TO DOING THIS, BUT ONLY WAY I CAN THINK OF AT THE MOMENT
 				//future: switch statement based on model.getState()
+				//Iteration2: Still no time for this
 				
 				if (clip.equals("CONTROLMARKER")) {
 					if (BoardGameWindow.getInstance().model.state instanceof StartGameControlHexesPhase) {
@@ -177,12 +179,36 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 					}
 				}
 				else if (clip.equals("TOWERMARKER")) {
-					if (BoardGameWindow.getInstance().model.state instanceof StartGamePlayTowerPhase) {
+					if (BoardGameWindow.getInstance().model.state instanceof StartGamePlayTowerPhase || BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
 						GameEvent placeTowerHex = new GameEvent("PLACETOWER");
 						placeTowerHex.put("HEX", tile.getId());
 						placeTowerHex.put("MARKER", new Fort(FortType.Tower)); //create here, pass to server and others
 						BoardGameWindow.getInstance().networkMessageSend(placeTowerHex);
 					}
+				}
+				else if (clip.equals("KEEPMARKER")) {
+					if (BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
+						GameEvent placeKeepHex = new GameEvent("PLACEKEEP");
+						placeKeepHex.put("HEX", tile.getId());
+						placeKeepHex.put("MARKER", new Fort(FortType.Keep)); //create here, pass to server and others
+						BoardGameWindow.getInstance().networkMessageSend(placeKeepHex);
+					}	
+				}
+				else if (clip.equals("CASTLEMARKER")) {
+					if (BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
+						GameEvent placeCastleHex = new GameEvent("PLACECASTLE");
+						placeCastleHex.put("HEX", tile.getId());
+						placeCastleHex.put("MARKER", new Fort(FortType.Castle)); //create here, pass to server and others
+						BoardGameWindow.getInstance().networkMessageSend(placeCastleHex);
+					}	
+				}
+				else if (clip.equals("CITADELMARKER")) {
+					if (BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
+						GameEvent placeCitadelHex = new GameEvent("PLACECITADEL");
+						placeCitadelHex.put("HEX", tile.getId());
+						placeCitadelHex.put("MARKER", new Fort(FortType.Citadel)); //create here, pass to server and others
+						BoardGameWindow.getInstance().networkMessageSend(placeCitadelHex);
+					}	
 				}
 				else if (clip.startsWith("RACK:")) {
 					//Rack to Hex Drag
