@@ -42,7 +42,7 @@ public class UndiscoveredCombatPhase extends GamePhase {
 	}
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//ROLL
 		//FROM:
 		//ROLL:
@@ -74,7 +74,8 @@ public class UndiscoveredCombatPhase extends GamePhase {
 					}
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 				
@@ -83,45 +84,6 @@ public class UndiscoveredCombatPhase extends GamePhase {
 		});
 	}
 
-	@Override
-	protected void clientPhaseHandler() {
-		//ROLL
-		//FROM:
-		//ROLL:
-		addPhaseHandler("ROLL", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				
-				String player = (String) event.get("FROM");
-				Integer roll = (Integer) event.get("ROLL");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				
-				System.out.println("Comparing " + playerFound.name + " to " + attacker);
-				
-				if (playerFound == attacker) {
-					if (roll == 1 || roll == 6) {
-						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING", playerFound.name, roll));
-						battleHex.takeOwnership(playerFound);
-						wonFight = true;
-					}
-					else {
-						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, normally this would start a fight but Player vs Unexplored is not ready", 
-								attacker.name, roll));
-						referenceToModel.chat.sysMessage("Roll again instead");
-						
-						//referenceToModel.battleData.initiateBattle(attacker, defender, battleHex, CombatMode.UndiscoveredHex);
-					}
-				}
-								
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-	}
 
 	@Override
 	public void nextPhaseIfTime() {

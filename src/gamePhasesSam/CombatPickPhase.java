@@ -30,9 +30,9 @@ public class CombatPickPhase extends GamePhase {
 		
 		nextPhaseIfTime(); //exit immediately if called when there are no battles
 	}
-
+	
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//STARTCOMBAT
 		//FROM: PlayerID
 		//HEX: BATTLEHEX
@@ -67,7 +67,8 @@ public class CombatPickPhase extends GamePhase {
 					
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 								
 				nextPhaseIfTime();
 				
@@ -90,72 +91,9 @@ public class CombatPickPhase extends GamePhase {
 					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 								
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//STARTCOMBAT
-		//FROM: PlayerID
-		//HEX: BATTLEHEX
-		addPhaseHandler("STARTCOMBAT", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				String hex = (String) event.get("HEX");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				HexModel battleHex = referenceToModel.grid.searchByID(hex);
-
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					//If it is a battle hex and I have pieces on this board
-					if (battlesToResolve.contains(battleHex)) {
-						//if it's a battle hex PVP
-						
-						//current restrictions (its ME)						
-						if (battleHex.stackByPlayer.get(playerFound.getMyTurnOrder()).hasThings()) {
-							if (battleHex.howManyPlayersOnIt() == 2) {
-								breakToBattle(new PlayerVsPlayerCombatPhase(referenceToModel, battleHex));
-							}
-							else if (battleHex.isUnexplored()) {
-								breakToBattle(new UndiscoveredCombatPhase(referenceToModel, battleHex));
-							}
-						}
-
-					}
-					
-					
-				}
-												
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-		
-		addPhaseHandler("ENDTURN", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(playerFound)) {
-					//can't normally end turn while battles exist for you but we'll let it slide now
-					
-					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
-					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
-				}
-												
 				nextPhaseIfTime();
 				
 			}

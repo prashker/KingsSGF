@@ -8,19 +8,15 @@ public class ConstructionPhase extends GamePhase {
 		super(m);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	protected void serverPhaseHandler() {
+	
+	public void phaseHandler() {
 		//Todo: PLACETOWER
 		//Todo: PLACEKEEP
 		//Todo: PLACECASTLE
 		//Todo: PLACECITADEL
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		// TODO Auto-generated method stub
 		
+		//if (isServer())
+
 	}
 
 	@Override

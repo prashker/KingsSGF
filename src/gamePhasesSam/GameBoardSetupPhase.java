@@ -28,84 +28,80 @@ public class GameBoardSetupPhase extends GamePhase {
 			m.grid.Demo1FixedGrid();
 		}
 	}
+	
+	public void phaseHandler() {
+		if (isServer()) {
+			//FUTURE "setHex" for player decided
+			
+			//STARTGAMESETUP
+			//
+			addPhaseHandler("STARTGAMESETUP", new GameEventHandler() {
 
-	@Override
-	protected void serverPhaseHandler() {
-		//FUTURE "setHex" for player decided
-		
-		//STARTGAMESETUP
-		//
-		addPhaseHandler("STARTGAMESETUP", new GameEventHandler() {
+				@Override
+				public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+					
+					//BROKEN
+					
+					GameEvent gameStartInfo = new GameEvent("STARTGAMESETUP");
+					gameStartInfo.put("BOARD", referenceToModel.grid);
+					
+					for (int i=0; i < referenceToModel.gamePlayersManager.numPlayers(); i++) {
+						referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i);
+						referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i).addThingsToRack(referenceToModel.bowl.getTopThings(10));
+					}
+					
+					for (PlayerModel p: referenceToModel.gamePlayersManager.players.values()) {
+						p.setGold(p.getGold() + 10);
+					}
+					
+					gameStartInfo.put("PLAYERS", referenceToModel.gamePlayersManager.players);
 
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				//BROKEN
-				
-				GameEvent gameStartInfo = new GameEvent("STARTGAMESETUP");
-				gameStartInfo.put("BOARD", referenceToModel.grid);
-				
-				for (int i=0; i < referenceToModel.gamePlayersManager.numPlayers(); i++) {
-					referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i);
-					referenceToModel.gamePlayersManager.getPlayerByTurnIndex(i).addThingsToRack(referenceToModel.bowl.getTopThings(10));
+					
+					gameStartInfo.put("BOWL", referenceToModel.bowl.getBowl());
+					
+					referenceToModel.network.sendAll(gameStartInfo.toJson());
+					
+					gavePlayersTheInfo = true;
+					nextPhaseIfTime();
 				}
 				
-				for (PlayerModel p: referenceToModel.gamePlayersManager.players.values()) {
-					p.setGold(p.getGold() + 10);
+			});
+		}
+		else {
+			//STARTGAMESETUP
+			//BOARD
+			//BOWL
+			//PLAYERS: <PLAYERID, PLAYER>
+			addPhaseHandler("STARTGAMESETUP", new GameEventHandler() {
+
+				@Override
+				public void handleEvent(Networkable network, SocketChannel socket,	GameEvent event) {
+					
+					LinkedList<Thing> bowl = (LinkedList<Thing>) event.get("BOWL");
+					HashMap<String, PlayerModel> players = (HashMap<String, PlayerModel>) event.get("PLAYERS");
+					HexGrid board = (HexGrid) event.get("BOARD");
+					
+					//loop through everything and update
+					
+					referenceToModel.bowl.loadInBowl(bowl);
+					
+					for (String key: players.keySet()) {
+						referenceToModel.gamePlayersManager.getPlayer(key).setGold(players.get(key).getGold());
+						referenceToModel.gamePlayersManager.getPlayer(key).addThingsToRack(players.get(key).rack);
+					}
+					
+					referenceToModel.grid.replaceHexGrid(board.grid);
+					
+					
+					
+					gavePlayersTheInfo = true;
+					nextPhaseIfTime();
+			
+					
 				}
-				
-				gameStartInfo.put("PLAYERS", referenceToModel.gamePlayersManager.players);
 
-				
-				gameStartInfo.put("BOWL", referenceToModel.bowl.getBowl());
-				
-				referenceToModel.network.sendAll(gameStartInfo.toJson());
-				
-				gavePlayersTheInfo = true;
-				nextPhaseIfTime();
-			}
-			
-		});
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//STARTGAMESETUP
-		//BOARD
-		//BOWL
-		//PLAYERS: <PLAYERID, PLAYER>
-		addPhaseHandler("STARTGAMESETUP", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket,	GameEvent event) {
-				
-				LinkedList<Thing> bowl = (LinkedList<Thing>) event.get("BOWL");
-				HashMap<String, PlayerModel> players = (HashMap<String, PlayerModel>) event.get("PLAYERS");
-				HexGrid board = (HexGrid) event.get("BOARD");
-				
-				//loop through everything and update
-				
-				referenceToModel.bowl.loadInBowl(bowl);
-				
-				for (String key: players.keySet()) {
-					referenceToModel.gamePlayersManager.getPlayer(key).setGold(players.get(key).getGold());
-					referenceToModel.gamePlayersManager.getPlayer(key).addThingsToRack(players.get(key).rack);
-				}
-				
-				referenceToModel.grid.replaceHexGrid(board.grid);
-				
-				
-				
-				gavePlayersTheInfo = true;
-				nextPhaseIfTime();
-		
-				
-			}
-			
-			
-			
-		});
-
+			});
+		}
 	}
 
 	@Override
@@ -113,7 +109,6 @@ public class GameBoardSetupPhase extends GamePhase {
 		if (gavePlayersTheInfo) {
 			referenceToModel.chat.sysMessage("All player starter materials given. +10 Gold");
 			
-
 			removeHandlers();
 			referenceToModel.state = new StartGameControlHexesPhase(referenceToModel);
 		}

@@ -35,7 +35,7 @@ public class MovementPhase extends GamePhase {
 	 */
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//MOVESTACK
 		//FROMHEX: ID
 		//TOHEX: ID
@@ -64,7 +64,8 @@ public class MovementPhase extends GamePhase {
 					
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 				
@@ -84,68 +85,14 @@ public class MovementPhase extends GamePhase {
 					ended++;
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 			}
 			
 		});
 		
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//MOVESTACK
-		//FROMHEX: ID
-		//TOHEX: ID
-		//FROM: ID
-		//PLAYER: ID OF
-		addPhaseHandler("MOVESTACK", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				String fromHex = (String) event.get("FROMHEX");
-				String toHex = (String) event.get("TOHEX");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				HexModel fromHexO = referenceToModel.grid.searchByID(fromHex);
-				HexModel toHexO = referenceToModel.grid.searchByID(toHex);
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					
-					//for now, move all (future, more complex, move per Thing)
-					for (Thing t: fromHexO.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().values()) {
-						toHexO.addPlayerOwnedThingToHex(t, playerFound.getMyTurnOrder());						
-					}
-					fromHexO.removeAllThingsInStack(playerFound.getMyTurnOrder());
-					
-				}
-								
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-		
-		addPhaseHandler("ENDTURN", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				String player = (String) event.get("FROM");
-								
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					ended++;
-				}
-				
-				
-				nextPhaseIfTime();
-			}
-			
-		});
 	}
 
 	@Override

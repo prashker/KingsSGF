@@ -34,7 +34,7 @@ public class RecruitThingsPhase extends GamePhase {
 	}
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//GETTHINGFROMBOWL
 		//FROM
 		addPhaseHandler("GETTHINGFROMBOWL", new GameEventHandler() {
@@ -63,7 +63,8 @@ public class RecruitThingsPhase extends GamePhase {
 					
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 			}
@@ -92,7 +93,8 @@ public class RecruitThingsPhase extends GamePhase {
 					}
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 								
@@ -114,7 +116,8 @@ public class RecruitThingsPhase extends GamePhase {
 					ended++;
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 			}
@@ -123,89 +126,6 @@ public class RecruitThingsPhase extends GamePhase {
 		
 	}
 
-	@Override
-	protected void clientPhaseHandler() {
-		//GETTHINGFROMBOWL
-		//FROM
-		addPhaseHandler("GETTHINGFROMBOWL", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				String player = (String) event.get("FROM");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);				
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					
-					int freePicks = numFreeMoves.get(playerFound);
-					
-					
-					//Free pick
-					if (freePicks > 0) {
-						numFreeMoves.put(playerFound, freePicks - 1);
-						referenceToModel.chat.sysMessage(playerFound.name + " got a Free Thing from the bowl");
-						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
-					}
-					else if (playerFound.getGold() > 5) {
-						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
-						playerFound.decrementGold(5);
-						referenceToModel.chat.sysMessage(playerFound.name + " bought a Thing from the bowl");
-					}
-					
-				}
-								
-				nextPhaseIfTime();
-			}
-			
-		});
-		
-		//PLACETHING
-		//RACK
-		//HEX
-		addPhaseHandler("PLACETHING", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-	
-				String player = (String) event.get("FROM");
-				String hexToPlaceThing = (String) event.get("HEX");
-				String thingToPlace = (String) event.get("RACK");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				HexModel gridFound = referenceToModel.grid.searchByID(hexToPlaceThing);
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					Thing thing = playerFound.removeThingById(thingToPlace);
-					if (thing != null) {
-						gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
-					}
-				}
-								
-				nextPhaseIfTime();
-								
-			}
-			
-		});
-		
-		//ENDTURN
-		//FROM
-		addPhaseHandler("ENDTURN", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				String player = (String) event.get("FROM");
-								
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					ended++;
-				}
-								
-				nextPhaseIfTime();
-			}
-			
-		});
-	}
 
 	@Override
 	public void nextPhaseIfTime() {

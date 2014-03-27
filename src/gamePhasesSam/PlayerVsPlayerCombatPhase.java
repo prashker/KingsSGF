@@ -40,7 +40,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 	}
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//ROLLHIT:
 		//THING: ID
 		//ROLL:
@@ -81,7 +81,8 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 					}
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 				
@@ -123,7 +124,8 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 					}
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 			
@@ -131,94 +133,6 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 			
 		});
 		
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//ROLLHIT:
-		//THING:
-		//ROLL:
-		//FROM:
-		addPhaseHandler("ROLLHIT", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				String thing = (String) event.get("THING");
-				
-				Thing thingFound = referenceToModel.battleData.getThingById(thing);
-				int playerRoll = (int) event.get("ROLL");
-				
-				//if this thing is part of players own battle things
-				if (referenceToModel.battleData.playerHasThing(playerFound, thingFound)) {
-					if (referenceToModel.battleData.canAttack(thingFound)) {
-						referenceToModel.battleData.tryHit(playerFound, thingFound, playerRoll);
-						
-						//end of battle
-						if (referenceToModel.battleData.endBattle()) {
-							referenceToModel.battleData.giveTileToWinner();
-						}
-						//end of all rounds (all damage resolved)
-						else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
-							referenceToModel.battleData.setRoundStartBattleOrder();
-						}
-						//end of one set (all damage resolved)
-						else if (referenceToModel.battleData.allMonstersWithCurrentAbilityHaveAttacked() && referenceToModel.battleData.allHitsResolved()) {
-							referenceToModel.battleData.nextBattleOrder();
-						}
-						else {
-							referenceToModel.chat.sysMessage("Still going in battle");
-						}
-					}
-				}
-								
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-		
-		//TAKEHIT
-		//THING
-		//FROM
-		addPhaseHandler("TAKEHIT", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				String thing = (String) event.get("THING");
-				
-				Thing thingFound = referenceToModel.battleData.getThingById(thing);
-				
-				//if this thing is part of players own battle things
-				if (referenceToModel.battleData.playerHasThing(playerFound, thingFound)) {
-					referenceToModel.battleData.takeHit(playerFound, thingFound);
-					//end of battle
-					if (referenceToModel.battleData.endBattle()) {
-						referenceToModel.battleData.giveTileToWinner();
-					}
-					//end of all rounds (all damage resolved)
-					else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
-						referenceToModel.battleData.setRoundStartBattleOrder();
-					}
-					//end of one set (all damage resolved)
-					else if (referenceToModel.battleData.allMonstersWithCurrentAbilityHaveAttacked() && referenceToModel.battleData.allHitsResolved()) {
-						referenceToModel.battleData.nextBattleOrder();
-					}
-					else {
-						referenceToModel.chat.sysMessage("Still going in battle");
-					}
-				}
-								
-				nextPhaseIfTime();
-			
-			}
-			
-		});		
 	}
 
 	@Override

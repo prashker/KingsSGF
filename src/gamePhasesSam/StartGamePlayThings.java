@@ -23,7 +23,7 @@ public class StartGamePlayThings extends GamePhase {
 	}
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//PLACETHING
 		//FROM: String 
 		//HEX: HEXID String
@@ -48,7 +48,8 @@ public class StartGamePlayThings extends GamePhase {
 					}
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 								
@@ -72,62 +73,8 @@ public class StartGamePlayThings extends GamePhase {
 					ended++;
 				}
 				
-				network.sendAll(event.toJson());
-				
-				nextPhaseIfTime();
-
-			}
-			
-		});
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//PLACETHING
-		//FROM: String 
-		//HEX: HEXID String
-		//RACK: StringID of Thing from Rack
-		addPhaseHandler("PLACETHING", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-	
-				String player = (String) event.get("FROM");
-				String hexToPlaceThing = (String) event.get("HEX");
-				String thingToPlace = (String) event.get("RACK");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				HexModel gridFound = referenceToModel.grid.searchByID(hexToPlaceThing);
-				
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					Thing thing = playerFound.removeThingById(thingToPlace);
-					if (thing != null) {
-						gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
-					}
-				}
-				
-				nextPhaseIfTime();
-								
-			}
-			
-		});
-		
-		//ENDTURN
-		//FROM
-		addPhaseHandler("ENDTURN", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket,	GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					}
-					ended++;
-				}
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 

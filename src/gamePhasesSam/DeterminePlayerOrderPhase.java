@@ -28,61 +28,58 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 	//TO ADD:
 	//When a player rolls, announce RIGHT then that they rolled, not when all players rolled
 	
-	@Override
-	protected void serverPhaseHandler() {
-		//ROLL
-		//FROM:
-		//ROLL:
-		addPhaseHandler("ROLL", new GameEventHandler() {
+	protected void phaseHandler() {
+		if (isServer()) {
+			//ROLL
+			//FROM:
+			//ROLL:
+			addPhaseHandler("ROLL", new GameEventHandler() {
 
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				
-				//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
-				//BUG!!!
-				RollPlayerPair playerR = new RollPlayerPair();
-				playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
-				//Future get roll from player
-				playerR.roll = (Integer) event.get("ROLL");
-								
-				playerRolls.add(playerR);	
+				@Override
+				public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+					
+					
+					//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
+					//BUG!!!
+					RollPlayerPair playerR = new RollPlayerPair();
+					playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
+					//Future get roll from player
+					playerR.roll = (Integer) event.get("ROLL");
+									
+					playerRolls.add(playerR);	
 
-				network.sendAll(event.toJson());
+					network.sendAll(event.toJson());
+					
+					nextPhaseIfTime();
+					
+				}
 				
-				nextPhaseIfTime();
+			});
+		}
+		else {
+			addPhaseHandler("ROLL", new GameEventHandler() {
+
+				@Override
+				public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+					
+					
+					//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
+					//BUG!!!
+					RollPlayerPair playerR = new RollPlayerPair();
+					playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
+					//Future get roll from player
+					playerR.roll = (Integer) event.get("ROLL");
+									
+					playerRolls.add(playerR);	
+					
+					nextPhaseIfTime();
+					
+				}
 				
-			}
-			
-		});
+			});
+		}
 	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//ROLL
-		//FROM:
-		//ROLL:
-		addPhaseHandler("ROLL", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				
-				//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
-				//BUG!!!
-				RollPlayerPair playerR = new RollPlayerPair();
-				playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
-				//Future get roll from player
-				playerR.roll = (Integer) event.get("ROLL");
-								
-				playerRolls.add(playerR);	
-				
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-	}
+	
 
 	@Override
 	public void nextPhaseIfTime() {

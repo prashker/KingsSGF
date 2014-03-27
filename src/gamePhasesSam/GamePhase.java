@@ -12,8 +12,8 @@ public abstract class GamePhase {
 	
 	ArrayList<String> handlersRegistered = new ArrayList<String>();
 	
-	protected abstract void serverPhaseHandler();
-	protected abstract void clientPhaseHandler();
+	//New unified method for GitHub issue #2
+	protected abstract void phaseHandler();
 	
 	//Maintain a reference to the model to modify varying data 
 	
@@ -25,20 +25,14 @@ public abstract class GamePhase {
 		referenceToModel = m;
 		
 		//Establish client or server based handlers for a certain event
-		
-		
-		//FUTURE
-		//There is no real distinction between what the server and client do
-		//Just that the Server broadcasts it out to everyone
-		//But we won't handle that yet
-		
-		if (m.modelType == GameModel.Type.SERVER)
-			serverPhaseHandler();
-		else {
-			clientPhaseHandler();
-		}
+
+		phaseHandler();
 		
 		System.out.println("HAVE BEGUN PHASE: " + getClass().getSimpleName());
+	}
+	
+	public boolean isServer() {
+		return referenceToModel.modelType == GameModel.Type.SERVER;
 	}
 	
 	//Call turn after every GameEvent to see if we should shift to the next GamePhase

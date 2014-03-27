@@ -23,57 +23,7 @@ public class GoldCollectionPhase extends GamePhase {
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
 	}
 
-	@Override
-	protected void serverPhaseHandler() {
-		//ENDTURN
-		//FROM: PlayerID
-		//Nothing else needed since Gold collection is automated
-		addPhaseHandler("ENDTURN", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				String player = (String) event.get("FROM");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);				
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					
-					//COLLECT GOLD BASED ON
-					//1 for each owned hex (PART OF DEMO1)
-					//value of each fort owned (PART OF DEMO1)
-					//special income (not part of demo)
-					//gold character for special character owned
-					
-					ArrayList<HexModel> ownedHex = referenceToModel.grid.searchForAllOwnedByPlayer(playerFound);
-					
-					int goldToAdd = ownedHex.size();
-							
-					for (HexModel m: ownedHex) {
-						if (m.getFort() != null) {
-							goldToAdd += m.getFort().value;
-						}
-					}
-					
-					playerFound.incrementGold(goldToAdd);
-					collected++;
-					
-					referenceToModel.chat.sysMessage(playerFound.name + " collected " + goldToAdd + " gold");
-					
-					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-				}
-				
-				network.sendAll(event.toJson());
-				
-				nextPhaseIfTime();
-				
-			}
-			
-		});
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
+	public void phaseHandler() {
 		//ENDTURN
 		//FROM: PlayerID
 		//Nothing else needed since Gold collection is automated
@@ -111,6 +61,9 @@ public class GoldCollectionPhase extends GamePhase {
 					referenceToModel.gamePlayersManager.nextPlayerTurn();
 					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
 				}
+				
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 				

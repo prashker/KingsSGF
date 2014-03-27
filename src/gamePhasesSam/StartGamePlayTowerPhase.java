@@ -23,7 +23,7 @@ public class StartGamePlayTowerPhase extends GamePhase {
 	}
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//PLACETOWER
 		//FROM: String 
 		//HEX: HEXID String
@@ -54,47 +54,9 @@ public class StartGamePlayTowerPhase extends GamePhase {
 					
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
-				nextPhaseIfTime();
-								
-			}
-			
-		});
-	}
-
-	@Override
-	protected void clientPhaseHandler() {
-		//PLACETOWER
-		//FROM: String 
-		//HEX: HEXID String
-		//MARKER: Fort
-		addPhaseHandler("PLACETOWER", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				String hexToOwn = (String) event.get("HEX");
-				
-				Fort fort = (Fort) event.get("MARKER");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				HexModel gridFound = referenceToModel.grid.searchByID(hexToOwn);
-				
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					
-					if (gridFound.getOwner() == playerFound) {
-						gridFound.setFort(fort);
-					
-						referenceToModel.chat.sysMessage(playerFound.name + " has placed a Tower " + gridFound.getId());
-						referenceToModel.gamePlayersManager.nextPlayerTurn();						
-						deployed++;
-					}
-					
-				}
-								
 				nextPhaseIfTime();
 								
 			}

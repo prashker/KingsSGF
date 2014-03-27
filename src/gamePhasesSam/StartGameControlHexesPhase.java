@@ -22,7 +22,7 @@ public class StartGameControlHexesPhase extends GamePhase {
 	}
 
 	@Override
-	protected void serverPhaseHandler() {
+	protected void phaseHandler() {
 		//PLACECONTROL
 		//FROM
 		//HEX: HEXID
@@ -53,7 +53,8 @@ public class StartGameControlHexesPhase extends GamePhase {
 					}
 				}
 				
-				network.sendAll(event.toJson());
+				if (isServer())
+					network.sendAll(event.toJson());
 				
 				nextPhaseIfTime();
 								
@@ -62,45 +63,6 @@ public class StartGameControlHexesPhase extends GamePhase {
 		});
 	}
 
-	@Override
-	protected void clientPhaseHandler() {
-		//PLACECONTROL
-		//FROM
-		//HEX: HEXID
-		addPhaseHandler("PLACECONTROL", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-				
-				String player = (String) event.get("FROM");
-				String hexToOwn = (String) event.get("HEX");
-				
-				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
-				HexModel gridFound = referenceToModel.grid.searchByID(hexToOwn);
-				
-				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					
-					gridFound.takeOwnership(playerFound);
-					referenceToModel.chat.sysMessage(playerFound.name + " has taken over hex ID" + gridFound.getId());
-					
-					if (referenceToModel.gamePlayersManager.nextPlayerTurnNoShifting()) {
-						//If all players placed it once
-						System.out.println("Each player did one");
-						eachPlayerDidThree++;
-					}
-					else {
-						//Normal turn, still doing turns
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
-					}
-				}
-								
-				nextPhaseIfTime();
-								
-			}
-			
-		});
-	}
 
 	@Override
 	public void nextPhaseIfTime() {

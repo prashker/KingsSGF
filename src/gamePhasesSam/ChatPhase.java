@@ -24,11 +24,11 @@ public class ChatPhase extends GamePhase {
 		//This is a start game phase that will permanently
 		referenceToModel.state = new DeterminePlayerOrderPhase(referenceToModel);
 	}
-
-	@Override
-	public void serverPhaseHandler() {
-		//CHAT: When server received a CHAT message, forward it to all other users (no processing, for now)
-		//CHAT: PARAMS: FROM, CONTENT
+	
+	public void phaseHandler() {
+		//CHAT
+		//FROM
+		//CONTENT
 		addPhaseHandler("CHAT", new GameEventHandler() {
 
 			@Override
@@ -40,28 +40,10 @@ public class ChatPhase extends GamePhase {
 				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.gamePlayersManager.getPlayer(from).name, content));
 				
 				//Forward chat message to all (including sender)
-				network.sendAll(event.toJson());
-			}
-			
-		});
-	}
-
-	@Override
-	public void clientPhaseHandler() {
-		
-		//CHAT: When client receives a CHAT message, display it (future: ChatObject in Model?)
-		//PARAMS: FROM, CONTENT
-		addPhaseHandler("CHAT", new GameEventHandler() {
-
-			@Override
-			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
-				String from = (String) event.get("FROM");
-				String content = (String) event.get("CONTENT");
-				
-				//Simply add a chat message
-				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.gamePlayersManager.getPlayer(from).name, content));
-
+				//SERVER ONLY
+				if (isServer())
+					network.sendAll(event.toJson());
 			}
 			
 		});
