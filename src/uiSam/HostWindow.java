@@ -13,6 +13,7 @@ public class HostWindow extends VBox {
 		
 		public String host;
 		public int port;
+		public Integer players;
 		
 		@FXML private Label connectLabel;
 		
@@ -22,10 +23,21 @@ public class HostWindow extends VBox {
 			startNetwork();
 		}
 		
+		public void connect(String host, int port, int players) {
+			this.host = host;
+			this.port = port;
+			this.players = players;
+			startNetwork();
+		}
+		
+		
+		
 		public void startNetwork() {
 			model = new GameModel(GameModel.Type.SERVER);
 			server = new GameServer(10997, model);
 			model.setNetwork(server); 
+			if (players != null)
+				model.setNumPlayers(players);
 			
 			server.start();
 			

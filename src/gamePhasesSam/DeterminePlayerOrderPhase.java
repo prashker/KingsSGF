@@ -69,8 +69,10 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 					playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
 					//Future get roll from player
 					playerR.roll = (Integer) event.get("ROLL");
+					
+					referenceToModel.chat.sysMessage(String.format("Player %d rolled a %d", playerR.p.name, playerR.roll));
 									
-					playerRolls.add(playerR);	
+					playerRolls.add(playerR);
 					
 					nextPhaseIfTime();
 					
@@ -79,7 +81,6 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 			});
 		}
 	}
-	
 
 	@Override
 	public void nextPhaseIfTime() {

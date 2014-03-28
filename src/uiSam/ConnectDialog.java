@@ -21,11 +21,12 @@ public class ConnectDialog extends GridPane {
 	@FXML private ComboBox numPlayersCombo;
 	@FXML private ComboBox layoutCombo;
 	
-	public void initialize() {
-		System.out.println("DEEP");
-		
+	public void initialize() {		
 		numPlayersCombo.getItems().addAll(2,3,4);
+		numPlayersCombo.getSelectionModel().selectFirst();
+		
 		layoutCombo.getItems().addAll("Random", "Minimal Functionality", "Average Functionality", "Superior Functionality", "Outstanding");
+		layoutCombo.getSelectionModel().selectFirst();
 		
 		numPlayersCombo.setOnAction(new EventHandler() {
 
@@ -122,7 +123,7 @@ public class ConnectDialog extends GridPane {
 			
 			stage.show();
 			
-			gameWindow.connect(null, port);
+			gameWindow.connect(null, port, (Integer) numPlayersCombo.getValue());
 			
 			stage.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
 
