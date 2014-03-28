@@ -34,7 +34,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		PlayerModel attacker = referenceToModel.gamePlayersManager.getPlayerByTurnIndex(playerIDs.get(0));
 		
 		referenceToModel.chat.sysMessage("PVP BATTLE START");
-		referenceToModel.chat.sysMessage("Attacker: " + attacker.name + " vs " + "Defender: " + defender.name);
+		referenceToModel.chat.sysMessage("Attacker: " + attacker.getName() + " vs " + "Defender: " + defender.getName());
 		
 		m.battleData.initiateBattle(attacker, defender, battleHex, CombatMode.PlayerVsPlayer);		
 	}

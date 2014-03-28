@@ -70,7 +70,7 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 					//Future get roll from player
 					playerR.roll = (Integer) event.get("ROLL");
 					
-					referenceToModel.chat.sysMessage(String.format("Player %d rolled a %d", playerR.p.name, playerR.roll));
+					referenceToModel.chat.sysMessage(String.format("Player %s rolled a %d", playerR.p.getName(), playerR.roll));
 									
 					playerRolls.add(playerR);
 					
@@ -103,7 +103,7 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 			
 			referenceToModel.chat.sysMessage("Player Order Determined");
 			for (RollPlayerPair orderedRoll: playerRolls) {
-				referenceToModel.chat.sysMessage(String.format("Player %d: %s with roll %d", r, orderedRoll.p.name, orderedRoll.roll));
+				referenceToModel.chat.sysMessage(String.format("Player %d: %s with roll %d", r, orderedRoll.p.getName(), orderedRoll.roll));
 				
 				referenceToModel.gamePlayersManager.addPlayerOrder(orderedRoll.p.getId());
 				r++;

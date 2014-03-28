@@ -17,7 +17,7 @@ public class PlayerModel extends KNTObject {
 	
 	public ArrayList<Thing> rack = new ArrayList<Thing>();
 	//public ArrayList<String> ownedTiles = new ArrayList<String>(); needed?
-	public String name; //to make private
+	private String name;
 	
 	private int gold = 0;
 	
@@ -137,12 +137,6 @@ public class PlayerModel extends KNTObject {
 		return rack;
 	}
 	
-	public void changeName(String name) {
-		this.name = name;
-		this.setChanged();
-		this.notifyObservers(name);
-	}
-	
 	public void setControlMarker(PlayerType marker) {
 		controlMarker = marker;
 		
@@ -165,5 +159,15 @@ public class PlayerModel extends KNTObject {
 		ownedTiles.add(tileId);
 	}
 	*/
+	
+	public void setName(String name) {
+		this.name = name;
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public String getName() {
+		return name;
+	}
 
 }

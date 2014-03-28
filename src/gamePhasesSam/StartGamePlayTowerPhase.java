@@ -19,7 +19,7 @@ public class StartGamePlayTowerPhase extends GamePhase {
 		super(m);
 		
 		referenceToModel.chat.sysMessage("Player Order Deploy Tower on a Owned Hex");
-		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class StartGamePlayTowerPhase extends GamePhase {
 					if (gridFound.getOwner() == playerFound) {
 						gridFound.setFort(fort);
 					
-						referenceToModel.chat.sysMessage(playerFound.name + " has placed a Tower " + gridFound.getId());
+						referenceToModel.chat.sysMessage(playerFound.getName() + " has placed a Tower " + gridFound.getId());
 						referenceToModel.gamePlayersManager.nextPlayerTurn();						
 						deployed++;
 					}

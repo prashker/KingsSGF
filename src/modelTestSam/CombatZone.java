@@ -60,7 +60,7 @@ public class CombatZone extends Observable {
 		setRoundStartBattleOrder();
 		setupHitsPerRound();
 		
-		System.out.printf("Battle: %s and %s\n", attacker.name, defender.name);
+		System.out.printf("Battle: %s and %s\n", attacker.getName(), defender.getName());
 
 		this.setChanged();
 		this.notifyObservers("BATTLEINIT");

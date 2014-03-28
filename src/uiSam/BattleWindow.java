@@ -47,7 +47,7 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 		
 		//one time thing
 		for (Thing attackerThing: m.attackerThingsSorted) {
-			System.out.println("Trying to add thing: " + attackerThing.name);
+			System.out.println("Trying to add thing: " + attackerThing.getName());
 			FighterView f = new FighterView();
 			attackerFighterViews.add(f);
 			f.setBind(attackerThing);
@@ -55,7 +55,7 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 		}
 		
 		for (Thing defenderThing: m.defenderThingsSorted) {
-			System.out.println("Trying to add thing: " + defenderThing.name);
+			System.out.println("Trying to add thing: " + defenderThing.getName());
 			FighterView f = new FighterView();
 			defenderFighterViews.add(f);
 			f.setBind(defenderThing);
@@ -79,8 +79,8 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 					s.close();
 				}
 				else {
-					attackerLabel.setText(com.attacker.name);
-					defenderLabel.setText(com.defender.name);
+					attackerLabel.setText(com.attacker.getName());
+					defenderLabel.setText(com.defender.getName());
 					roundLabel.setText("Current Phase: " + com.getBattleOrder().toString());
 					attackerPoints.setText("Hit: " + com.attackerHitPoints);
 					defenderPoints.setText("Hit: " + com.defenderHitPoints);

@@ -57,7 +57,7 @@ public class JoinGamePhase extends GamePhase {
 
 					referenceToModel.gamePlayersManager.addPlayer(playerFromNetwork);
 					
-					referenceToModel.chat.sysMessage("JOINED: " + playerFromNetwork.name);
+					referenceToModel.chat.sysMessage("JOINED: " + playerFromNetwork.getName());
 					
 					nextPhaseIfTime();
 				}
@@ -77,7 +77,7 @@ public class JoinGamePhase extends GamePhase {
 					
 					for (PlayerModel networkedPlayer: playersFromEvent.values()) {
 						referenceToModel.gamePlayersManager.addPlayer(networkedPlayer);
-						referenceToModel.chat.sysMessage("PLAYER: " + networkedPlayer.name);
+						referenceToModel.chat.sysMessage("PLAYER: " + networkedPlayer.getName());
 					}
 										
 					nextPhaseIfTime();

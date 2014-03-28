@@ -4,6 +4,7 @@ import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
 import modelTestSam.Networkable;
+import modelTestSam.PlayerModel;
 
 import java.nio.channels.SocketChannel;
 
@@ -37,7 +38,7 @@ public class ChatPhase extends GamePhase {
 				String from = (String) event.get("FROM");
 				String content = (String) event.get("CONTENT");
 				
-				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.gamePlayersManager.getPlayer(from).name, content));
+				referenceToModel.chat.addMessage(String.format("<%s> %s\n", referenceToModel.gamePlayersManager.getPlayer(from).getName(), content));
 				
 				//Forward chat message to all (including sender)
 				
@@ -46,6 +47,31 @@ public class ChatPhase extends GamePhase {
 					network.sendAll(event.toJson());
 			}
 			
+		});
+		
+		//NICK
+		//FROM
+		//NEWNICK
+		addPhaseHandler("NICK", new GameEventHandler() {
+
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				
+				String from = (String) event.get("FROM");
+				String newNick = (String) event.get("NEWNICK");
+				
+				PlayerModel found =	referenceToModel.gamePlayersManager.getPlayer(from);
+				
+				referenceToModel.chat.sysMessage(String.format("%s is now known as %s", found.getName(), newNick));
+				
+				found.setName(newNick);
+				
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+
+			}
+
 		});
 	}
 

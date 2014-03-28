@@ -19,7 +19,7 @@ public class StartGamePlayThings extends GamePhase {
 		super(m);
 		
 		referenceToModel.chat.sysMessage("Pre-game Play Things on Tiles (up to all 10)");
-		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class StartGamePlayThings extends GamePhase {
 				
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
 					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
+						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 					}
 					ended++;
 				}

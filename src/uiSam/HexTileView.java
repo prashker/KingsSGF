@@ -131,13 +131,13 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		    	StringBuilder pretty = new StringBuilder(tile.toString() + "\n");
 		    	
 		    	if (tile.getOwner() != null) {
-		    		pretty.append("Owned By: " + tile.getOwner().name + "\n");
+		    		pretty.append("Owned By: " + tile.getOwner().getName() + "\n");
 		    	}
 
 		    	for (ThingStack s: tile.stackByPlayer) {
 		    		pretty.append("Stack:\n");
 		    		for (Thing t: s.getStack().values()) {
-		    			pretty.append("       " + t.name +"\n");
+		    			pretty.append("       " + t.getName() +"\n");
 		    		}
 		    	}
 		    	tileTooltip.setText(pretty.toString());

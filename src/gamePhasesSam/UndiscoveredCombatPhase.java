@@ -36,7 +36,7 @@ public class UndiscoveredCombatPhase extends GamePhase {
 
 		
 		referenceToModel.chat.sysMessage("UNDISCOVERED BATTLE");
-		referenceToModel.chat.sysMessage("Attacker: " + attacker.name + " vs " + "Potential Defender: " + defender.name);
+		referenceToModel.chat.sysMessage("Attacker: " + attacker.getName() + " vs " + "Potential Defender: " + defender.getName());
 		referenceToModel.chat.sysMessage("Roll between 2 and 5 to fight player");
 		referenceToModel.chat.sysMessage("Roll 1 or 6 to take ownership of the Hex without fighting");
 	}
@@ -57,17 +57,17 @@ public class UndiscoveredCombatPhase extends GamePhase {
 				
 				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);	
 				
-				System.out.println("Comparing " + playerFound.name + " to " + attacker);
+				System.out.println("Comparing " + playerFound.getName() + " to " + attacker);
 				
 				if (playerFound == attacker) {
 					if (roll == 1 || roll == 6) {
-						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING", playerFound.name, roll));
+						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, NOW THE OWNER WITHOUT FIGHTING", playerFound.getName(), roll));
 						battleHex.takeOwnership(playerFound);
 						wonFight = true;
 					}
 					else {
 						referenceToModel.chat.sysMessage(String.format("%s rolled a %d, normally this would start a fight but Player vs Unexplored is not ready", 
-								attacker.name, roll));
+								attacker.getName(), roll));
 						referenceToModel.chat.sysMessage("Roll again instead");
 						
 						//referenceToModel.battleData.initiateBattle(attacker, defender, battleHex, CombatMode.UndiscoveredHex);

@@ -60,7 +60,7 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 					rackViewArray.get(i).setBind(m.getThingFromRack(i));
 				}
 				
-				playerNameLabel.setText(m.name);
+				playerNameLabel.setText(m.getName());
 				goldLabel.setText("" + m.getGold());
 				
 			}

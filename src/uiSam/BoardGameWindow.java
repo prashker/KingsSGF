@@ -236,7 +236,7 @@ public class BoardGameWindow extends VBox implements Observer {
 		try {
 			root = (Parent) loader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Kings and Things Battle - " + model.localPlayer.name);
+			stage.setTitle("Kings and Things Battle - " + model.localPlayer.getName());
 			stage.setScene(new Scene(root));
 			stage.setResizable(false);
 

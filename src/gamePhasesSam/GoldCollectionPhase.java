@@ -20,7 +20,7 @@ public class GoldCollectionPhase extends GamePhase {
 		
 		referenceToModel.chat.sysMessage("Gold Collection Phase (Automatic)");
 		referenceToModel.chat.sysMessage("To collect gold, click 'End Turn'");
-		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 
 	public void phaseHandler() {
@@ -56,10 +56,10 @@ public class GoldCollectionPhase extends GamePhase {
 					playerFound.incrementGold(goldToAdd);
 					collected++;
 					
-					referenceToModel.chat.sysMessage(playerFound.name + " collected " + goldToAdd + " gold");
+					referenceToModel.chat.sysMessage(playerFound.getName() + " collected " + goldToAdd + " gold");
 					
 					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 				}
 				
 				if (isServer())

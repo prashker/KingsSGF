@@ -25,12 +25,12 @@ public class RecruitThingsPhase extends GamePhase {
 			
 			numFreeMoves.put(p, howManyFree);
 			
-			System.out.printf("Player %s has %d free picks\n", p.name, howManyFree);
+			System.out.printf("Player %s has %d free picks\n", p.getName(), howManyFree);
 		}
 
 		referenceToModel.chat.sysMessage("Recruit Things Phase");
 		referenceToModel.chat.sysMessage("DOUBLECLICK the Thing Bowl to Pickup Thing. You have a free pick for every 2 hexes you own rounded up. Click 'End Turn' to End Turn");
-		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 
 	@Override
@@ -52,13 +52,13 @@ public class RecruitThingsPhase extends GamePhase {
 					//Free pick
 					if (freePicks > 0) {
 						numFreeMoves.put(playerFound, freePicks - 1);
-						referenceToModel.chat.sysMessage(playerFound.name + " got a Free Thing from the bowl");
+						referenceToModel.chat.sysMessage(playerFound.getName() + " got a Free Thing from the bowl");
 						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 					}
 					else if (playerFound.getGold() > 5) {
 						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 						playerFound.decrementGold(5);
-						referenceToModel.chat.sysMessage(playerFound.name + " bought a Thing from the bowl");
+						referenceToModel.chat.sysMessage(playerFound.getName() + " bought a Thing from the bowl");
 					}
 					
 				}
@@ -112,7 +112,7 @@ public class RecruitThingsPhase extends GamePhase {
 								
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
 					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 					ended++;
 				}
 				

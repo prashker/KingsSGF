@@ -24,7 +24,7 @@ public class MovementPhase extends GamePhase {
 
 		referenceToModel.chat.sysMessage("Movement Phase");
 		referenceToModel.chat.sysMessage("Drag Thing Stack from One Hex to Another (Movement Unrestricted Demo 1), End Turn to Finish Movement");
-		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 	
 	/*
@@ -81,7 +81,7 @@ public class MovementPhase extends GamePhase {
 								
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
 					referenceToModel.gamePlayersManager.nextPlayerTurn();
-					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 					ended++;
 				}
 				

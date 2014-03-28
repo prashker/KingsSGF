@@ -18,7 +18,7 @@ public class StartGameControlHexesPhase extends GamePhase {
 		super(m);
 		
 		referenceToModel.chat.sysMessage("Players place 3 control hexes");
-		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().name);
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class StartGameControlHexesPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
 					
 					gridFound.takeOwnership(playerFound);
-					referenceToModel.chat.sysMessage(playerFound.name + " has taken over hex ID" + gridFound.getId());
+					referenceToModel.chat.sysMessage(playerFound.getName() + " has taken over hex ID" + gridFound.getId());
 					
 					if (referenceToModel.gamePlayersManager.nextPlayerTurnNoShifting()) {
 						//If all players placed it once
@@ -49,7 +49,7 @@ public class StartGameControlHexesPhase extends GamePhase {
 						eachPlayerDidThree++;
 					}
 					else {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().name + "'s turn");
+						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 					}
 				}
 				
