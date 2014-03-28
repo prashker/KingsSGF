@@ -1,11 +1,14 @@
 package uiSam;
 
 import java.io.IOException;
+import java.util.Arrays;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.*;
@@ -15,6 +18,33 @@ import javafx.stage.WindowEvent;
 public class ConnectDialog extends GridPane {
 	@FXML private TextField hostField, portField;
 	@FXML private Button hostButton, cancelButton, okButton;
+	@FXML private ComboBox numPlayersCombo;
+	@FXML private ComboBox layoutCombo;
+	
+	public void initialize() {
+		System.out.println("DEEP");
+		
+		numPlayersCombo.getItems().addAll(2,3,4);
+		layoutCombo.getItems().addAll("Random", "Minimal Functionality", "Average Functionality", "Superior Functionality", "Outstanding");
+		
+		numPlayersCombo.setOnAction(new EventHandler() {
+
+			@Override
+			public void handle(Event event) {
+				System.out.println(numPlayersCombo.getValue().getClass() + " " + numPlayersCombo.getValue());
+			}
+			
+		});
+		
+		layoutCombo.setOnAction(new EventHandler() {
+
+			@Override
+			public void handle(Event event) {
+				System.out.println(numPlayersCombo.getValue().getClass() + " " + numPlayersCombo.getValue());
+			}
+			
+		});
+	}
 	
 	@FXML
 	public void connectButtonClick() {

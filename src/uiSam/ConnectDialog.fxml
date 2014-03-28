@@ -2,6 +2,7 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -42,7 +43,7 @@
       <children>
         <HBox id="HBox" fx:id="actionParent" alignment="CENTER">
           <children>
-            <Button id="actionButton" fx:id="hostButton" mnemonicParsing="false" onAction="#hostButtonClick" text="Host" HBox.hgrow="NEVER">
+            <Button id="actionButton" fx:id="hostButton" mnemonicParsing="false" onAction="#hostButtonClick" prefWidth="94.0" text="Host (Below)" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets right="14.0" />
               </HBox.margin>
@@ -53,20 +54,34 @@
           </HBox.margin>
         </HBox>
         <Pane maxWidth="+Infinity" HBox.hgrow="ALWAYS" />
-        <Button fx:id="cancelButton" cancelButton="true" minWidth="80.0" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" HBox.hgrow="NEVER">
+        <Button fx:id="cancelButton" cancelButton="true" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefWidth="60.0" text="Cancel" HBox.hgrow="NEVER">
           <HBox.margin>
             <Insets />
           </HBox.margin>
         </Button>
-        <HBox id="HBox" fx:id="okParent" alignment="CENTER">
+        <HBox id="HBox" fx:id="okParent" alignment="CENTER" minWidth="80.0" prefWidth="80.0">
           <children>
-            <Button fx:id="okButton" minWidth="80.0" mnemonicParsing="false" onAction="#connectButtonClick" text="Connect" HBox.hgrow="NEVER">
+            <Button fx:id="okButton" minWidth="71.0" mnemonicParsing="false" onAction="#connectButtonClick" prefWidth="71.0" text="Connect" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="14.0" />
               </HBox.margin>
             </Button>
           </children>
         </HBox>
+      </children>
+    </HBox>
+    <HBox prefHeight="21.0" prefWidth="240.00009999999747" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <children>
+        <Label text="Players" />
+        <ComboBox id="numPlayers" fx:id="numPlayersCombo">
+          <items>
+          </items>
+        </ComboBox>
+        <Label text="Layout" />
+        <ComboBox fx:id="layoutCombo" prefHeight="21.0" prefWidth="94.0">
+          <items>
+          </items>
+        </ComboBox>
       </children>
     </HBox>
   </children>
@@ -78,7 +93,8 @@
     <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
   </padding>
   <rowConstraints>
-    <RowConstraints maxHeight="+Infinity" minHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
-    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+    <RowConstraints maxHeight="+Infinity" minHeight="-Infinity" prefHeight="60.0" valignment="CENTER" vgrow="ALWAYS" />
+    <RowConstraints maxHeight="20.0" minHeight="-Infinity" prefHeight="0.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="42.0" minHeight="-Infinity" prefHeight="42.0" vgrow="NEVER" />
   </rowConstraints>
 </GridPane>
