@@ -26,6 +26,6 @@
     <Label fx:id="thingHPLabel" alignment="CENTER" layoutX="271.0" layoutY="55.0" prefHeight="20.960845947265625" prefWidth="45.0" text="0" />
     <Label fx:id="howManyRollsLabel" alignment="CENTER" layoutX="18.0" layoutY="12.0" text="Charged" />
     <Label fx:id="lastRollLabel" alignment="CENTER" layoutX="18.0" layoutY="65.0" prefWidth="45.0" text="" />
-    <Button layoutX="270.0" layoutY="17.0" mnemonicParsing="false" text="Bribe" />
+    <Button fx:id="bribeButton" layoutX="270.0" layoutY="17.0" mnemonicParsing="false" text="Bribe" />
   </children>
 </fx:root>
