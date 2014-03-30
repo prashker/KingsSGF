@@ -3,6 +3,10 @@ package gamePhasesSam;
 import hexModelSam.HexModel;
 
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeSet;
 
 import counterModelSam.Fort;
 import counterModelSam.Fort.FortType;
@@ -21,11 +25,12 @@ public class ConstructionPhase extends GamePhase {
 
 	int ended = 0;
 	
+	Set<HexModel> alreadyUpgradedHex = new TreeSet<HexModel>();
+	
 	public ConstructionPhase(GameModel m) {
 		super(m);
 
-		referenceToModel.chat.sysMessage("Construction Phase");
-		
+		referenceToModel.chat.sysMessage("Construction Phase");	
 
 		//If it is a 4 player game, need minimum 20, else, 15
 		citadelMinimumGold = (referenceToModel.getNumPlayers() == 4 ? 20 : 15);
@@ -78,17 +83,28 @@ public class ConstructionPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
 					
 					//JAVA SHORT CIRCUIT EXPLICITLY USED http://stackoverflow.com/questions/1795808/and-and-or-in-if-statements
-					//5 conditions needed
+					//6 conditions needed
 					//This player owns this hex
 					//The fort being upgraded is the previous level (hack being done, if there was no fort, and toBeUpgraded is null, assume it is tower)
 					//The fort we're trying to replace it with is the right type
 					//The player has the minimum gold requirement
+					//This hex has not been upgraded this turn yet
 					if (gridFound.getOwner() == playerFound && ((gridFound.getFort() == null && toBeUpgraded == null) || (gridFound.getFort() != null && gridFound.getFort().getType() == toBeUpgraded)) && fort.getType() == nextLevel && playerFound.getGold() >= minimumGoldRequirement) {
 						gridFound.setFort(fort);
 						
-						playerFound.decrementGold(UPGRADE_COST);
-					
-						referenceToModel.chat.sysMessage(String.format("%s has upgraded a hex to a %s for %d gold", playerFound.getName(), fort.getType().toString(), UPGRADE_COST));
+						//final condition - if it was already upgraded, do not upgrade
+						if (alreadyUpgradedHex.contains(gridFound)) {
+							referenceToModel.chat.sysMessage(String.format("%s has tried to upgrade a hex already upgraded this turn", playerFound.getName()));
+						}
+						else {
+							playerFound.decrementGold(UPGRADE_COST);
+							referenceToModel.chat.sysMessage(String.format("%s has upgraded a hex to a %s for %d gold", playerFound.getName(), fort.getType().toString(), UPGRADE_COST));
+							
+							//Add to elements already upgraded to prevent double-upgrading
+							alreadyUpgradedHex.add(gridFound);
+						}
+						
+						
 						
 					}
 					
@@ -106,6 +122,10 @@ public class ConstructionPhase extends GamePhase {
 	@Override
 	public void nextPhaseIfTime() {
 		if (ended == referenceToModel.gamePlayersManager.numPlayers()) {
+			
+			//IF ANY 
+			
+			
 			removeHandlers();
 			referenceToModel.state = new GoldCollectionPhase(referenceToModel);
 		}
