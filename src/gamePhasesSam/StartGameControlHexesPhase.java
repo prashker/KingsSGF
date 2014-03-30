@@ -37,19 +37,54 @@ public class StartGameControlHexesPhase extends GamePhase {
 				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
 				HexModel gridFound = referenceToModel.grid.searchByID(hexToOwn);
 				
+				//Needs to be the four corners (4 player)
 				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					
-					gridFound.takeOwnership(playerFound);
-					referenceToModel.chat.sysMessage(playerFound.getName() + " has taken over hex ID" + gridFound.getId());
-					
-					if (referenceToModel.gamePlayersManager.nextPlayerTurnNoShifting()) {
-						//If all players placed it once
-						System.out.println("Each player did one");
-						eachPlayerDidThree++;
+				boolean validPosition = false;
+				
+				//Only the FIRST_FIRST move matters that it's in the 4 corners
+				if (eachPlayerDidThree == 0) {
+					if (referenceToModel.getNumPlayers() == 4) {
+						if ((gridFound.equals(referenceToModel.grid.getHexFromQR(3,-1))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(1,-3))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(-3,1))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(-1,3))))
+						{
+							validPosition = true;
+						}
 					}
 					else {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
+						//Same rules for non 2-player game (for now)
+						if ((gridFound.equals(referenceToModel.grid.getHexFromQR(3,-1))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(1,-3))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(-3,1))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(-1,3))))
+						{
+							validPosition = true;
+						}
+					}
+				}
+				else {
+					validPosition = true;
+				}
+								
+				
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
+					//Prevent taking over a tile that is already taken over
+					if (gridFound.getOwner() == null && validPosition) {					
+						gridFound.takeOwnership(playerFound);
+						referenceToModel.chat.sysMessage(playerFound.getName() + " has taken over hex ID" + gridFound.getId());
+						
+						if (referenceToModel.gamePlayersManager.nextPlayerTurnNoShifting()) {
+							//If all players placed it once
+							System.out.println("Each player did one");
+							eachPlayerDidThree++;
+						}
+						else {
+							referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
+						}
+					}
+					else {
+						referenceToModel.chat.sysMessage(String.format("%s has tried placing a Thing in an invalid spot", playerFound.getName()));
 					}
 				}
 				
