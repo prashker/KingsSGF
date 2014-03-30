@@ -1,7 +1,8 @@
 package uiSam;
 
 import java.io.IOException;
-import javafx.event.Event;
+
+import modelTestSam.GameInstanceGenerator;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,33 +17,16 @@ import javafx.stage.WindowEvent;
 public class ConnectDialog extends GridPane {
 	@FXML private TextField hostField, portField;
 	@FXML private Button hostButton, cancelButton, okButton;
-	@FXML private ComboBox numPlayersCombo;
-	@FXML private ComboBox layoutCombo;
+	@FXML private ComboBox<Integer> numPlayersCombo;
+	@FXML private ComboBox<GameInstanceGenerator.Predefined> layoutCombo;
 	
 	public void initialize() {		
 		numPlayersCombo.getItems().addAll(2,3,4);
 		numPlayersCombo.getSelectionModel().selectFirst();
 		
-		layoutCombo.getItems().addAll("Random", "Minimal Functionality", "Average Functionality", "Superior Functionality", "Outstanding");
+	
+		layoutCombo.getItems().addAll(GameInstanceGenerator.Predefined.values());
 		layoutCombo.getSelectionModel().selectFirst();
-		
-		numPlayersCombo.setOnAction(new EventHandler() {
-
-			@Override
-			public void handle(Event event) {
-				System.out.println(numPlayersCombo.getValue().getClass() + " " + numPlayersCombo.getValue());
-			}
-			
-		});
-		
-		layoutCombo.setOnAction(new EventHandler() {
-
-			@Override
-			public void handle(Event event) {
-				System.out.println(numPlayersCombo.getValue().getClass() + " " + numPlayersCombo.getValue());
-			}
-			
-		});
 	}
 	
 	@FXML
@@ -121,7 +105,8 @@ public class ConnectDialog extends GridPane {
 			
 			stage.show();
 			
-			gameWindow.connect(null, port, (Integer) numPlayersCombo.getValue());
+			gameWindow.connect(null, port, numPlayersCombo.getValue());
+			gameWindow.model.gameGenerationMode = layoutCombo.getValue();
 			
 			stage.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
 
