@@ -28,7 +28,10 @@ public class CombatPickPhase extends GamePhase {
 		referenceToModel.chat.sysMessage("There are: " + battlesToResolve.size() + " battles to resolve");
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 		
-		nextPhaseIfTime(); //exit immediately if called when there are no battles
+		//nextPhaseIfTime(); 
+		//cannot do this anymore, need to implement workaround in previous phase
+		//if there are no battles .state is overwritten because the method folds back
+		//exit immediately if called when there are no battles
 	}
 	
 	@Override
@@ -112,7 +115,7 @@ public class CombatPickPhase extends GamePhase {
 		if (battlesToResolve.isEmpty()) {
 			referenceToModel.chat.sysMessage("ALL BATTLES RESOLVED, NEXT PHASE");
 			removeHandlers();
-			referenceToModel.state = new GoldCollectionPhase(referenceToModel);
+			referenceToModel.state = new ConstructionPhase(referenceToModel);
 		}
 		else {
 			boolean playerHasAnyFightsToResolve = false;

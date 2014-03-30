@@ -101,14 +101,20 @@ public class MovementPhase extends GamePhase {
 			referenceToModel.chat.sysMessage("All done movement for all players");
 			removeHandlers();
 			
+			//MAJOR HACK, CAN'T FIGURE OUT A WAY AROUND THIS NOW
+			//Constructors need to FINISH for this state assignment to work
+			//If there are no battles, it immediately goes to Construction from the constructor of Combat
+			//So therefore from movement it goes
+			//state = Combat -> state = Construction (construction constructor ends) -> (combat constructor ends) -> back in THIS class, it is set back to the combat phase
 			CombatPickPhase bugFix = new CombatPickPhase(referenceToModel);
 			if (bugFix.battlesToResolve.isEmpty()) {
+				referenceToModel.state.removeHandlers();
+				
 				referenceToModel.chat.sysMessage("NO BATTLES TO RESOLVE, SKIPPING TO NEXT PHASE");
 				referenceToModel.state = new ConstructionPhase(referenceToModel);
 			}
 			else {
-				referenceToModel.state = new CombatPickPhase(referenceToModel);
-
+				referenceToModel.state = bugFix;
 			}
 		}
 	}

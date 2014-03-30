@@ -133,6 +133,10 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		    	if (tile.getOwner() != null) {
 		    		pretty.append("Owned By: " + tile.getOwner().getName() + "\n");
 		    	}
+		    	
+		    	if (tile.getFort() != null) {
+		    		pretty.append("Fort: " + tile.getFort().getName() + "\n");
+		    	}
 
 		    	for (ThingStack s: tile.stackByPlayer) {
 		    		pretty.append("Stack:\n");
