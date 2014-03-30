@@ -7,6 +7,7 @@ import java.util.Observer;
 import modelTestSam.PlayerModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -48,6 +49,19 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 			
 			updateBind(m);
 		
+		}
+		else {
+			//Hide if this player is not playing
+			/* DOES NOT WORK 
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					for (Node v: getChildren())
+						v.setVisible(false);
+				}
+			});
+			*/
 		}
 	}
 	
