@@ -103,10 +103,15 @@ public class GameBoardSetupPhase extends GamePhase {
 	@Override
 	public void nextPhaseIfTime() {
 		if (gavePlayersTheInfo) {
-			referenceToModel.chat.sysMessage("All player starter materials given. +10 Gold");
-			
 			removeHandlers();
-			referenceToModel.state = new StartGameControlHexesPhase(referenceToModel);
+			if (referenceToModel.gameGenerationMode == GameInstanceGenerator.Predefined.Random) {
+				referenceToModel.chat.sysMessage("All player starter materials given. +10 Gold");
+				referenceToModel.state = new StartGameControlHexesPhase(referenceToModel);
+			}
+			else {
+				referenceToModel.chat.sysMessage("PREDEFINED LAYOUT LOADED - SKIPPING TO GOLD COLLECTION PHASE");
+				referenceToModel.state = new GoldCollectionPhase(referenceToModel);
+			}
 		}
 	}
 
