@@ -100,7 +100,16 @@ public class MovementPhase extends GamePhase {
 		if (ended == referenceToModel.gamePlayersManager.numPlayers()) {
 			referenceToModel.chat.sysMessage("All done movement for all players");
 			removeHandlers();
-			referenceToModel.state = new CombatPickPhase(referenceToModel);
+			
+			CombatPickPhase bugFix = new CombatPickPhase(referenceToModel);
+			if (bugFix.battlesToResolve.isEmpty()) {
+				referenceToModel.chat.sysMessage("NO BATTLES TO RESOLVE, SKIPPING TO NEXT PHASE");
+				referenceToModel.state = new ConstructionPhase(referenceToModel);
+			}
+			else {
+				referenceToModel.state = new CombatPickPhase(referenceToModel);
+
+			}
 		}
 	}
 
