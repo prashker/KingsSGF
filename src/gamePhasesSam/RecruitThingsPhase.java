@@ -15,6 +15,8 @@ import modelTestSam.PlayerModel;
 public class RecruitThingsPhase extends GamePhase {
 	
 	HashMap<PlayerModel, Integer> numFreeMoves = new HashMap<PlayerModel, Integer>();
+	HashMap<PlayerModel, Integer> tradeIns = new HashMap<PlayerModel, Integer>();
+	
 	int ended = 0;
 
 	public RecruitThingsPhase(GameModel m) {
@@ -24,12 +26,14 @@ public class RecruitThingsPhase extends GamePhase {
 			int howManyFree = roundHelper(m.grid.searchForAllOwnedByPlayer(p).size(), 2) / 2;
 			
 			numFreeMoves.put(p, howManyFree);
+			tradeIns.put(p, 0);			
 			
 			System.out.printf("Player %s has %d free picks\n", p.getName(), howManyFree);
 		}
 
 		referenceToModel.chat.sysMessage("Recruit Things Phase");
 		referenceToModel.chat.sysMessage("DOUBLECLICK the Thing Bowl to Pickup Thing. You have a free pick for every 2 hexes you own rounded up. Click 'End Turn' to End Turn");
+		referenceToModel.chat.sysMessage("Or drag 2 Things to Bowl to Trade :)");
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 
@@ -66,7 +70,6 @@ public class RecruitThingsPhase extends GamePhase {
 				if (isServer())
 					network.sendAll(event.toJson());
 				
-				nextPhaseIfTime();
 			}
 			
 		});
@@ -78,7 +81,6 @@ public class RecruitThingsPhase extends GamePhase {
 
 			@Override
 			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-	
 				String player = (String) event.get("FROM");
 				String hexToPlaceThing = (String) event.get("HEX");
 				String thingToPlace = (String) event.get("RACK");
@@ -94,10 +96,46 @@ public class RecruitThingsPhase extends GamePhase {
 				}
 				
 				if (isServer())
-					network.sendAll(event.toJson());
+					network.sendAll(event.toJson());								
+			}
+			
+		});
+		
+		addPhaseHandler("TRADEIN", new GameEventHandler() {
+
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
-				nextPhaseIfTime();
-								
+				String player = (String) event.get("FROM");
+				String thingToTrade = (String) event.get("THING");
+				
+				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
+				
+				//If this player is his turn
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
+					//If this is a Thing from their rack
+					Thing thing = playerFound.removeThingById(thingToTrade);
+					if (thing != null) {
+						//Put it back into the bowl
+						referenceToModel.bowl.addThingToBowl(thing);
+						
+						tradeIns.put(playerFound, tradeIns.get(playerFound) + 1);
+						referenceToModel.chat.sysMessage(String.format("%s has started trade (%d/2) offering a %s", playerFound.getName(), tradeIns.get(playerFound), thing.getName()));
+
+						//If this was the 2nd of a set of 2 things, give them back one (VALID TRADE)
+						if (tradeIns.get(playerFound) == 2) {
+							//Valid trade
+							playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
+							referenceToModel.chat.sysMessage(String.format("%s has traded 2 items for a new counter from the bowl", playerFound.getName()));
+							
+							//Reset back to 0
+							tradeIns.put(playerFound, 0);
+						}						
+					}
+				}
+				
+				if (isServer())
+					network.sendAll(event.toJson());
 			}
 			
 		});

@@ -1,18 +1,33 @@
 package uiSam;
 
+import gamePhasesSam.CombatPickPhase;
+import gamePhasesSam.ConstructionPhase;
+import gamePhasesSam.MovementPhase;
 import gamePhasesSam.RecruitThingsPhase;
+import gamePhasesSam.StartGameControlHexesPhase;
+import gamePhasesSam.StartGamePlayThings;
+import gamePhasesSam.StartGamePlayTowerPhase;
+
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import counterModelSam.Fort;
 import counterModelSam.Thing;
+import counterModelSam.Fort.FortType;
 import modelTestSam.GameEvent;
+import modelTestSam.JacksonSingleton;
 import modelTestSam.ThingBowlModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 
 public class ThingBowlView extends ImageView implements KingsAndThingsView<ThingBowlModel> {
 	
@@ -46,6 +61,7 @@ public class ThingBowlView extends ImageView implements KingsAndThingsView<Thing
 				
 				registerClickability();
 				registerHoverability();
+				registerDragability();
 			}
 
 
@@ -100,6 +116,66 @@ public class ThingBowlView extends ImageView implements KingsAndThingsView<Thing
 		});  
 	}
 	
+	private void registerDragability() {
+		
+		final ThingBowlView context = this;
+		
+		this.setOnDragDropped(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				String clip = db.getString();
+				
+				System.out.printf("Bowl just had %s dropped on it\n",  clip);
+				System.out.println("String dropped: " + clip);
+				System.out.println("Game Phase: " + BoardGameWindow.getInstance().model.state);
+				
+				
+				//VERY HACKED WAY TO DOING THIS, BUT ONLY WAY I CAN THINK OF AT THE MOMENT
+				//future: switch statement based on model.getState()
+				//Iteration2: Still no time for this
+				
+
+				if (clip.startsWith("RACK:")) {
+					//Rack to Hex Drag
+					if (BoardGameWindow.getInstance().model.state instanceof StartGamePlayThings || BoardGameWindow.getInstance().model.state instanceof RecruitThingsPhase) {
+						GameEvent tradeInFromRack = new GameEvent("TRADEIN");
+						tradeInFromRack.put("THING", clip.replace("RACK:", ""));
+						BoardGameWindow.getInstance().networkMessageSend(tradeInFromRack);
+					}
+				}				
+								
+				event.setDropCompleted(true);
+					
+				tileTooltip.hide();
+			}
+			
+		});
+		
+		this.setOnDragEntered(new EventHandler<DragEvent>() {
+		    @Override
+		    public void handle(DragEvent event) {
+				Glow glow = new Glow(0.8);
+				context.setEffect(glow);
+		    }
+		});
+		
+		this.setOnDragOver(new EventHandler<DragEvent>() {
+		    @Override
+		    public void handle(DragEvent event) {
+				event.acceptTransferModes(TransferMode.ANY);
+		    }
+		});
+		
+		this.setOnDragExited(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				context.setEffect(null);
+			}
+		});
+		
+
+	}
 	
 
 
