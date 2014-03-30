@@ -24,6 +24,10 @@ public class KNTObject extends Observable {
 		setVisible(true);
 	}
 	
+	public void regenerateId() {
+		id = UUID.randomUUID().toString();
+	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}

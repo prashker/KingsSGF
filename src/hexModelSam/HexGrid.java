@@ -110,53 +110,6 @@ public class HexGrid extends KNTObject {
 		}
 	}
 	
-	public void Demo1FixedGrid() {
-		//Future, from XML
-		
-		
-		//there's a small mistake here, verify once grid is fixed
-		setHexFromQR(3,-3, new HexModel(HexModel.TileType.JungleTile));
-		setHexFromQR(3,-2, new HexModel(HexModel.TileType.SwampTile));
-		setHexFromQR(3,-1, new HexModel(HexModel.TileType.DesertTile));
-		setHexFromQR(3,0, new HexModel(HexModel.TileType.ForestTile));
-		setHexFromQR(2,1, new HexModel(HexModel.TileType.PlainsTile));
-		setHexFromQR(1,2, new HexModel(HexModel.TileType.ForestTile));
-		setHexFromQR(0,3, new HexModel(HexModel.TileType.FrozenWasteTile));
-		setHexFromQR(-1,3, new HexModel(HexModel.TileType.JungleTile));
-		setHexFromQR(-2,3, new HexModel(HexModel.TileType.MountainTile));
-		setHexFromQR(-3,3, new HexModel(HexModel.TileType.DesertTile));
-		setHexFromQR(-3,2, new HexModel(HexModel.TileType.PlainsTile));
-		setHexFromQR(-3,1, new HexModel(HexModel.TileType.JungleTile));
-		setHexFromQR(-3,0, new HexModel(HexModel.TileType.MountainTile));
-		setHexFromQR(-2,-1, new HexModel(HexModel.TileType.ForestTile));
-		setHexFromQR(-1,-2, new HexModel(HexModel.TileType.FrozenWasteTile));
-		setHexFromQR(0,-3, new HexModel(HexModel.TileType.DesertTile));
-		setHexFromQR(1,-3, new HexModel(HexModel.TileType.SwampTile));
-		setHexFromQR(2,-3, new HexModel(HexModel.TileType.MountainTile));
-		setHexFromQR(2,-2, new HexModel(HexModel.TileType.FrozenWasteTile));
-		setHexFromQR(2,-1, new HexModel(HexModel.TileType.MountainTile));
-		setHexFromQR(2,0, new HexModel(HexModel.TileType.FrozenWasteTile));
-		setHexFromQR(1,1, new HexModel(HexModel.TileType.SwampTile));
-		setHexFromQR(0,2, new HexModel(HexModel.TileType.DesertTile));
-		setHexFromQR(-1,2, new HexModel(HexModel.TileType.SwampTile));
-		setHexFromQR(-2,2, new HexModel(HexModel.TileType.ForestTile));
-		setHexFromQR(-2,1, new HexModel(HexModel.TileType.PlainsTile));
-		setHexFromQR(-2,0, new HexModel(HexModel.TileType.MountainTile));
-		setHexFromQR(-1,-1, new HexModel(HexModel.TileType.JungleTile));
-		setHexFromQR(0,-2, new HexModel(HexModel.TileType.PlainsTile));
-		setHexFromQR(1,-2, new HexModel(HexModel.TileType.PlainsTile));
-		setHexFromQR(1,-1, new HexModel(HexModel.TileType.ForestTile));
-		setHexFromQR(1,0, new HexModel(HexModel.TileType.JungleTile));
-		setHexFromQR(0,1, new HexModel(HexModel.TileType.PlainsTile));
-		setHexFromQR(-1,1, new HexModel(HexModel.TileType.SeaTile));
-		setHexFromQR(-1,0, new HexModel(HexModel.TileType.ForestTile));
-		setHexFromQR(0,-1, new HexModel(HexModel.TileType.SwampTile));
-		setHexFromQR(0,0, new HexModel(HexModel.TileType.FrozenWasteTile));
-		
-
-		
-	}
-	
 	public HexModel searchByID(String id) {
 		//n time but no way around this yet (until hashmap)
 		for (int y = 0; y < grid[0].length; y++) {
@@ -173,7 +126,8 @@ public class HexGrid extends KNTObject {
 		for (int y = 0; y < toReplace[0].length; y++) {
 			for (int x = 0; x < toReplace[y].length; x++) {
 				if (grid[y][x] != null) {
-					grid[y][x].changeHex(toReplace[y][x].type, toReplace[y][x].getId());
+					grid[y][x] = toReplace[y][x];
+					//grid[y][x].changeHex(toReplace[y][x].type, toReplace[y][x].getId());
 				}
 				else if (grid[y][x] == null && toReplace[y][x] != null) {
 					//not sure when this case is needed, but might as well add

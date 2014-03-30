@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
+import modelTestSam.GameInstanceGenerator;
 import modelTestSam.GameModel;
-import modelTestSam.GameModel.Type;
 import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
@@ -22,11 +22,9 @@ public class GameBoardSetupPhase extends GamePhase {
 	public GameBoardSetupPhase(GameModel m) {
 		super(m);
 		
-		//SERVER Currently automatically generates data
-		if (m.modelType == Type.SERVER) {
-			m.bowl.Demo1Population();
-			m.grid.Demo1FixedGrid();
-		}
+		
+		if (isServer())
+			GameInstanceGenerator.GameSetup(m);
 	}
 	
 	public void phaseHandler() {
@@ -91,9 +89,7 @@ public class GameBoardSetupPhase extends GamePhase {
 					}
 					
 					referenceToModel.grid.replaceHexGrid(board.grid);
-					
-					
-					
+
 					gavePlayersTheInfo = true;
 					nextPhaseIfTime();
 			

@@ -3,7 +3,10 @@ package modelTestSam;
 import gamePhasesSam.GamePhase;
 import gamePhasesSam.JoinGamePhase;
 import hexModelSam.HexGrid;
+
 import java.util.Observable;
+
+import modelTestSam.GameInstanceGenerator.Predefined;
 
 public class GameModel extends Observable {
 	//Internals (Server/Client Info)
@@ -21,6 +24,8 @@ public class GameModel extends Observable {
 	public Networkable network;
 	public Type modelType;
 	
+	public Predefined gameGenerationMode;
+	
 	//Externals (Game Knowledge)
 	
 	public HexGrid grid = new HexGrid();
@@ -36,8 +41,9 @@ public class GameModel extends Observable {
 	
 	public GameModel(Type modelType) {
 		this.modelType = modelType;
+		this.gameGenerationMode = Predefined.Random;
 	}
-	
+		
 	public void setNumPlayers(int p) {
 		howManyPlayers = p;
 	}

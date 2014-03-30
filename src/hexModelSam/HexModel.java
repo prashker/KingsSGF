@@ -28,8 +28,9 @@ public class HexModel extends KNTObject {
 		NONTYPE; //might be needed for a Thing's Terrain Type (maybe)
 		
 		//http://stackoverflow.com/questions/8114174/how-to-randomize-enum-elements
+		//FaceDownTile and NONTYPE should not be part of random (subtract 2)
 		public static TileType getRandom() {
-			return values()[(int) (Math.random() * values().length)];
+			return values()[(int) (Math.random() * (values().length-2))];
 		}
 	};
 	
@@ -67,6 +68,8 @@ public class HexModel extends KNTObject {
 	}
 	
 	//demo workaround
+	//no longer needed
+	/*
 	public void changeHex(TileType t, String id) {
 		this.type = t;
 		this.setId(id);
@@ -74,6 +77,7 @@ public class HexModel extends KNTObject {
 		//this.setChanged(); maybe
 		//this.notifyObservers();
 	}
+	*/
 	
 	public void takeOwnership(PlayerModel p) {	
 		//if (owner == null) {	prevents battlewin takeover	
