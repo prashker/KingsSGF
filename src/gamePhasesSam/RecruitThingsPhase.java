@@ -88,10 +88,12 @@ public class RecruitThingsPhase extends GamePhase {
 				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
 				HexModel gridFound = referenceToModel.grid.searchByID(hexToPlaceThing);
 				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
-					Thing thing = playerFound.removeThingById(thingToPlace);
-					if (thing != null) {
-						gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
+					if (gridFound.getOwner() == playerFound) {
+						Thing thing = playerFound.removeThingById(thingToPlace);
+						if (thing != null) {
+							gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+						}
 					}
 				}
 				
