@@ -1,5 +1,6 @@
 package counterModelSam;
 
+import counterModelSam.Thing.ThingType;
 import hexModelSam.HexModel.TileType;
 
 public class Fort extends Thing {
@@ -31,6 +32,8 @@ public class Fort extends Thing {
 				super.setAfter(type.toString(), TileType.NONTYPE, 4, false, false, false, false, true, true);
 				break;	
 		}
+		
+		this.thingType = ThingType.Fort;
 	}
 	
 	public Fort(FortType type, boolean neutralized) {

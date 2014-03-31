@@ -19,11 +19,22 @@ public abstract class Thing extends Counter {
 		MELEE
 	}
 	
+	public static enum ThingType {
+		SpecialIncomeCombat,
+		SpecialIncome,
+		Treaure,
+		Magic,
+		Event,
+		Fort,
+		Creature
+	}
+	
 	//Abilities associated with the instantiated Thing
 	Set<ThingAbility> abilitySet = EnumSet.noneOf(ThingAbility.class);
 	
 	public String name;
 	public TileType validTerrain;
+	public ThingType thingType;
 	
 	public int value;
 	public int hitValue;
