@@ -74,7 +74,7 @@ public class StartGameControlHexesPhase extends GamePhase {
 						gridFound.takeOwnership(playerFound);
 						referenceToModel.chat.sysMessage(playerFound.getName() + " has taken over hex ID" + gridFound.getId());
 						
-						if (referenceToModel.gamePlayersManager.nextPlayerTurnNoShifting()) {
+						if (referenceToModel.gamePlayersManager.nextPlayerTurn()) {
 							//If all players placed it once
 							System.out.println("Each player did one");
 							eachPlayerDidThree++;

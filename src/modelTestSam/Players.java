@@ -88,16 +88,10 @@ public class Players extends KNTObject {
 			return false;
 		}
 		
-		public boolean nextPlayerTurnNoShifting() {
-			//continually loop over the player turn order
-			currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.size();
-			
-			if (currentPlayerIndex == firstPlayerIndex) {
-				return true;
-			}
-			
-			
-			return false;
+		//Shift the turn order at the end of a round
+		public void shiftTurnOrder() {		
+			firstPlayerIndex = (firstPlayerIndex + 1) % playerOrder.size();
+			currentPlayerIndex = firstPlayerIndex;
 		}
 		
 		public boolean isStartOfTurns() {

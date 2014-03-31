@@ -150,6 +150,17 @@ public class ConstructionPhase extends GamePhase {
 			
 			removeHandlers();
 			if (!endGame) {
+				
+				//PLAYER ORDER SHIFT ON 3 AND 4 PLAYER GAMES
+				if (referenceToModel.getNumPlayers() != 2) {
+					referenceToModel.chat.sysMessage("PLAYER ORDER SHIFT");
+					referenceToModel.gamePlayersManager.shiftTurnOrder();
+				}
+				else {
+					referenceToModel.chat.sysMessage("NO PLAYER SHIFT");
+				}
+				
+				
 				referenceToModel.state = new GoldCollectionPhase(referenceToModel);
 			}
 		}
