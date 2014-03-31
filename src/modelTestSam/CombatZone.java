@@ -12,9 +12,11 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import counterModelSam.Fort;
+import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Fort.FortType;
 import counterModelSam.Thing.ThingAbility;
+import counterModelSam.Thing.ThingType;
 import counterModelSam.ThingStack;
 
 //only one instantiated per model, as the object reference never changes
@@ -157,7 +159,11 @@ public class CombatZone extends Observable {
 					}
 				}
 				
-				//SIMILAR BLOCK OF CODE FOR SPECIAL COUNTER -- FUTURE
+				//Only add COMBAT SPECIAL COUNTERS to the Fight
+				SpecialIncome specialOwner = battleHex.getSpecialIncome();
+				if (specialOwner != null && specialOwner.thingType == ThingType.SpecialIncomeCombat) {
+					fighterMeleeThings.add(specialOwner);
+				}
 			}
 			
 			//Add them in order
