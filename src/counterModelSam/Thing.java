@@ -82,6 +82,14 @@ public abstract class Thing extends Counter {
 		this.notifyObservers();
 	}
 	
+	//Necessary for preloading items that are dead (maybe other places?)
+	public void kill() {
+		hitValue = 0;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	//Useful in the future when we have a Fort. Post-battle we have an opportunity to kill/review a Fort
 	public void reviveHit() {
 		if (abilitySet.contains(ThingAbility.MULTIHIT)) {

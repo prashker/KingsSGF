@@ -27,6 +27,8 @@ public class GameInstanceGenerator {
 		
 		ArrayList<Thing> tmp = new ArrayList<Thing>();
 
+		//THIS IS THE LIST OF ALL THINGS
+		
 		tmp.add(new CreatureThing("OldDragon", TileType.DesertTile, 4, true, true, false, false, false, false));
 		tmp.add(new CreatureThing("GiantSpider", TileType.DesertTile, 1, false, false, false, false, false, false));
 		tmp.add(new CreatureThing("Elephant", TileType.JungleTile, 4, false, false, true, false, false, false));
@@ -70,6 +72,17 @@ public class GameInstanceGenerator {
 		tmp.add(new CreatureThing("Cyclops", TileType.MountainTile, 5, false, false, false, false, false, false));
 		tmp.add(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false));
 		tmp.add(new CreatureThing("Goblins", TileType.MountainTile, 1, false, false, false, false, false, false));
+		
+		//added latest
+		tmp.add(new CreatureThing("SlimeBeast", TileType.SwampTile, 3, false, false, false, false, false, false));
+		tmp.add(new CreatureThing("KillerRacoon", TileType.ForestTile, 2, false, false, false, false, false, false));
+		tmp.add(new CreatureThing("WildCat", TileType.ForestTile, 2, false, false, false, false, false, false));
+		tmp.add(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false));
+		tmp.add(new CreatureThing("SwampRat", TileType.SwampTile, 1, false, false, false, false, false, false));
+		tmp.add(new CreatureThing("Unicorn", TileType.ForestTile, 4, false, false, false, false, false, false));
+		tmp.add(new CreatureThing("Bears", TileType.ForestTile, 2, false, false, false, false, false, false));
+
+
 		
 		Collections.shuffle(tmp);
 		
@@ -171,21 +184,87 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(3,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			m.grid.getHexFromQR(3,-1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			m.grid.getHexFromQR(3,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
-			
 			m.grid.getHexFromQR(2,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			m.grid.getHexFromQR(2,-1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			m.grid.getHexFromQR(2,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
-			
 			m.grid.getHexFromQR(1,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			m.grid.getHexFromQR(0,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			
-			//Example of adding tile
-			//m.grid.getHexFromQR(0, 0).addPlayerOwnedThingToHex(t, playerId);
-			//m.grid.getHexFromQR(0, 0).setFort(f);
-			//m.grid.getHexFromQR(0, 0)
-			//TO_RETURN TO
+			//m.grid.getHexFromQR(3,-2).//VILLAGE TO DO
+			m.grid.getHexFromQR(3,0).setFort(new Fort(FortType.Castle,true));
+			m.grid.getHexFromQR(2,-1).setFort(new Fort(FortType.Castle));
+			m.grid.getHexFromQR(2,0).setFort(new Fort(FortType.Tower));
+			m.grid.getHexFromQR(1,0).setFort(new Fort(FortType.Tower, true));
 			
-			m.grid.getHexFromQR(3, -2).setFort(new Fort(FortType.Castle));
+			//MINIMAL EXCLUSIVE
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Crocodiles", TileType.JungleTile, 2, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("SlimeBeast", TileType.SwampTile, 3, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("KillerRacoon", TileType.ForestTile, 2, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Farmers", TileType.PlainsTile, 1, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("WildCat", TileType.ForestTile, 2, false, false, false, false, false, false), 0);
+
+			m.grid.getHexFromQR(0,0).setFort(new Fort(FortType.Keep));
+			m.grid.getHexFromQR(0,0).getFort().kill();		
+			
+			//P2
+			
+			m.grid.getHexFromQR(2,1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(1,1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(1,2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(0,1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(0,2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(0,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(-1,1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(-1,2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(-1,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			m.grid.getHexFromQR(-2,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
+			
+			m.grid.getHexFromQR(2,1).setFort(new Fort(FortType.Keep, true));			
+			m.grid.getHexFromQR(1,1).setFort(new Fort(FortType.Keep, true));
+			//m.grid.getHexFromQR(1,2). VILLAGE
+			m.grid.getHexFromQR(0,1).setFort(new Fort(FortType.Tower));
+			m.grid.getHexFromQR(0,2).setFort(new Fort(FortType.Keep, true));
+			m.grid.getHexFromQR(-1,2).setFort(new Fort(FortType.Castle));
+			
+			//MINIMAL EXCLUSIVE
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("SwampRat", TileType.SwampTile, 1, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Unicorn", TileType.ForestTile, 4, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Bears", TileType.ForestTile, 2, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("GiantSpider", TileType.DesertTile, 1, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("CamelCorps", TileType.DesertTile, 3, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Sandworm", TileType.DesertTile, 3, false, false, false, false, false, false), 1);
+			
+			//P3
+			m.grid.getHexFromQR(-1,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
+			m.grid.getHexFromQR(-2,1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
+			m.grid.getHexFromQR(-2,2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
+			m.grid.getHexFromQR(-3,1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
+			m.grid.getHexFromQR(-3,2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
+			m.grid.getHexFromQR(-3,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
+	
+			//m.grid.getHexFromQR(-3,1). CITY
+			m.grid.getHexFromQR(-3,2).setFort(new Fort(FortType.Keep));
+			
+			//P4
+			m.grid.getHexFromQR(2,-3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+			m.grid.getHexFromQR(1,-3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+			m.grid.getHexFromQR(1,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+			m.grid.getHexFromQR(0,-3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+			m.grid.getHexFromQR(0,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+			m.grid.getHexFromQR(-1,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+			m.grid.getHexFromQR(-2,-1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
+
+			m.grid.getHexFromQR(1,-3).setFort(new Fort(FortType.Castle, true));
+			m.grid.getHexFromQR(0,-3).setFort(new Fort(FortType.Keep));
+			m.grid.getHexFromQR(0,-2).setFort(new Fort(FortType.Tower, true));
+			//m.grid.getHexFromQR(-1,-2) //VILLAGE
+			
+
+			
 
 		}
 		else {

@@ -33,9 +33,15 @@ public class Fort extends Thing {
 		}
 	}
 	
+	public Fort(FortType type, boolean neutralized) {
+		this(type);
+		if (neutralized)
+		this.kill();
+	}
+	
 	//When Forts are dead, they are Neutralised
 	public String getName() {
-		return name + (isDead() ? "Neutralised" : "");
+		return type.toString() + (isDead() ? "Neutralised" : "");
 	}
 	
 	public FortType getType() {
