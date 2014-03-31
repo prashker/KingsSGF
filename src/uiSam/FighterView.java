@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
@@ -39,6 +40,7 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 	@FXML public Button bribeButton;
 	@FXML public Label howManyRollsLabel;
 	@FXML public Label lastRollLabel;
+	@FXML public ComboBox<Integer> rollOverrideCombo;
 	
 	public FighterView() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -51,6 +53,9 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
+		
+		rollOverrideCombo.getItems().addAll(-1,1,2,3,4,5,6);
+		rollOverrideCombo.getSelectionModel().selectFirst();
 	}
 	
 	@Override
@@ -104,7 +109,14 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 				int roll = Dice.Roll();
 				GameEvent rollHit = new GameEvent("ROLLHIT");
 				rollHit.put("THING", thing.getId());
-				rollHit.put("ROLL", roll);
+				if (rollOverrideCombo.getValue() != -1) {
+					rollHit.put("ROLL", rollOverrideCombo.getValue());
+				}
+				else {
+					if (rollOverrideCombo.getValue() != -1) {
+						rollHit.put("ROLL", roll);
+					}
+				}
 				lastRollLabel.setText("Roll: " + roll);
 				
 				BoardGameWindow.getInstance().networkMessageSend(rollHit);
@@ -123,6 +135,19 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 			}
 			
 		});
+		
+		bluffButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				GameEvent bluffThing = new GameEvent("BLUFF");
+				bluffThing.put("THING", thing.getId());
+				
+				BoardGameWindow.getInstance().networkMessageSend(bluffThing);
+			}
+			
+		});
+		
 	}
 
 	@Override

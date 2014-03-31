@@ -79,6 +79,11 @@ public class HexModel extends KNTObject {
 	}
 	*/
 	
+	//future
+	public boolean hasTerrainLord() {
+		return false;
+	}
+	
 	public void takeOwnership(PlayerModel p) {	
 		//if (owner == null) {	prevents battlewin takeover	
 			owner = p;

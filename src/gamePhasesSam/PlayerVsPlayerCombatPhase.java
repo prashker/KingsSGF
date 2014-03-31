@@ -174,6 +174,33 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 			
 		});
 		
+		addPhaseHandler("BLUFF", new GameEventHandler() {
+
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				
+				String player = (String) event.get("FROM");
+				String bluff = (String) event.get("THING");
+				
+				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
+				Thing thingFound = referenceToModel.battleData.getThingById(bluff);
+				
+				//BLUFF, INSTA-DEATH
+				if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type) {
+					referenceToModel.chat.sysMessage(String.format("%s called a bluff on %s", playerFound.getName(), thingFound.getName()));
+					thingFound.kill();
+					endBattleHandling();
+				}
+				
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+				
+				nextPhaseIfTime();
+			}
+			
+		});
+		
 	}
 	
 	public void endBattleHandling() {
