@@ -298,7 +298,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 			
 			SpecialIncome s = battleHex.getSpecialIncome();
 			if (s != null) {
-				f.reviveHit();
+				s.reviveHit();
 			}
 				
 		}
