@@ -44,7 +44,7 @@ public class StartGamePlayTowerPhase extends GamePhase {
 				
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {	
 					//No fort exists there yet, and I own the place
-					if (gridFound.getOwner() == playerFound && gridFound.getFort() == null) {
+					if (gridFound.getOwner().equals(playerFound) && gridFound.getFort() == null) {
 						gridFound.setFort(fort);
 					
 						referenceToModel.chat.sysMessage(playerFound.getName() + " has placed a Tower " + gridFound.getId());

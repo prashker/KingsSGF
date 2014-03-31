@@ -92,7 +92,19 @@ public class GameBoardSetupPhase extends GamePhase {
 					}
 					
 					referenceToModel.grid.replaceHexGrid(board.grid);
-
+					
+					//Match remote Hex owner to Local Hex Owneer
+					for (int y = 0; y < referenceToModel.grid.grid[0].length; y++) {
+						for (int x = 0; x < referenceToModel.grid.grid[y].length; x++) {
+							if (referenceToModel.grid.grid[y][x] != null) {
+								PlayerModel remotePlayerOnHex = referenceToModel.grid.grid[y][x].getOwner();
+								if (remotePlayerOnHex != null) {
+									referenceToModel.grid.grid[y][x].takeOwnership(referenceToModel.gamePlayersManager.getPlayer(remotePlayerOnHex.getId()));
+								}
+							}
+						}
+					}
+					
 					gavePlayersTheInfo = true;
 					nextPhaseIfTime();
 			

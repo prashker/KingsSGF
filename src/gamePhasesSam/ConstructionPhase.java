@@ -5,6 +5,7 @@ import hexModelSam.HexModel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,13 +20,15 @@ import modelTestSam.PlayerModel;
 public class ConstructionPhase extends GamePhase {
 	
 	//Need a static variable to keep track of the last time this was initialized, was there any players with the need? ENDGAME LOGIC
-	
+	//<Tile with Citadel, HasThis Been Owned by Same Person for 1 Turn>
+	public static HashMap<HexModel, Boolean> citadelsHeldEndOfLastTurn = new HashMap<HexModel, Boolean>();
+
 	final static int UPGRADE_COST = 5;
 	int citadelMinimumGold;
 
 	int ended = 0;
 	
-	Set<HexModel> alreadyUpgradedHex = new TreeSet<HexModel>();
+	Set<HexModel> alreadyUpgradedHex = new HashSet<HexModel>();
 	
 	public ConstructionPhase(GameModel m) {
 		super(m);
@@ -36,6 +39,7 @@ public class ConstructionPhase extends GamePhase {
 		citadelMinimumGold = (referenceToModel.getNumPlayers() == 4 ? 20 : 15);
 		
 		referenceToModel.chat.sysMessage(String.format("Citadel Costs: %d", citadelMinimumGold));
+		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 	}
 	
 	public void phaseHandler() {
@@ -89,7 +93,7 @@ public class ConstructionPhase extends GamePhase {
 					//The fort we're trying to replace it with is the right type
 					//The player has the minimum gold requirement
 					//This hex has not been upgraded this turn yet
-					if (gridFound.getOwner() == playerFound && ((gridFound.getFort() == null && toBeUpgraded == null) || (gridFound.getFort() != null && gridFound.getFort().getType() == toBeUpgraded)) && fort.getType() == nextLevel && playerFound.getGold() >= minimumGoldRequirement) {
+					if (gridFound.getOwner().equals(playerFound) && ((gridFound.getFort() == null && toBeUpgraded == null) || (gridFound.getFort() != null && gridFound.getFort().getType() == toBeUpgraded)) && fort.getType() == nextLevel && playerFound.getGold() >= minimumGoldRequirement) {
 						gridFound.setFort(fort);
 						
 						//final condition - if it was already upgraded, do not upgrade
@@ -102,6 +106,12 @@ public class ConstructionPhase extends GamePhase {
 							
 							//Add to elements already upgraded to prevent double-upgrading
 							alreadyUpgradedHex.add(gridFound);
+							
+							//CITADEL RULE
+							//INITIATE END-GAME LOGIC
+							if (nextLevel == FortType.Citadel) {
+								citadelsHeldEndOfLastTurn.put(gridFound, false);
+							}
 						}
 						
 						
@@ -121,13 +131,27 @@ public class ConstructionPhase extends GamePhase {
 
 	@Override
 	public void nextPhaseIfTime() {
+		boolean endGame = false;
+		
 		if (ended == referenceToModel.gamePlayersManager.numPlayers()) {
 			
-			//IF ANY 
-			
+			//IF ONLY ONE PERSON HAS CITADELS
+			if (citadelsHeldEndOfLastTurn.size() == 1) {
+				HexModel tile = citadelsHeldEndOfLastTurn.keySet().iterator().next();
+				if (citadelsHeldEndOfLastTurn.get(tile)) {
+					endGame = true;
+					referenceToModel.chat.sysMessage("GAME OVER --- THE WINNER IS: " + tile.getOwner().getName());
+				}
+				else {
+					citadelsHeldEndOfLastTurn.put(tile, true);
+					referenceToModel.chat.sysMessage(String.format("%s is poised to win if nobody intervenes by next Construction Phase!!!!!!", tile.getOwner().getName()));
+				}
+			}			
 			
 			removeHandlers();
-			referenceToModel.state = new GoldCollectionPhase(referenceToModel);
+			if (!endGame) {
+				referenceToModel.state = new GoldCollectionPhase(referenceToModel);
+			}
 		}
 	}
 

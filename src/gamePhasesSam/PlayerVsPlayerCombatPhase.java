@@ -2,6 +2,11 @@ package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import counterModelSam.Thing;
 import hexModelSam.HexModel;
@@ -138,12 +143,38 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 	@Override
 	public void nextPhaseIfTime() {
 		if (!referenceToModel.battleData.activeBattle) {
+
+			//END-GAME POSSIBLY
+			Set<HexModel> x = ConstructionPhase.citadelsHeldEndOfLastTurn.keySet();		
+			
+			Set<PlayerModel> haveOneCitadel = new HashSet<PlayerModel>();
+			Set<PlayerModel> haveMoreCitadels = new HashSet<PlayerModel>();
+			
+			//Get the number of citadels per player
+			for (HexModel hex: x) {
+				//first citadel, can't win here, but we'll keep track
+				if (!haveOneCitadel.contains(hex.getOwner())) {
+					 haveOneCitadel.add(hex.getOwner());
+				}
+				//two or more
+				else {
+					haveMoreCitadels.add(hex.getOwner());
+				}
+			}
+			
 			removeHandlers();
-			referenceToModel.state = new CombatPickPhase(referenceToModel);
+			if (haveMoreCitadels.size() == 1) {
+				referenceToModel.chat.sysMessage("GAME OVER BY CONQUEST --- THE WINNER IS: " + haveMoreCitadels.iterator().next().getName());
+			}
+			else {
+				referenceToModel.state = new CombatPickPhase(referenceToModel);
+			}
+			
 		}
 		else {
 			//Nothing
 		}
+		
 	}
 
 }

@@ -54,6 +54,7 @@ public class GoldCollectionPhase extends GamePhase {
 					}
 					
 					playerFound.incrementGold(goldToAdd);
+					
 					collected++;
 					
 					referenceToModel.chat.sysMessage(playerFound.getName() + " collected " + goldToAdd + " gold");

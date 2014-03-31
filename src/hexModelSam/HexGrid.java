@@ -145,7 +145,7 @@ public class HexGrid extends KNTObject {
 		for (int y = 0; y < grid[0].length; y++) {
 			for (int x = 0; x < grid[y].length; x++) {
 				if (grid[y][x] != null) {
-					if (grid[y][x].getOwner() != null && grid[y][x].getOwner() == p)
+					if (grid[y][x].getOwner() != null && grid[y][x].getOwner().equals(p))
 						results.add(grid[y][x]);
 				}
 			}

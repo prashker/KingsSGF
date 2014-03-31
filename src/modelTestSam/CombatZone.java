@@ -1,5 +1,6 @@
 package modelTestSam;
 
+import gamePhasesSam.ConstructionPhase;
 import hexModelSam.HexModel;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import counterModelSam.Fort;
 import counterModelSam.Thing;
+import counterModelSam.Fort.FortType;
 import counterModelSam.Thing.ThingAbility;
 
 //only one instantiated per model, as the object reference never changes
@@ -36,6 +38,11 @@ public class CombatZone extends Observable {
 	
 	public int attackerHitPoints = 0;
 	public int defenderHitPoints = 0;
+	
+	//To support >2 player battle we need to no longer differentiate attacker from defender
+	//It doesn't really matter, the winner takes the hex
+	//ONLY TIME IT MATTERS IF THE UNDISCOVERED "DEFENDER" wins, they do not own the hex, and their monsters disappear?
+	
 	
 	public CombatZone() {
 		activeBattle = false;		
@@ -72,6 +79,12 @@ public class CombatZone extends Observable {
 		if (winner != null && loser != null) { 
 			battleHex.takeOwnership(winner);
 			battleHex.removeAllThingsInStack(loser.getMyTurnOrder());
+			
+			//if the winner doesn't already own it, and it is a citadel
+			//END-GAME PREP
+			if (battleHex.getOwner() != null && battleHex.getOwner().equals(winner) && battleHex.getFort() != null && battleHex.getFort().getType() == FortType.Citadel) {
+				ConstructionPhase.citadelsHeldEndOfLastTurn.put(battleHex, false);
+			}
 		}
 	}
 	

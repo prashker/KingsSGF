@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.Random;
 
 import counterModelSam.CreatureThing;
+import counterModelSam.Fort;
 import counterModelSam.Thing;
+import counterModelSam.Fort.FortType;
 import hexModelSam.HexModel;
 import hexModelSam.HexModel.TileType;
 
@@ -182,6 +184,8 @@ public class GameInstanceGenerator {
 			//m.grid.getHexFromQR(0, 0).setFort(f);
 			//m.grid.getHexFromQR(0, 0)
 			//TO_RETURN TO
+			
+			m.grid.getHexFromQR(3, -2).setFort(new Fort(FortType.Castle));
 
 		}
 		else {

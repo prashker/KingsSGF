@@ -70,6 +70,8 @@ public class UndiscoveredCombatPhase extends GamePhase {
 								attacker.getName(), roll));
 						referenceToModel.chat.sysMessage("Roll again instead");
 						
+						
+						//GO TO PLAYERVSPLAYER COMBAT PHASE AFTER ALLOCATING MONSTERS TO THIS HEX
 						//referenceToModel.battleData.initiateBattle(attacker, defender, battleHex, CombatMode.UndiscoveredHex);
 					}
 				}

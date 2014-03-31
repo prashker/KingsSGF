@@ -92,6 +92,8 @@ public class CombatPickPhase extends GamePhase {
 					
 					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
 					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
+					
+					referenceToModel.gamePlayersManager.nextPlayerTurn(); //MIGHT BE A BUG FIX
 				}
 				
 				if (isServer())
