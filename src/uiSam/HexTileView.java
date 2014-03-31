@@ -42,6 +42,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 	@FXML public ImageView tileView;
 	@FXML public ImageView controlZone;
 	@FXML public ImageView fortZone;
+	@FXML public ImageView specialZone;
 	
 	@FXML public ImageView playerOneThingStack;
 	@FXML public ImageView playerTwoThingStack;
@@ -92,10 +93,20 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 				if (m != null)  {
 					tileView.setImage(new Image(m.type + ".png"));	
 					
-					if (m.getOwner() != null)
+					if (m.getOwner() != null) 
 						controlZone.setImage(new Image(tile.getOwner().getControlMarker().toString() + ".png"));
-					if (m.getFort() != null) 
+					else
+						controlZone.setImage(null);
+
+					if (m.getFort() != null)
 						fortZone.setImage(new Image(tile.getFort().getName() + ".png"));
+					else
+						fortZone.setImage(null);
+						
+					if (m.getSpecialIncome() != null)
+						specialZone.setImage(new Image(tile.getSpecialIncome().getName() + ".png"));
+					else
+						specialZone.setImage(null);
 					
 					
 					for (int i = 0; i < playerStack.size(); i++) {
@@ -140,6 +151,10 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 		    	
 		    	if (tile.getFort() != null) {
 		    		pretty.append("Fort: " + tile.getFort().getName() + "\n");
+		    	}
+		    	
+		    	if (tile.getSpecialIncome() != null) {
+		    		pretty.append("Special: " + tile.getSpecialIncome().getName() + "\n");
 		    	}
 
 		    	for (ThingStack s: tile.stackByPlayer) {

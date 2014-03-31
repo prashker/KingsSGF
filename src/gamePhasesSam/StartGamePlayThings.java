@@ -1,10 +1,13 @@
 package gamePhasesSam;
 
 import hexModelSam.HexModel;
+import hexModelSam.HexModel.TileType;
 
 import java.nio.channels.SocketChannel;
 
+import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
+import counterModelSam.Thing.ThingType;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
@@ -44,7 +47,19 @@ public class StartGamePlayThings extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {				
 					Thing thing = playerFound.removeThingById(thingToPlace);
 					if (thing != null) {
-						gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+						//If special, ensure it is a valid type (no bluffing)
+						if (thing.thingType == ThingType.SpecialIncome || thing.thingType == ThingType.SpecialIncomeCombat) {
+							if (thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) {
+								gridFound.setSpecialIncome((SpecialIncome)thing);
+							}
+							else {
+								//Return it back, invalid
+								playerFound.addThingToRack(thing);
+							}
+						}
+						else {
+							gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+						}
 					}
 				}
 				

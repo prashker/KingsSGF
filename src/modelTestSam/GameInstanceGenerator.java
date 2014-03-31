@@ -6,6 +6,7 @@ import java.util.Random;
 
 import counterModelSam.CreatureThing;
 import counterModelSam.Fort;
+import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Fort.FortType;
 import hexModelSam.HexModel;
@@ -81,7 +82,21 @@ public class GameInstanceGenerator {
 		tmp.add(new CreatureThing("SwampRat", TileType.SwampTile, 1, false, false, false, false, false, false));
 		tmp.add(new CreatureThing("Unicorn", TileType.ForestTile, 4, false, false, false, false, false, false));
 		tmp.add(new CreatureThing("Bears", TileType.ForestTile, 2, false, false, false, false, false, false));
-
+		
+		tmp.add(new SpecialIncome("CopperMine", TileType.MountainTile, 1));
+		tmp.add(new SpecialIncome("DiamondField", TileType.DesertTile, 1));
+		tmp.add(new SpecialIncome("ElephantGraveyard", TileType.JungleTile, 3));
+		tmp.add(new SpecialIncome("Farmlands", TileType.PlainsTile, 1));
+		tmp.add(new SpecialIncome("GoldMine", TileType.MountainTile, 3));
+		tmp.add(new SpecialIncome("OilField", TileType.FrozenWasteTile, 3));
+		tmp.add(new SpecialIncome("PeatBog", TileType.SwampTile, 1));
+		tmp.add(new SpecialIncome("SilverMine", TileType.MountainTile, 3));
+		tmp.add(new SpecialIncome("Timberland", TileType.ForestTile, 1));
+		
+		tmp.add(new SpecialIncome("City", TileType.NONTYPE, 2, false, false, false, false, false, true));
+		tmp.add(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
+		
+		
 
 		
 		Collections.shuffle(tmp);
@@ -214,7 +229,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(1,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			m.grid.getHexFromQR(0,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			
-			//m.grid.getHexFromQR(3,-2).//VILLAGE TO DO
+			m.grid.getHexFromQR(3,-2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
 			m.grid.getHexFromQR(3,0).setFort(new Fort(FortType.Castle,true));
 			m.grid.getHexFromQR(2,-1).setFort(new Fort(FortType.Castle));
 			m.grid.getHexFromQR(2,0).setFort(new Fort(FortType.Tower));
@@ -247,7 +262,7 @@ public class GameInstanceGenerator {
 			
 			m.grid.getHexFromQR(2,1).setFort(new Fort(FortType.Keep, true));			
 			m.grid.getHexFromQR(1,1).setFort(new Fort(FortType.Keep, true));
-			//m.grid.getHexFromQR(1,2). VILLAGE
+			m.grid.getHexFromQR(1,2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
 			m.grid.getHexFromQR(0,1).setFort(new Fort(FortType.Tower));
 			m.grid.getHexFromQR(0,2).setFort(new Fort(FortType.Keep, true));
 			m.grid.getHexFromQR(-1,2).setFort(new Fort(FortType.Castle));
@@ -270,7 +285,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-3,2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
 			m.grid.getHexFromQR(-3,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
 	
-			//m.grid.getHexFromQR(-3,1). CITY
+			m.grid.getHexFromQR(-3,1).setSpecialIncome(new SpecialIncome("City", TileType.NONTYPE, 2, false, false, false, false, false, true));
 			m.grid.getHexFromQR(-3,2).setFort(new Fort(FortType.Keep));
 			
 			//P4
@@ -285,7 +300,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(1,-3).setFort(new Fort(FortType.Castle, true));
 			m.grid.getHexFromQR(0,-3).setFort(new Fort(FortType.Keep));
 			m.grid.getHexFromQR(0,-2).setFort(new Fort(FortType.Tower, true));
-			//m.grid.getHexFromQR(-1,-2) //VILLAGE
+			m.grid.getHexFromQR(-1,-2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
 			
 
 			

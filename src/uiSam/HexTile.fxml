@@ -22,5 +22,6 @@
     <ImageView fx:id="playerTwoThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="33.0" layoutY="1.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="playerThreeThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="58.0" layoutY="1.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="playerFourThingStack" fitHeight="25.0" fitWidth="25.0" layoutX="58.0" layoutY="61.0" mouseTransparent="false" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="specialZone" fitHeight="40.0" fitWidth="40.0" layoutX="77.0" layoutY="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
   </children>
 </HexTileView>

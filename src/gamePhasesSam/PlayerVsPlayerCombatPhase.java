@@ -8,9 +8,13 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+import counterModelSam.Fort;
+import counterModelSam.Fort.FortType;
+import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import hexModelSam.HexModel;
 import modelTestSam.CombatZone.CombatMode;
+import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
@@ -247,6 +251,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		//end of battle
 		if (referenceToModel.battleData.endBattle()) {
 			referenceToModel.battleData.giveTileToWinner();
+			postCombatHandling();
 		}
 		//end of all rounds (all damage resolved)
 		else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
@@ -259,6 +264,46 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		else {
 			referenceToModel.chat.sysMessage("Still going in battle");
 		}
+	}
+	
+	public void postCombatHandling() {	
+		int roll = Dice.Roll();
+		
+		referenceToModel.chat.sysMessage("POST-COMBAT - AUTOMATIC DICE ROLL");
+		referenceToModel.chat.sysMessage("Between 2 and 5, no Damage");
+		referenceToModel.chat.sysMessage("1 or 6 == Fort Downgrade and Destroyed Special Income Counter");
+		referenceToModel.chat.sysMessage(String.format("%d was rolled", roll));
+		
+		if (roll == 1 || roll == 6) {
+			referenceToModel.chat.sysMessage("Downgrading Fort and Destroying Special Income Counter");
+			battleHex.setSpecialIncome(null);
+			
+			//DOWNGRADE FORT
+			Fort f = battleHex.getFort();
+			if (f != null) {
+				if (f.getType() == FortType.Tower)
+					battleHex.setFort(null);
+				else if (f.getType() == FortType.Keep)
+					battleHex.setFort(new Fort(FortType.Tower));
+				else if (f.getType() == FortType.Castle)
+					battleHex.setFort(new Fort(FortType.Keep));
+			}
+			
+		}
+		else {
+			Fort f = battleHex.getFort();
+			if (f != null) {
+				f.reviveHit();
+			}
+			
+			SpecialIncome s = battleHex.getSpecialIncome();
+			if (s != null) {
+				f.reviveHit();
+			}
+				
+		}
+		
+		
 	}
 
 	@Override

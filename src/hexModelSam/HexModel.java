@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import counterModelSam.Fort;
+import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.ThingStack;
 import modelTestSam.KNTObject;
@@ -36,7 +37,7 @@ public class HexModel extends KNTObject {
 	
 	private PlayerModel owner = null;
 	private Fort fort = null;
-	
+	private SpecialIncome specialIncome = null;
 	
 	//PRIVATE IN THE FUTURE
 	public ArrayList<ThingStack> stackByPlayer = new ArrayList<ThingStack>();
@@ -101,6 +102,17 @@ public class HexModel extends KNTObject {
 	
 	public Fort getFort() {
 		return fort;
+	}
+	
+	public void setSpecialIncome(SpecialIncome s) {
+		specialIncome = s;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public SpecialIncome getSpecialIncome() {
+		return specialIncome;
 	}
 	
 	public PlayerModel getOwner() {

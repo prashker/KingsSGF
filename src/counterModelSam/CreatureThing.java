@@ -18,7 +18,6 @@ public class CreatureThing extends Thing {
 		
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
