@@ -152,7 +152,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 				if (referenceToModel.battleData.activeBattle) {
 					//if we're moving from battlhex to another hex
 					//and this person is part of the fight
-					if (referenceToModel.battleData.battleHex.equals(fromHex) && referenceToModel.battleData.fighters.contains(playerFound)) {
+					if (referenceToModel.battleData.battleHex.equals(fromHexO) && referenceToModel.battleData.fighters.contains(playerFound)) {
 						//for now, move all (future, more complex, move per Thing)
 						for (Thing t: fromHexO.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().values()) {
 							if (!t.isDead())

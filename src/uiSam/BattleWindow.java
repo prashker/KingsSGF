@@ -28,10 +28,6 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	
 	@FXML HBox fighterGrid;
 	
-	@FXML Label attackerLabel;
-	@FXML Label defenderLabel;
-	@FXML Label attackerPoints;
-	@FXML Label defenderPoints;
 	@FXML Label roundLabel;
 	
 	@FXML Button retreatButton;
@@ -41,8 +37,6 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	
 	//private AtomicBoolean fightStart = new AtomicBoolean(false);
 	public boolean fightStarted = false;
-	
-
 	
 	public HashMap<PlayerModel, VBox> fighterVboxes = new HashMap<PlayerModel,VBox>();
 	public HashMap<PlayerModel, FighterHeaderView> fighterHeaderViews = new HashMap<PlayerModel, FighterHeaderView>();
@@ -113,6 +107,12 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 				if (com.activeBattle == false) {
 					//close window
 					Stage s = (Stage) rollButton.getScene().getWindow();
+					
+					fighterGrid.getChildren().clear();
+					fighterVboxes.clear();
+					fighterHeaderViews.clear();
+					fighterViews.clear();
+					
 					s.close();
 				}
 				else {
@@ -122,82 +122,54 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 					for (PlayerModel p: com.fighters) {
 						FighterHeaderView v = fighterHeaderViews.get(p);
 						
-						v.fighterNameLabel.setText(p.getName());
-						if (com.fighterAttackWho.get(p) != null) {
-							v.currentlyAttackingLabel.setText("Currently attacking: " + com.fighterAttackWho.get(p).getName());
-						}
-						else {
-							v.currentlyAttackingLabel.setText("Selecting Target...");
-						}
-						v.hitPointsLabel.setText("Hit: " + com.fighterHitPoints.get(p));
-						//v.attackButton = 0;
-						v.goldLabel.setText("Gold: " + p.getGold());
-						if (com.retreatedPlayers.contains(p)) {
-							v.retreatingLabel.setVisible(true);
-						}
-						else {
-							v.retreatingLabel.setVisible(false);
+						if (v != null) {
+							v.fighterNameLabel.setText(p.getName());
+							if (com.fighterAttackWho.get(p) != null) {
+								v.currentlyAttackingLabel.setText("Currently attacking: " + com.fighterAttackWho.get(p).getName());
+							}
+							else {
+								v.currentlyAttackingLabel.setText("Selecting Target...");
+							}
+							v.hitPointsLabel.setText("Hit: " + com.fighterHitPoints.get(p));
+							
+							v.attackButton.setDisable(com.isDeadOrRetreated(p));
+	
+							v.goldLabel.setText("Gold: " + p.getGold());
+							if (com.retreatedPlayers.contains(p)) {
+								v.retreatingLabel.setVisible(true);
+							}
+							else {
+								v.retreatingLabel.setVisible(false);
+							}
 						}
 						
 						//Roll Button
 						//Number of Rolls Still Can Do
 						//Take Hit Button (based on other players rolls)
-						for (FighterView f: fighterViews.get(p)) {
-							if (m.canAttack(f.thing) && com.fighterAttackWho.get(p) != null) {
-								f.roll1Button.setDisable(false);
-							}
-							else {
-								f.roll1Button.setDisable(true);
-							}
-							f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-							if (m.fighterHitPoints.get(p).get() > 0 && !f.thing.isDead()) {
-								f.takeHitButton.setDisable(false);
-							}
-							else {
-								f.takeHitButton.setDisable(true);
-							}
-						}						
+						try {
+							for (FighterView f: fighterViews.get(p)) {
+								if (m.canAttack(f.thing) && com.fighterAttackWho.get(p) != null && !com.isDeadOrRetreated(p)) {
+									f.roll1Button.setDisable(false);
+								}
+								else {
+									f.roll1Button.setDisable(true);
+								}
+								f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
+								if (m.fighterHitPoints.get(p).get() > 0 && !f.thing.isDead()) {
+									f.takeHitButton.setDisable(false);
+								}
+								else {
+									f.takeHitButton.setDisable(true);
+								}
+							}			
+						} 
+						catch (NullPointerException e) {
+							//
+						}
 					}
 					
 					roundLabel.setText("Current Phase: " + com.getBattleOrder().toString());					
-					
-					//Roll Button
-					//Number of Rolls Still Can Do
-					//Take Hit Button (based on other players rolls)
-					/*
-					for (FighterView f: attackerFighterViews) {
-						if (m.canAttack(f.thing)) {
-							f.roll1Button.setDisable(false);
-						}
-						else {
-							f.roll1Button.setDisable(true);
-						}
-						f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-						if (m.attackerHitPoints > 0 && !f.thing.isDead()) {
-							f.takeHitButton.setDisable(false);
-						}
-						else {
-							f.takeHitButton.setDisable(true);
-						}
-					}
-					
-					for (FighterView f: defenderFighterViews) {
-						if (m.canAttack(f.thing)) {
-							f.roll1Button.setDisable(false);
-						}
-						else {
-							f.roll1Button.setDisable(true);
-						}
-						f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
-						if (m.defenderHitPoints > 0 && !f.thing.isDead()) {
-							f.takeHitButton.setDisable(false);
-						}
-						else {
-							f.takeHitButton.setDisable(true);
-						}
-					}
-					*/
-					
+										
 				}
 			}
 

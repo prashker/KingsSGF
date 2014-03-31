@@ -58,8 +58,6 @@ public class CombatZone extends Observable {
 		thingAttacksRound.clear();
 		retreatedPlayers.clear();
 		
-
-
 		//Setup array of fighters (fighters on hex)
 		//Add each player that has monsters on this hex to the fight
 		for (PlayerModel p: model.gamePlayersManager.players.values()) {
@@ -376,6 +374,8 @@ public class CombatZone extends Observable {
 		//kill all already-killed monsters (HANDLED IN END-BATTLE METHOD)
 		//add to retreated array (DONE)
 		retreatedPlayers.add(p);
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public boolean isDeadOrRetreated(PlayerModel p) {
