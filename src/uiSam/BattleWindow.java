@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import modelTestSam.CombatZone;
+import modelTestSam.CombatZone.CombatMode;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.PlayerModel;
@@ -148,6 +149,13 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 						//Take Hit Button (based on other players rolls)
 						try {
 							for (FighterView f: fighterViews.get(p)) {
+								if (com.mode == CombatMode.UndiscoveredHex) {
+									f.bluffButton.setDisable(true);
+								}
+								else {
+									f.bluffButton.setDisable(false);
+								}
+								
 								if (m.canAttack(f.thing) && com.fighterAttackWho.get(p) != null && !com.isDeadOrRetreated(p)) {
 									f.roll1Button.setDisable(false);
 								}

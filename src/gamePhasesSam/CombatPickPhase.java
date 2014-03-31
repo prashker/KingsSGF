@@ -11,6 +11,7 @@ import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
 import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
+import modelTestSam.CombatZone.CombatMode;
 
 public class CombatPickPhase extends GamePhase {
 	
@@ -58,7 +59,7 @@ public class CombatPickPhase extends GamePhase {
 						//current restrictions (its ME)						
 						if (battleHex.stackByPlayer.get(playerFound.getMyTurnOrder()).hasThings()) {
 							if (battleHex.howManyPlayersOnIt() >= 2) {
-								breakToBattle(new PlayerVsPlayerCombatPhase(referenceToModel, battleHex));
+								breakToBattle(new PlayerVsPlayerCombatPhase(referenceToModel, battleHex, CombatMode.PlayerVsPlayer));
 							}
 							else if (battleHex.isUnexplored()) {
 								breakToBattle(new UndiscoveredCombatPhase(referenceToModel, battleHex));

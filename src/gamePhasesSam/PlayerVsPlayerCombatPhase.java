@@ -25,7 +25,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		super(m);
 	}
 	
-	public PlayerVsPlayerCombatPhase(GameModel m, HexModel battleHex) {
+	public PlayerVsPlayerCombatPhase(GameModel m, HexModel battleHex, CombatMode mode) {
 		super(m);
 		
 		this.battleHex = battleHex;
@@ -40,7 +40,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		
 		referenceToModel.chat.sysMessage("PVP BATTLE START");
 		
-		m.battleData.initiateBattle(referenceToModel, battleHex, CombatMode.PlayerVsPlayer);		
+		m.battleData.initiateBattle(referenceToModel, battleHex, mode);		
 	}
 
 	@Override
@@ -186,12 +186,52 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 				Thing thingFound = referenceToModel.battleData.getThingById(bluff);
 				
 				//BLUFF, INSTA-DEATH
-				if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type) {
-					referenceToModel.chat.sysMessage(String.format("%s called a bluff on %s", playerFound.getName(), thingFound.getName()));
-					thingFound.kill();
-					endBattleHandling();
+				//BLUFF DOESN'T APPLY FOR UNDISCOVERED BATTLES
+				if (referenceToModel.battleData.mode == CombatMode.UndiscoveredHex) {
+					referenceToModel.chat.sysMessage("Bluffing does not work on Undiscovered Hex Battle");
+				}
+				else {
+					if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type) {
+						referenceToModel.chat.sysMessage(String.format("%s called a bluff on %s", playerFound.getName(), thingFound.getName()));
+						thingFound.kill();
+						endBattleHandling();
+					}
 				}
 				
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+				
+				nextPhaseIfTime();
+			}
+			
+		});
+		
+		addPhaseHandler("BRIBE", new GameEventHandler() {
+
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				
+				String player = (String) event.get("FROM");
+				String bribe = (String) event.get("THING");
+				
+				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
+				Thing thingFound = referenceToModel.battleData.getThingById(bribe);
+				
+				//Can bribe if
+				//Right person to bribe
+				//Right mode (Undiscovered)
+				//Have enough Gold
+				if (referenceToModel.battleData.fighters.contains(playerFound)) {
+					if (referenceToModel.battleData.mode == CombatMode.UndiscoveredHex) {
+						if (playerFound.getGold() > thingFound.value) {
+							playerFound.decrementGold(thingFound.value);
+							thingFound.kill();
+							referenceToModel.chat.sysMessage(String.format("%s bribed defender %s for %d gold", playerFound.getName(), thingFound.getName(), thingFound.value));
+							endBattleHandling();
+						}
+					}
+				}
 				
 				if (isServer())
 					network.sendAll(event.toJson());

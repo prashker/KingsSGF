@@ -148,6 +148,18 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 			
 		});
 		
+		bribeButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				GameEvent bribeThing = new GameEvent("BRIBE");
+				bribeThing.put("THING", thing.getId());
+				
+				BoardGameWindow.getInstance().networkMessageSend(bribeThing);
+			}
+			
+		});
+		
 	}
 
 	@Override
