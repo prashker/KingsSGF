@@ -66,6 +66,10 @@ public class ChatPhase extends GamePhase {
 				
 				found.setName(newNick);
 				
+				if (found.equals(referenceToModel.localPlayer)) {
+					referenceToModel.localPlayer.setName(newNick);
+				}
+				
 				
 				if (isServer())
 					network.sendAll(event.toJson());
