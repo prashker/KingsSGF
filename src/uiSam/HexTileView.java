@@ -15,6 +15,7 @@ import modelTestSam.PlayerModel.PlayerType;
 import gamePhasesSam.CombatPickPhase;
 import gamePhasesSam.ConstructionPhase;
 import gamePhasesSam.MovementPhase;
+import gamePhasesSam.PlayerVsPlayerCombatPhase;
 import gamePhasesSam.RecruitThingsPhase;
 import gamePhasesSam.StartGameControlHexesPhase;
 import gamePhasesSam.StartGamePlayThings;
@@ -117,6 +118,9 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 					
 					registerDragability();
 					registerHoverability();
+				}
+				else {
+					tileView.setImage(null);
 				}
 			}
 			
@@ -236,7 +240,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 						GameEvent generatedEvent = JacksonSingleton.getInstance().readValue(clip, GameEvent.class);
 						
 						if (generatedEvent.getType().equals("MOVESTACK")) {
-							if (BoardGameWindow.getInstance().model.state instanceof MovementPhase) {
+							if (BoardGameWindow.getInstance().model.state instanceof MovementPhase || BoardGameWindow.getInstance().model.state instanceof PlayerVsPlayerCombatPhase) {
 								generatedEvent.put("TOHEX", tile.getId());
 								BoardGameWindow.getInstance().networkMessageSend(generatedEvent);
 							}

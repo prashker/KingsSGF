@@ -36,6 +36,7 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 	@FXML public Button bluffButton;
 	@FXML public Button takeHitButton;
 	@FXML public Button roll1Button;
+	@FXML public Button bribeButton;
 	@FXML public Label howManyRollsLabel;
 	@FXML public Label lastRollLabel;
 	

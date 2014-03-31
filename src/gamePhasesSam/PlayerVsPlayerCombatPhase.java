@@ -31,17 +31,16 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 		this.battleHex = battleHex;
 		
 		//2 PLAYER BATTLE ONLY FOR THE MOMENT
-		ArrayList<Integer> playerIDs = battleHex.playerIDOnThisHex();
+		//ArrayList<Integer> playerIDs = battleHex.playerIDOnThisHex();
 		
-		PlayerModel defender = battleHex.getOwner();
+		//PlayerModel defender = battleHex.getOwner();
 		
-		playerIDs.remove(playerIDs.indexOf(battleHex.getOwner().getMyTurnOrder())); //leaving just the attacker
-		PlayerModel attacker = referenceToModel.gamePlayersManager.getPlayerByTurnIndex(playerIDs.get(0));
+		//playerIDs.remove(playerIDs.indexOf(battleHex.getOwner().getMyTurnOrder())); //leaving just the attacker
+		//PlayerModel attacker = referenceToModel.gamePlayersManager.getPlayerByTurnIndex(playerIDs.get(0));
 		
 		referenceToModel.chat.sysMessage("PVP BATTLE START");
-		referenceToModel.chat.sysMessage("Attacker: " + attacker.getName() + " vs " + "Defender: " + defender.getName());
 		
-		m.battleData.initiateBattle(attacker, defender, battleHex, CombatMode.PlayerVsPlayer);		
+		m.battleData.initiateBattle(referenceToModel, battleHex, CombatMode.PlayerVsPlayer);		
 	}
 
 	@Override
@@ -66,23 +65,8 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 				//if this thing is part of players own battle things
 				if (referenceToModel.battleData.playerHasThing(playerFound, thingFound)) {
 					if (referenceToModel.battleData.canAttack(thingFound)) {
-						referenceToModel.battleData.tryHit(playerFound, thingFound, playerRoll);
-						
-						//end of battle
-						if (referenceToModel.battleData.endBattle()) {
-							referenceToModel.battleData.giveTileToWinner();
-						}
-						//end of all rounds (all damage resolved)
-						else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
-							referenceToModel.battleData.setRoundStartBattleOrder();
-						}
-						//end of one set (all damage resolved)
-						else if (referenceToModel.battleData.allMonstersWithCurrentAbilityHaveAttacked() && referenceToModel.battleData.allHitsResolved()) {
-							referenceToModel.battleData.nextBattleOrder();
-						}
-						else {
-							referenceToModel.chat.sysMessage("Still going in battle");
-						}
+						referenceToModel.battleData.tryHit(playerFound, thingFound, playerRoll);	
+						endBattleHandling();
 					}
 				}
 				
@@ -112,21 +96,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 				//if this thing is part of players own battle things
 				if (referenceToModel.battleData.playerHasThing(playerFound, thingFound)) {
 					referenceToModel.battleData.takeHit(playerFound, thingFound);
-					//end of battle
-					if (referenceToModel.battleData.endBattle()) {
-						referenceToModel.battleData.giveTileToWinner();
-					}
-					//end of all rounds (all damage resolved)
-					else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
-						referenceToModel.battleData.setRoundStartBattleOrder();
-					}
-					//end of one set (all damage resolved)
-					else if (referenceToModel.battleData.allMonstersWithCurrentAbilityHaveAttacked() && referenceToModel.battleData.allHitsResolved()) {
-						referenceToModel.battleData.nextBattleOrder();
-					}
-					else {
-						referenceToModel.chat.sysMessage("Still going in battle");
-					}
+					endBattleHandling();
 				}
 				
 				if (isServer())
@@ -138,6 +108,90 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 			
 		});
 		
+		//SETTARGET
+		//FROM
+		//TARGET
+		addPhaseHandler("SETTARGET", new GameEventHandler() {
+
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				
+				String attackPlayer = (String) event.get("FROM");
+				String targetPlayer = (String) event.get("TARGET");
+				
+				PlayerModel attackFound = referenceToModel.gamePlayersManager.getPlayer(attackPlayer);
+				PlayerModel targetFound = referenceToModel.gamePlayersManager.getPlayer(targetPlayer);		
+				
+				referenceToModel.battleData.setRoundTarget(attackFound, targetFound);
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+				
+				nextPhaseIfTime();
+			}
+			
+		});
+		
+		addPhaseHandler("MOVESTACK", new GameEventHandler() {
+
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				//acceptable move (RETREAT) in Battle Phase
+				//TOHEX == BATTLEHEX
+				//FROM == FIGHTER IN BATTLE
+				
+				String player = (String) event.get("FROM");
+				String fromHex = (String) event.get("FROMHEX");
+				String toHex = (String) event.get("TOHEX");
+				
+				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
+				HexModel fromHexO = referenceToModel.grid.searchByID(fromHex);
+				HexModel toHexO = referenceToModel.grid.searchByID(toHex);
+				
+				//active battle going
+				if (referenceToModel.battleData.activeBattle) {
+					//if we're moving from battlhex to another hex
+					//and this person is part of the fight
+					if (referenceToModel.battleData.battleHex.equals(fromHex) && referenceToModel.battleData.fighters.contains(playerFound)) {
+						//for now, move all (future, more complex, move per Thing)
+						for (Thing t: fromHexO.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().values()) {
+							if (!t.isDead())
+								toHexO.addPlayerOwnedThingToHex(t, playerFound.getMyTurnOrder());						
+						}
+						fromHexO.removeAllThingsInStack(playerFound.getMyTurnOrder());
+						
+						referenceToModel.battleData.retreatFromBattle(playerFound);
+						endBattleHandling();
+					}					
+				}
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+				
+				nextPhaseIfTime();
+				
+			}
+			
+		});
+		
+	}
+	
+	public void endBattleHandling() {
+		//end of battle
+		if (referenceToModel.battleData.endBattle()) {
+			referenceToModel.battleData.giveTileToWinner();
+		}
+		//end of all rounds (all damage resolved)
+		else if (referenceToModel.battleData.allMonstersAttacked() && referenceToModel.battleData.allHitsResolved()) {
+			referenceToModel.battleData.setRoundStartBattleOrder();
+		}
+		//end of one set (all damage resolved)
+		else if (referenceToModel.battleData.allMonstersWithCurrentAbilityHaveAttacked() && referenceToModel.battleData.allHitsResolved()) {
+			referenceToModel.battleData.nextBattleOrder();
+		}
+		else {
+			referenceToModel.chat.sysMessage("Still going in battle");
+		}
 	}
 
 	@Override

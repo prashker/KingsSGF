@@ -35,14 +35,9 @@
         <Label fx:id="defenderPoints" alignment="CENTER" font="$x1" layoutX="574.0" layoutY="37.0" prefHeight="16.0" prefWidth="124.0" text="Hit Points Defender" />
       </children>
     </Pane>
-    <ScrollPane prefHeight="395.0" prefWidth="716.0">
+    <ScrollPane hbarPolicy="ALWAYS" prefHeight="395.0" prefWidth="716.0" vbarPolicy="ALWAYS">
       <content>
-        <HBox prefHeight="375.0" prefWidth="697.0">
-          <children>
-            <VBox fx:id="attackerGrid" prefHeight="375.0" prefWidth="357.0001220703125" />
-            <VBox fx:id="defenderGrid" prefHeight="374.9998779296875" prefWidth="324.9999000000025" />
-          </children>
-        </HBox>
+        <HBox fx:id="fighterGrid" prefHeight="-1.0" prefWidth="-1.0" />
       </content>
     </ScrollPane>
     <Pane prefHeight="106.0" prefWidth="716.0">

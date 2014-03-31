@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<fx:root type="javafx.scene.layout.Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="340.3333282470703" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Label fx:id="fighterNameLabel" alignment="CENTER" layoutX="14.0" layoutY="8.0" prefHeight="15.960968017578125" prefWidth="312.33331298828125" text="This will be the name of the fighter" />
+    <Button fx:id="attackButton" layoutX="111.0" layoutY="46.0" mnemonicParsing="false" text="Attack This Person" />
+    <Label fx:id="hitPointsLabel" alignment="CENTER" layoutX="14.0" layoutY="49.0" prefWidth="86.0" text="Hits to Inflict" />
+    <Label fx:id="goldLabel" alignment="CENTER" layoutX="240.0" layoutY="49.0" prefWidth="86.0" text="Gold of Fighter" />
+    <Label fx:id="retreatingLabel" layoutX="136.0" layoutY="70.0" text="RETREATING" textFill="#ff3333" visible="true" />
+    <Label fx:id="currentlyAttackingLabel" alignment="CENTER" layoutX="14.0" layoutY="26.0" prefWidth="312.333251953125" text="Currently Attacking %" />
+  </children>
+</fx:root>

@@ -57,7 +57,7 @@ public class CombatPickPhase extends GamePhase {
 						
 						//current restrictions (its ME)						
 						if (battleHex.stackByPlayer.get(playerFound.getMyTurnOrder()).hasThings()) {
-							if (battleHex.howManyPlayersOnIt() == 2) {
+							if (battleHex.howManyPlayersOnIt() >= 2) {
 								breakToBattle(new PlayerVsPlayerCombatPhase(referenceToModel, battleHex));
 							}
 							else if (battleHex.isUnexplored()) {

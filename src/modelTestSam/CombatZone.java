@@ -6,20 +6,20 @@ import hexModelSam.HexModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Observable;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import counterModelSam.Fort;
 import counterModelSam.Thing;
 import counterModelSam.Fort.FortType;
 import counterModelSam.Thing.ThingAbility;
+import counterModelSam.ThingStack;
 
 //only one instantiated per model, as the object reference never changes
 public class CombatZone extends Observable {
 		
-	public ArrayList<Thing> attackerThingsSorted = new ArrayList<Thing>();
-	public ArrayList<Thing> defenderThingsSorted = new ArrayList<Thing>();
-	
 	public static enum CombatMode {
 		PlayerVsPlayer,
 		UndiscoveredHex
@@ -27,8 +27,14 @@ public class CombatZone extends Observable {
 	
 	public HashMap<Thing, AtomicInteger> thingAttacksRound = new HashMap<Thing, AtomicInteger>();
 	
-	public PlayerModel attacker;
-	public PlayerModel defender;
+	public ArrayList<PlayerModel> fighters = new ArrayList<PlayerModel>();
+	public HashMap<PlayerModel, ArrayList<Thing>> fighterThingsSorted = new HashMap<PlayerModel, ArrayList<Thing>>();
+	
+	public HashMap<PlayerModel, PlayerModel> fighterAttackWho = new HashMap<PlayerModel,PlayerModel>();
+	public HashMap<PlayerModel, AtomicInteger> fighterHitPoints = new HashMap<PlayerModel, AtomicInteger>();
+	
+	public Set<PlayerModel> retreatedPlayers = new HashSet<PlayerModel>();
+	
 	public HexModel battleHex;
 	public CombatMode mode;
 	public boolean activeBattle = false;
@@ -36,49 +42,67 @@ public class CombatZone extends Observable {
 	private int currentBattleOrder = -1;
 	private ArrayList<ThingAbility> battleOrder = new ArrayList<ThingAbility>(Arrays.asList(ThingAbility.MAGIC, ThingAbility.RANGED, ThingAbility.MELEE));
 	
-	public int attackerHitPoints = 0;
-	public int defenderHitPoints = 0;
-	
 	//To support >2 player battle we need to no longer differentiate attacker from defender
 	//It doesn't really matter, the winner takes the hex
 	//ONLY TIME IT MATTERS IF THE UNDISCOVERED "DEFENDER" wins, they do not own the hex, and their monsters disappear?
-	
 	
 	public CombatZone() {
 		activeBattle = false;		
 	}
 	
-	public void initiateBattle(PlayerModel att, PlayerModel def, HexModel hex, CombatMode m) {
+	public void initiateBattle(GameModel model, HexModel hex, CombatMode m) {
+		fighters.clear();
+		fighterThingsSorted.clear();
+		fighterAttackWho.clear();
+		fighterHitPoints.clear();
+		thingAttacksRound.clear();
+		retreatedPlayers.clear();
+		
+
+
+		//Setup array of fighters (fighters on hex)
+		//Add each player that has monsters on this hex to the fight
+		for (PlayerModel p: model.gamePlayersManager.players.values()) {
+			if (hex.playerHasTilesOnThisHex(p)) {
+				
+				fighters.add(p);
+				fighterThingsSorted.put(p, new ArrayList<Thing>());
+				fighterHitPoints.put(p, new AtomicInteger(0));
+				
+				System.out.println("BATTLE: " + p.getName());
+			}
+		}
+		
+		
 		activeBattle = true;
-		attacker = att;
-		defender = def;
 		battleHex = hex;
 		mode = m;
-		
-		attackerThingsSorted.clear();
-		defenderThingsSorted.clear();
+				
+		//attackerThingsSorted.clear();
+		//defenderThingsSorted.clear();
 		currentBattleOrder = -1;
-		thingAttacksRound.clear();
-		
-		attackerHitPoints = 0;
-		defenderHitPoints = 0;
 				
 		addPlayerMonstersToBattleInSortedOrder();
 		setRoundStartBattleOrder();
 		setupHitsPerRound();
 		
-		System.out.printf("Battle: %s and %s\n", attacker.getName(), defender.getName());
-
 		this.setChanged();
 		this.notifyObservers("BATTLEINIT");
 	}
 	
 	public void giveTileToWinner() {
 		PlayerModel winner = getWinner();
-		PlayerModel loser = getLoser();
-		if (winner != null && loser != null) { 
+		if (winner != null) { 
 			battleHex.takeOwnership(winner);
-			battleHex.removeAllThingsInStack(loser.getMyTurnOrder());
+			
+			//SOME IF CONDITION HERE FOR P-V-E
+			//every stack in this hex that is not the winner, remove everything!
+			//this handles retreats nicely :)
+			for (int losers = 0; losers < 4; losers++) {
+				if (losers != winner.getMyTurnOrder()) {
+					battleHex.removeAllThingsInStack(losers);
+				}
+			}
 			
 			//if the winner doesn't already own it, and it is a citadel
 			//END-GAME PREP
@@ -99,63 +123,50 @@ public class CombatZone extends Observable {
 	}
 	
 	private void addPlayerMonstersToBattleInSortedOrder() {
-		ArrayList<Thing> attackerMagicThings = new ArrayList<Thing>();
-		ArrayList<Thing> attackerRangedThings = new ArrayList<Thing>();
-		ArrayList<Thing> attackerMeleeThings = new ArrayList<Thing>();
+		for (PlayerModel p: fighters) {
+			ArrayList<Thing> fighterMagicThings = new ArrayList<Thing>();
+			ArrayList<Thing> fighterRangedThings = new ArrayList<Thing>();
+			ArrayList<Thing> fighterMeleeThings = new ArrayList<Thing>();
 			
-		if (battleHex.stackByPlayer.get(attacker.getMyTurnOrder()).hasThings()) {
-			for (Thing findOrder: battleHex.stackByPlayer.get(attacker.getMyTurnOrder()).getStack().values()) {
-				if (findOrder.hasAbility(ThingAbility.MAGIC)) {
-					attackerMagicThings.add(findOrder);
+			if (battleHex.playerHasTilesOnThisHex(p)) {
+				for (Thing findOrder: battleHex.stackByPlayer.get(p.getMyTurnOrder()).getStack().values()) {
+					if (findOrder.hasAbility(ThingAbility.MAGIC)) {
+						fighterMagicThings.add(findOrder);
+					}
+					else if (findOrder.hasAbility(ThingAbility.RANGED)) {
+						fighterRangedThings.add(findOrder);
+					}
+					else {
+						fighterMeleeThings.add(findOrder);
+					}
 				}
-				else if (findOrder.hasAbility(ThingAbility.RANGED)) {
-					attackerRangedThings.add(findOrder);
-				}
-				else {
-					attackerMeleeThings.add(findOrder);
-				}
+				
 			}
+			
+			//If this player is the owner of the hex
+			if (battleHex.getOwner() != null && battleHex.getOwner().equals(p)) {
+				//And they have a Fort on this fight
+				Fort fortOwner = battleHex.getFort();
+				if (fortOwner != null) {
+					if (fortOwner.hasAbility(ThingAbility.MAGIC)) {
+							fighterMagicThings.add(fortOwner);
+					}
+					else if (fortOwner.hasAbility(ThingAbility.RANGED)) {
+							fighterRangedThings.add(fortOwner);
+					}
+					else {
+							fighterMeleeThings.add(fortOwner);
+					}
+				}
+				
+				//SIMILAR BLOCK OF CODE FOR SPECIAL COUNTER -- FUTURE
+			}
+			
+			//Add them in order
+			fighterThingsSorted.get(p).addAll(fighterMagicThings);
+			fighterThingsSorted.get(p).addAll(fighterRangedThings);
+			fighterThingsSorted.get(p).addAll(fighterMeleeThings);
 		}
-		
-		attackerThingsSorted.addAll(attackerMagicThings);
-		attackerThingsSorted.addAll(attackerRangedThings);
-		attackerThingsSorted.addAll(attackerMeleeThings);
-		
-		ArrayList<Thing> defenderMagicThings = new ArrayList<Thing>();
-		ArrayList<Thing> defenderRangedThings = new ArrayList<Thing>();
-		ArrayList<Thing> defenderMeleeThings = new ArrayList<Thing>();
-		
-		if (battleHex.stackByPlayer.get(defender.getMyTurnOrder()).hasThings()) {
-			for (Thing findOrder: battleHex.stackByPlayer.get(defender.getMyTurnOrder()).getStack().values()) {
-				if (findOrder.hasAbility(ThingAbility.MAGIC)) {
-					defenderMagicThings.add(findOrder);
-				}
-				else if (findOrder.hasAbility(ThingAbility.RANGED)) {
-					defenderRangedThings.add(findOrder);
-				}
-				else {
-					defenderMeleeThings.add(findOrder);
-				}
-			}
-		}
-		
-		//add the fort to the fight
-		Fort hexOwner = battleHex.getFort();
-		if (hexOwner != null) {
-			if (hexOwner.hasAbility(ThingAbility.MAGIC)) {
-					defenderMagicThings.add(hexOwner);
-			}
-			else if (hexOwner.hasAbility(ThingAbility.RANGED)) {
-					defenderRangedThings.add(hexOwner);
-			}
-			else {
-					defenderMeleeThings.add(hexOwner);
-			}
-		}
-		
-		defenderThingsSorted.addAll(defenderMagicThings);
-		defenderThingsSorted.addAll(defenderRangedThings);
-		defenderThingsSorted.addAll(defenderMeleeThings);
 	}
 	
 	public ThingAbility getBattleOrder() {
@@ -191,20 +202,31 @@ public class CombatZone extends Observable {
 	}
 	
 	public void setRoundStartBattleOrder() {
-		Thing attackerThing = firstNonDeadThing(attacker);
-		Thing defenderThing = firstNonDeadThing(defender);
+		//Which is the highest type at least one player has (aka may have advantage)
+		boolean foundMagic = false;
+		boolean foundRanged = false;
+		boolean foundMelee = false;
 		
-		if (attackerThing == null && defenderThing == null) {
-			//Impossible state where both players are dead???
+		for (PlayerModel p: fighters) {
+			Thing firstNonDead = firstNonDeadThing(p);
+			
+			if (firstNonDead != null) {
+				if (firstNonDead.hasAbility(ThingAbility.MAGIC))
+					foundMagic = true;
+				if (firstNonDead.hasAbility(ThingAbility.RANGED))
+					foundRanged = true;
+				if (firstNonDead.hasAbility(ThingAbility.MELEE))
+					foundMelee = true;	
+			}
 		}
 		
-		if ((attackerThing != null && attackerThing.hasAbility(ThingAbility.MAGIC)) || (defenderThing != null && defenderThing.hasAbility(ThingAbility.MAGIC))) {
+		if (foundMagic) {
 			currentBattleOrder = battleOrder.indexOf(ThingAbility.MAGIC);
 		}
-		else if ((attackerThing != null && attackerThing.hasAbility(ThingAbility.RANGED)) || (defenderThing != null && defenderThing.hasAbility(ThingAbility.RANGED))) {
+		else if (foundRanged) {
 			currentBattleOrder = battleOrder.indexOf(ThingAbility.RANGED);
 		}
-		else {
+		else if (foundMelee) {
 			currentBattleOrder = battleOrder.indexOf(ThingAbility.MELEE);
 		}
 		
@@ -215,38 +237,28 @@ public class CombatZone extends Observable {
 	}
 	
 	public ArrayList<Thing> getThingArmyOrderByPlayer(PlayerModel p) {
-		if (p.equals(attacker)) {
-			return attackerThingsSorted;
-		}
-		else if (p.equals(defender)) {
-			return defenderThingsSorted;
-		}
+		if (fighterThingsSorted.containsKey(p))
+			return fighterThingsSorted.get(p);
+		
 		return null; //how?
 	}
 	
 	public void setupHitsPerRound() {
+		//Associate number of rolls based on charged, dead, or normal
 		thingAttacksRound.clear();
-		for (Thing t: attackerThingsSorted) {
-			if (t.isDead()) {
-				thingAttacksRound.put(t, new AtomicInteger(0));
-			}
-			else if (t.hasAbility(ThingAbility.CHARGE)) {
-				thingAttacksRound.put(t, new AtomicInteger(2));
-			}
-			else {
-				thingAttacksRound.put(t, new AtomicInteger(1));
-			}
-		}
 		
-		for (Thing t: defenderThingsSorted) {
-			if (t.isDead()) {
-				thingAttacksRound.put(t, new AtomicInteger(0));
-			}
-			else if (t.hasAbility(ThingAbility.CHARGE)) {
-				thingAttacksRound.put(t, new AtomicInteger(2));
-			}
-			else {
-				thingAttacksRound.put(t, new AtomicInteger(1));
+		//Doesn't matter if we know who it belongs to or not
+		for (ArrayList<Thing> things: fighterThingsSorted.values()) {
+			for (Thing t: things) {
+				if (t.isDead()) {
+					thingAttacksRound.put(t, new AtomicInteger(0));
+				}
+				else if (t.hasAbility(ThingAbility.CHARGE)) {
+					thingAttacksRound.put(t, new AtomicInteger(2));
+				}
+				else {
+					thingAttacksRound.put(t, new AtomicInteger(1));
+				}
 			}
 		}
 		
@@ -255,18 +267,21 @@ public class CombatZone extends Observable {
 	}
 	
 	public void tryHit(PlayerModel p, Thing t, int roll) {
-		if (p.equals(attacker)) {
+		//If it is a valid hit
+		PlayerModel whoToAttack = fighterAttackWho.get(p);
+		//if you picked someone to attack
+		if (whoToAttack != null) {
+			
 			if (roll <= t.value) {
-				defenderHitPoints++;
+				
+				//Deal damage to whoever this fighter is designed to hit
+				fighterHitPoints.get(whoToAttack).incrementAndGet();
+				
 			}
+			//Reduce the number of hits for this monster
+			thingAttacksRound.get(t).decrementAndGet();
 		}
-		else if (p.equals(defender)) {
-			if (roll <= t.value) {
-				attackerHitPoints++;
-			}
-		}
-		thingAttacksRound.get(t).decrementAndGet();
-		
+
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -274,20 +289,31 @@ public class CombatZone extends Observable {
 	public void takeHit(PlayerModel p, Thing t) {
 		//reduce hitpoint of monster and also hitpoint counter
 		if (!t.isDead()) {
-			if (p.equals(attacker)) {
-				attackerHitPoints--;
-			}
-			else if (p.equals(defender)) {
-				defenderHitPoints--;
-			}
-			t.takeHit();
+			fighterHitPoints.get(p).decrementAndGet();
+			t.takeHit();			
 			this.setChanged();
 		}
 		this.notifyObservers();
 	}
 	
+	public void setRoundTarget(PlayerModel sender, PlayerModel target) {
+		//Once per round, cannot attack themselves
+		if (!sender.equals(target)) {
+			//if (!fighterAttackWho.containsKey(sender)) {
+				fighterAttackWho.put(sender,  target);
+				this.setChanged();
+			//}
+		}
+		this.notifyObservers();
+	}
+	
 	public boolean allHitsResolved() {
-		return (attackerHitPoints == 0 && defenderHitPoints == 0);
+		for (PlayerModel p: fighters) {
+			if (fighterHitPoints.get(p).get() != 0 && !isDeadOrRetreated(p)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public int numHitsPerThing(Thing t) {
@@ -346,54 +372,58 @@ public class CombatZone extends Observable {
 		return false;
 	}
 	
-	public PlayerModel getWinner() {
-		boolean aDead = true;
-		boolean bDead = true;
-		
-		for (Thing t: attackerThingsSorted) {
-			if (!t.isDead()) 
-				aDead = false;
-		}
-		
-		for (Thing t: defenderThingsSorted) {
-			if (!t.isDead()) 
-				bDead = false;
-		}
-		
-		if (aDead && !bDead) {
-			return defender;
-		}
-		else if (!aDead && bDead) {
-			return attacker;
-		}
-		else {
-			return null;
-		}
+	public void retreatFromBattle(PlayerModel p) {
+		//kill all already-killed monsters (HANDLED IN END-BATTLE METHOD)
+		//add to retreated array (DONE)
+		retreatedPlayers.add(p);
 	}
 	
-	public PlayerModel getLoser() {
-		boolean aDead = true;
-		boolean bDead = true;
+	public boolean isDeadOrRetreated(PlayerModel p) {
+		if (retreatedPlayers.contains(p))
+			return true;
 		
-		for (Thing t: attackerThingsSorted) {
-			if (!t.isDead()) 
-				aDead = false;
+		boolean allDead = true;
+		for (Thing t: fighterThingsSorted.get(p)) {
+			if (!t.isDead())
+				allDead = false; //unless something is alive
+		}
+		if (allDead) {
+			return true;
 		}
 		
-		for (Thing t: defenderThingsSorted) {
-			if (!t.isDead()) 
-				bDead = false;
+		return false;
+	}
+	
+	public PlayerModel getWinner() {
+		//Winner is when there's only 1 alive player
+		//And the rest are dead or retreated
+		//Winner+AllDead = totalFighters
+		//if != totalFighters, then the fight is ongoing
+		
+		ArrayList<PlayerModel> allAlivePlayers = new ArrayList<PlayerModel>();
+		ArrayList<PlayerModel> allDeadOrRetreated = new ArrayList<PlayerModel>();
+		
+		for (PlayerModel p: fighters) {
+			if (retreatedPlayers.contains(p)) {
+				allDeadOrRetreated.add(p); //if this player retreated he's out of the fight
+			}
+			else {
+				//assume all are dead
+				if (isDeadOrRetreated(p)) {
+					allDeadOrRetreated.add(p); //if they were all dead this fighter is out of the battle
+				}
+				else {
+					allAlivePlayers.add(p);
+				}
+			}
 		}
 		
-		if (aDead && !bDead) {
-			return attacker;
+		if (allAlivePlayers.size() + allDeadOrRetreated.size() == fighters.size()) {
+			if (allAlivePlayers.size() == 1) {
+				return allAlivePlayers.get(0); //winner
+			}
 		}
-		else if (!aDead && bDead) {
-			return defender;
-		}
-		else {
-			return null;
-		}
+		return null; //fight is ongoing, must be more than 1 person non-retreated, alive
 	}
 
 }
