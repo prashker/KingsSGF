@@ -53,11 +53,12 @@ public class StartGameControlHexesPhase extends GamePhase {
 						}
 					}
 					else {
-						//Same rules for non 2-player game (for now)
-						if ((gridFound.equals(referenceToModel.grid.getHexFromQR(3,-1))) ||
-						(gridFound.equals(referenceToModel.grid.getHexFromQR(1,-3))) ||
-						(gridFound.equals(referenceToModel.grid.getHexFromQR(-3,1))) ||
-						(gridFound.equals(referenceToModel.grid.getHexFromQR(-1,3))))
+						if ((gridFound.equals(referenceToModel.grid.getHexFromQR(2,-2))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(0,-2))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(2,0))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(-2,0))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(0,2))) ||
+						(gridFound.equals(referenceToModel.grid.getHexFromQR(-2,2))))
 						{
 							validPosition = true;
 						}

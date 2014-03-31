@@ -79,6 +79,10 @@ public class HexGrid extends KNTObject {
 			return;
 		
 		grid[arrayRow][arrayCol] = h;
+		
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public HexModel getHexFromQR(int q, int r) {

@@ -102,24 +102,48 @@ public class GameInstanceGenerator {
 			
 			//NO TIME TO IMPLEMENT THE SPECIAL RULES, SORRY.
 			
-			m.grid.setHexFromQR(3,-3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(3,-2, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(3,-1, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(3,0, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(2,1, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(1,2, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(0,3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-1,3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-2,3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-3,3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-3,2, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-3,1, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-3,0, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-2,-1, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(-1,-2, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(0,-3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(1,-3, new HexModel(HexModel.TileType.getRandom()));
-			m.grid.setHexFromQR(2,-3, new HexModel(HexModel.TileType.getRandom()));
+			
+			if (m.getNumPlayers() == 4) {
+				m.grid.setHexFromQR(3,-3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(3,-2, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(3,-1, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(3,0, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(2,1, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(1,2, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(0,3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-1,3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-2,3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-3,3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-3,2, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-3,1, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-3,0, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-2,-1, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(-1,-2, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(0,-3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(1,-3, new HexModel(HexModel.TileType.getRandom()));
+				m.grid.setHexFromQR(2,-3, new HexModel(HexModel.TileType.getRandom()));
+			}
+			else {
+				m.grid.setHexFromQR(3,-3, null);
+				m.grid.setHexFromQR(3,-2, null);
+				m.grid.setHexFromQR(3,-1, null);
+				m.grid.setHexFromQR(3,0, null);
+				m.grid.setHexFromQR(2,1, null);
+				m.grid.setHexFromQR(1,2, null);
+				m.grid.setHexFromQR(0,3, null);
+				m.grid.setHexFromQR(-1,3, null);
+				m.grid.setHexFromQR(-2,3, null);
+				m.grid.setHexFromQR(-3,3, null);
+				m.grid.setHexFromQR(-3,2, null);
+				m.grid.setHexFromQR(-3,1, null);
+				m.grid.setHexFromQR(-3,0, null);
+				m.grid.setHexFromQR(-2,-1, null);
+				m.grid.setHexFromQR(-1,-2, null);
+				m.grid.setHexFromQR(0,-3, null);
+				m.grid.setHexFromQR(1,-3, null);
+				m.grid.setHexFromQR(2,-3, null);
+			}
+			
 			m.grid.setHexFromQR(2,-2, new HexModel(HexModel.TileType.getRandom()));
 			m.grid.setHexFromQR(2,-1, new HexModel(HexModel.TileType.getRandom()));
 			m.grid.setHexFromQR(2,0, new HexModel(HexModel.TileType.getRandom()));
