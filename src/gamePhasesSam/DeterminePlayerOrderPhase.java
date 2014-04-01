@@ -4,7 +4,10 @@ import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
@@ -15,6 +18,7 @@ import modelTestSam.PlayerModel.PlayerType;
 public class DeterminePlayerOrderPhase extends GamePhase {
 	
 	List<RollPlayerPair> playerRolls = new ArrayList<RollPlayerPair>();
+	Set<PlayerModel> alreadyRolled = new HashSet<PlayerModel>();
 
 	public DeterminePlayerOrderPhase(GameModel m) {
 		super(m);
@@ -29,57 +33,37 @@ public class DeterminePlayerOrderPhase extends GamePhase {
 	//When a player rolls, announce RIGHT then that they rolled, not when all players rolled
 	
 	protected void phaseHandler() {
-		if (isServer()) {
-			//ROLL
-			//FROM:
-			//ROLL:
-			addPhaseHandler("ROLL", new GameEventHandler() {
+		addPhaseHandler("ROLL", new GameEventHandler() {
 
-				@Override
-				public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-					
-					
-					//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
-					//BUG!!!
-					RollPlayerPair playerR = new RollPlayerPair();
-					playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
-					//Future get roll from player
-					playerR.roll = (Integer) event.get("ROLL");
-									
-					playerRolls.add(playerR);	
-
-					network.sendAll(event.toJson());
-					
-					nextPhaseIfTime();
-					
-				}
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
 				
-			});
-		}
-		else {
-			addPhaseHandler("ROLL", new GameEventHandler() {
-
-				@Override
-				public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
-					
-					
-					//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
-					//BUG!!!
-					RollPlayerPair playerR = new RollPlayerPair();
-					playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
-					//Future get roll from player
-					playerR.roll = (Integer) event.get("ROLL");
-					
-					referenceToModel.chat.sysMessage(String.format("Player %s rolled a %d", playerR.p.getName(), playerR.roll));
-									
+				
+				//NO CHECK TO SEE IF A PLAYER ALREADY ROLLED
+				//BUG!!!
+				RollPlayerPair playerR = new RollPlayerPair();
+				playerR.p = referenceToModel.gamePlayersManager.getPlayer((String) event.get("FROM"));
+				//Future get roll from player
+				playerR.roll = (Integer) event.get("ROLL");
+				
+				if (alreadyRolled.contains(playerR.p)) {
+					referenceToModel.chat.sysMessage(String.format("Player %s tried to roll again, naughty naughty!", playerR.p.getName(), playerR.roll));
+				}
+				else {
+					alreadyRolled.add(playerR.p);
 					playerRolls.add(playerR);
-					
-					nextPhaseIfTime();
-					
+					referenceToModel.chat.sysMessage(String.format("Player %s rolled a %d", playerR.p.getName(), playerR.roll));
 				}
+								
+				if (isServer())
+					network.sendAll(event.toJson());
 				
-			});
-		}
+				nextPhaseIfTime();
+				
+			}
+			
+		});
+		
 	}
 
 	@Override
