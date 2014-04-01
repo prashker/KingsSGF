@@ -44,25 +44,27 @@ public class StartGamePlayThings extends GamePhase {
 				HexModel gridFound = referenceToModel.grid.searchByID(hexToPlaceThing);
 				
 				
-				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {				
-					Thing thing = playerFound.removeThingById(thingToPlace);
-					if (thing != null) {
-						//If special, ensure it is a valid type (no bluffing)
-						if (thing.thingType == ThingType.SpecialIncome || thing.thingType == ThingType.SpecialIncomeCombat) {
-							if (thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) {
-								gridFound.setSpecialIncome((SpecialIncome)thing);
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
+					if (gridFound.getOwner().equals(playerFound)) {
+						Thing thing = playerFound.removeThingById(thingToPlace);
+						if (thing != null) {
+							//If special, ensure it is a valid type (no bluffing)
+							if (thing.thingType == ThingType.SpecialIncome || thing.thingType == ThingType.SpecialIncomeCombat) {
+								if (thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) {
+									gridFound.setSpecialIncome((SpecialIncome)thing);
+								}
+								else {
+									//Return it back, invalid
+									playerFound.addThingToRack(thing);
+								}
 							}
-							else {
-								//Return it back, invalid
+							else if (thing.thingType == ThingType.Treasure) {
+								//Add Treasure back to Rack, cannot be played...
 								playerFound.addThingToRack(thing);
 							}
-						}
-						else if (thing.thingType == ThingType.Treasure) {
-							//Add Treasure back to Rack, cannot be played...
-							playerFound.addThingToRack(thing);
-						}
-						else {
-							gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+							else {
+								gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+							}
 						}
 					}
 				}
