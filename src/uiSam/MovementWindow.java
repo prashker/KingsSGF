@@ -85,6 +85,10 @@ public class MovementWindow extends VBox {
 				m.moveButton.setDisable(true);
 				m.errorArea.appendText("Cannot move this Thing because you are trying to LEAVE an enemy-occupied tile and are not a flying creature");
 			}
+			else if (from.isUnexplored()) {
+				m.moveButton.setDisable(true);
+				m.errorArea.appendText("Cannot move this Thing because you are trying to LEAVE an unexplored hex");
+			}
 			else {
 				m.moveButton.setDisable(false);
 				m.errorArea.appendText("SAFE TO MOVE :) - COST: " + costToMove);
