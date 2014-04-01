@@ -146,7 +146,10 @@ public class ConstructionPhase extends GamePhase {
 					citadelsHeldEndOfLastTurn.put(tile, true);
 					referenceToModel.chat.sysMessage(String.format("%s is poised to win if nobody intervenes by next Construction Phase!!!!!!", tile.getOwner().getName()));
 				}
-			}			
+			}
+			else if (citadelsHeldEndOfLastTurn.size() > 1) {
+				referenceToModel.chat.sysMessage("Since there are now multiple Citadels, can only win by conquest!!!");
+			}
 			
 			removeHandlers();
 			if (!endGame) {
