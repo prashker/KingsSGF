@@ -9,6 +9,7 @@ import counterModelSam.Fort;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Fort.FortType;
+import counterModelSam.Treasure;
 import hexModelSam.HexModel;
 import hexModelSam.HexModel.TileType;
 
@@ -96,8 +97,12 @@ public class GameInstanceGenerator {
 		tmp.add(new SpecialIncome("City", TileType.NONTYPE, 2, false, false, false, false, false, true));
 		tmp.add(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
 		
-		
-
+		tmp.add(new Treasure("Diamond", 5));
+		tmp.add(new Treasure("Emerald", 10));
+		tmp.add(new Treasure("Pearl", 5));
+		tmp.add(new Treasure("Ruby", 10));
+		tmp.add(new Treasure("Sapphire", 5));
+		tmp.add(new Treasure("TreasureChest", 20));
 		
 		Collections.shuffle(tmp);
 		

@@ -1,14 +1,22 @@
 package uiSam;
 
+import gamePhasesSam.RecruitThingsPhase;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import counterModelSam.Thing;
+import counterModelSam.Thing.ThingType;
+import modelTestSam.GameEvent;
 import modelTestSam.PlayerModel;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class PlayerRackView extends AnchorPane implements KingsAndThingsView<PlayerModel> {
@@ -72,6 +80,28 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 			public void run() {
 				for (int i = 0; i < 10; i++) {
 					rackViewArray.get(i).setBind(m.getThingFromRack(i));
+					
+					final int copy = i;
+					rackViewArray.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent mouseEvent) {
+					        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+					            if(mouseEvent.getClickCount() == 2){
+					            	Thing thingClicked = m.getThingFromRack(copy);
+					                System.out.println("Double clicked: " + thingClicked);
+					                
+					                if (thingClicked.thingType == ThingType.Treasure) {
+										GameEvent exchangeGold = new GameEvent("TREASURE");
+										exchangeGold.put("THING", thingClicked.getId());
+										BoardGameWindow.getInstance().networkMessageSend(exchangeGold);
+					                }
+					           
+					            }
+					        }
+						}
+						
+					});
 				}
 				
 				playerNameLabel.setText(m.getName());

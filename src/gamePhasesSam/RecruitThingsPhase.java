@@ -25,19 +25,20 @@ public class RecruitThingsPhase extends GamePhase {
 	public RecruitThingsPhase(GameModel m) {
 		super(m);
 		
+		referenceToModel.chat.sysMessage("Recruit Things Phase");
+		referenceToModel.chat.sysMessage("DOUBLECLICK the Thing Bowl to Pickup Thing. You have a free pick for every 2 hexes you own rounded up. Click 'End Turn' to End Turn");
+		referenceToModel.chat.sysMessage("Or drag 2 Things to Bowl to Trade :)");
 		for (PlayerModel p: m.gamePlayersManager.players.values()) {
 			int howManyFree = roundHelper(m.grid.searchForAllOwnedByPlayer(p).size(), 2) / 2;
 			
 			numFreeMoves.put(p, howManyFree);
 			tradeIns.put(p, 0);			
 			
-			System.out.printf("Player %s has %d free picks\n", p.getName(), howManyFree);
+			referenceToModel.chat.sysMessage(String.format("Player %s has %d free picks", p.getName(), howManyFree));
 		}
-
-		referenceToModel.chat.sysMessage("Recruit Things Phase");
-		referenceToModel.chat.sysMessage("DOUBLECLICK the Thing Bowl to Pickup Thing. You have a free pick for every 2 hexes you own rounded up. Click 'End Turn' to End Turn");
-		referenceToModel.chat.sysMessage("Or drag 2 Things to Bowl to Trade :)");
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
+		
+		
 	}
 
 	@Override
@@ -100,10 +101,15 @@ public class RecruitThingsPhase extends GamePhase {
 								if (thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) {
 									gridFound.setSpecialIncome((SpecialIncome)thing);
 								}
+								
 								else {
 									//Return it back, invalid
 									playerFound.addThingToRack(thing);
 								}
+							}
+							else if (thing.thingType == ThingType.Treasure) {
+								//Add Treasure back to Rack, cannot be played...
+								playerFound.addThingToRack(thing);
 							}
 							else {
 								gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());

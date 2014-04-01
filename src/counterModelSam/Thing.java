@@ -22,7 +22,7 @@ public abstract class Thing extends Counter {
 	public static enum ThingType {
 		SpecialIncomeCombat,
 		SpecialIncome,
-		Treaure,
+		Treasure,
 		Magic,
 		Event,
 		Fort,

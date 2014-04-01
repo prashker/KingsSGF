@@ -57,6 +57,10 @@ public class StartGamePlayThings extends GamePhase {
 								playerFound.addThingToRack(thing);
 							}
 						}
+						else if (thing.thingType == ThingType.Treasure) {
+							//Add Treasure back to Rack, cannot be played...
+							playerFound.addThingToRack(thing);
+						}
 						else {
 							gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
 						}
