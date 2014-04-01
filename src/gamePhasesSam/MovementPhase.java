@@ -119,6 +119,16 @@ public class MovementPhase extends GamePhase {
 					
 					//If so deliver the move
 					if (foundThing != null) {
+						//Take ownership of the hex if there was a previous owner and THEY have no things in the hex
+						//AKA If nobody is on the hex when we move on it, but someone owns it
+						//BOOM TAKEOVER
+						referenceToModel.chat.sysMessage(String.format("%s has moved a %s to a %s tile", playerFound.getName(), foundThing.getName(), toHexO.type.toString()));
+						
+						if (toHexO.howManyPlayersOnIt() == 0 && toHexO.getOwner() != null && !toHexO.getOwner().equals(playerFound)) {
+							referenceToModel.chat.sysMessage(String.format("Player %s takes over the hex since owner %s has no defenders", playerFound.getName(), toHexO.getOwner().getName()));
+							toHexO.takeOwnership(playerFound);
+						}
+						
 						toHexO.addPlayerOwnedThingToHex(foundThing, playerFound.getMyTurnOrder());
 						
 						//Decrement the cost
@@ -129,7 +139,7 @@ public class MovementPhase extends GamePhase {
 						}
 						
 						movesLeft.get(thing).addAndGet(-costToMove);
-
+						
 					}					
 				}
 				
