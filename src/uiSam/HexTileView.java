@@ -260,9 +260,8 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 						GameEvent generatedEvent = JacksonSingleton.getInstance().readValue(clip, GameEvent.class);
 						
 						if (generatedEvent.getType().equals("MOVESTACK")) {
-							if (BoardGameWindow.getInstance().model.state instanceof MovementPhase || BoardGameWindow.getInstance().model.state instanceof PlayerVsPlayerCombatPhase) {
+							if (BoardGameWindow.getInstance().model.state instanceof MovementPhase) {
 								generatedEvent.put("TOHEX", tile.getId());
-								//BoardGameWindow.getInstance().networkMessageSend(generatedEvent);
 								
 								if (BoardGameWindow.getInstance().model.grid.getNeighbors((String)generatedEvent.get("FROMHEX")).contains(BoardGameWindow.getInstance().model.grid.searchByID(tile.getId()))) {
 									//This block will be used in the future to prevent a move if it is not a neighboring hex
@@ -291,6 +290,11 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 										e.printStackTrace();
 									}
 								}
+							}
+							else if (BoardGameWindow.getInstance().model.state instanceof PlayerVsPlayerCombatPhase) {
+								//Traditional move stack (ALL)
+								generatedEvent.put("TOHEX", tile.getId());
+								BoardGameWindow.getInstance().networkMessageSend(generatedEvent);
 							}
 						}
 						

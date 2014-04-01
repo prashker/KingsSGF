@@ -165,6 +165,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 						fromHexO.removeAllThingsInStack(playerFound.getMyTurnOrder());
 						
 						referenceToModel.battleData.retreatFromBattle(playerFound);
+						referenceToModel.chat.sysMessage(String.format("%s has retreated from combat!", playerFound.getName()));
 						endBattleHandling();
 					}					
 				}
