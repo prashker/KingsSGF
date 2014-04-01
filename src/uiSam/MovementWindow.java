@@ -87,7 +87,7 @@ public class MovementWindow extends VBox {
 			}
 			else {
 				m.moveButton.setDisable(false);
-				m.errorArea.appendText("SAFE TO MOVE :)");
+				m.errorArea.appendText("SAFE TO MOVE :) - COST: " + costToMove);
 			}
 				
 			m.moveButton.setOnAction(new EventHandler<ActionEvent>() {
