@@ -90,6 +90,7 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 				if (m.isDead()) {
 					thingHPLabel.setText("DEAD");
 					bluffButton.setDisable(true);
+					bribeButton.setDisable(true);
 				}
 				else {
 					thingHPLabel.setText("HP: " + m.getHitValue());

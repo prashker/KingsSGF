@@ -151,9 +151,11 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 							for (FighterView f: fighterViews.get(p)) {
 								if (com.mode == CombatMode.UndiscoveredHex) {
 									f.bluffButton.setDisable(true);
+									f.bribeButton.setText("Bribe" + f.thing.value);
 								}
 								else {
 									f.bluffButton.setDisable(false);
+									f.bribeButton.setDisable(true);
 								}
 								
 								if (m.canAttack(f.thing) && com.fighterAttackWho.get(p) != null && !com.isDeadOrRetreated(p)) {
