@@ -24,7 +24,10 @@ import hexModelSam.HexModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -36,6 +39,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 	
@@ -257,9 +262,39 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 						if (generatedEvent.getType().equals("MOVESTACK")) {
 							if (BoardGameWindow.getInstance().model.state instanceof MovementPhase || BoardGameWindow.getInstance().model.state instanceof PlayerVsPlayerCombatPhase) {
 								generatedEvent.put("TOHEX", tile.getId());
-								BoardGameWindow.getInstance().networkMessageSend(generatedEvent);
+								//BoardGameWindow.getInstance().networkMessageSend(generatedEvent);
+								
+								if (BoardGameWindow.getInstance().model.grid.getNeighbors((String)generatedEvent.get("FROMHEX")).contains(BoardGameWindow.getInstance().model.grid.searchByID(tile.getId()))) {
+									//This block will be used in the future to prevent a move if it is not a neighboring hex
+								}
+								
+								//BUG, WINDOW POPS UP IF YOU TRY TO MOVE OTHER PLAYERS STUFF
+								//ATTEMPT FIX, IF STATEMENT BASED ON WHO'S TURN IT IS
+								if (BoardGameWindow.getInstance().model.gamePlayersManager.getPlayerByTurn().equals(BoardGameWindow.getInstance().model.localPlayer)
+										&& BoardGameWindow.getInstance().model.gamePlayersManager.getPlayerByTurn().getMyTurnOrder() == (int) generatedEvent.get("PLAYER")) {
+									
+									FXMLLoader loader = new FXMLLoader(getClass().getResource("MovementWindow.fxml"));
+									Parent root;
+									try {
+										root = (Parent) loader.load();
+										Stage stage = new Stage();
+										stage.setTitle("MOVEMENT " + BoardGameWindow.getInstance().model.localPlayer.getName());
+										stage.setScene(new Scene(root));
+										stage.setResizable(false);
+	
+										final MovementWindow moveWindow = loader.getController();
+										moveWindow.setupMovement((String)generatedEvent.get("FROMHEX"), (String)generatedEvent.get("TOHEX"));
+										
+										stage.show();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
 							}
 						}
+						
+						
 						
 					} 
 					catch (IOException e) {

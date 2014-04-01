@@ -1,10 +1,15 @@
 package gamePhasesSam;
 
 import hexModelSam.HexModel;
+import hexModelSam.HexModel.TileType;
 
 import java.nio.channels.SocketChannel;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import counterModelSam.Thing;
+import counterModelSam.ThingStack;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
@@ -15,6 +20,8 @@ public class MovementPhase extends GamePhase {
 	
 	int ended = 0;
 	
+	public HashMap<String, AtomicInteger> movesLeft = new HashMap<String, AtomicInteger>();
+	
 	//future restirct movement to 1 space away
 	//that way we can check if move > 4 for individual pieces
 	//but now you can move anywhere
@@ -23,8 +30,10 @@ public class MovementPhase extends GamePhase {
 		super(m);
 
 		referenceToModel.chat.sysMessage("Movement Phase");
-		referenceToModel.chat.sysMessage("Drag Thing Stack from One Hex to Another (Movement Unrestricted Demo 1), End Turn to Finish Movement");
+		referenceToModel.chat.sysMessage("Drag Thing Stack from One Hex to Another, End Turn to Finish Movement");
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
+		
+		assignMovesToAllThings();
 	}
 	
 	/*
@@ -33,6 +42,17 @@ public class MovementPhase extends GamePhase {
 			dragStack.put("FROM", tile.getId());
 			registerDragability(playerStack.get(i), dragStack.toJson());
 	 */
+	
+	public void assignMovesToAllThings() {
+		//May move up to 4 hexes, depending on type
+		for (HexModel h: referenceToModel.grid.getHexesWithThingsOnThem()) {
+			for (ThingStack s: h.stackByPlayer) {
+				for (Thing t: s.getStack().values()) {
+					movesLeft.put(t.getId(), new AtomicInteger(4));
+				}
+			}
+		}
+	}
 
 	@Override
 	protected void phaseHandler() {
@@ -73,6 +93,55 @@ public class MovementPhase extends GamePhase {
 			
 		});
 		
+		//SINGLEMOVE
+		//THING
+		//FROMHEX
+		//TOHEX
+		//FROM
+		addPhaseHandler("SINGLEMOVE", new GameEventHandler() {
+			
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				
+				String player = (String) event.get("FROM");
+				String thing = (String) event.get("THING");
+				String fromHex = (String) event.get("FROMHEX");
+				String toHex = (String) event.get("TOHEX");
+				
+				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
+				HexModel fromHexO = referenceToModel.grid.searchByID(fromHex);
+				HexModel toHexO = referenceToModel.grid.searchByID(toHex);
+				
+				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
+					
+					//Find if this player has this thing
+					Thing foundThing = fromHexO.removeThingFromPlayerStack(thing, playerFound.getMyTurnOrder());
+					
+					//If so deliver the move
+					if (foundThing != null) {
+						toHexO.addPlayerOwnedThingToHex(foundThing, playerFound.getMyTurnOrder());
+						
+						//Decrement the cost
+						int costToMove = 1;
+						
+						if (Arrays.asList(TileType.SwampTile, TileType.MountainTile, TileType.ForestTile).contains(toHexO.type)) {
+							costToMove = 2;
+						}
+						
+						movesLeft.get(thing).addAndGet(-costToMove);
+
+					}					
+				}
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+				
+				nextPhaseIfTime();
+				
+			}
+			
+		});
+		
 		addPhaseHandler("ENDTURN", new GameEventHandler() {
 
 			@Override
@@ -92,6 +161,8 @@ public class MovementPhase extends GamePhase {
 			}
 			
 		});
+		
+		
 		
 	}
 

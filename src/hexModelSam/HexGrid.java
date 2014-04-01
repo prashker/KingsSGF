@@ -86,7 +86,12 @@ public class HexGrid extends KNTObject {
 	}
 	
 	public HexModel getHexFromQR(int q, int r) {
-		return grid[r + radius][q + radius + Math.min(0,  r)];
+		try {
+			return grid[r + radius][q + radius + Math.min(0,  r)];
+		}
+		catch (IndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -94,7 +99,6 @@ public class HexGrid extends KNTObject {
 		g.randomlySetAllQR();
 		//g.printAll();
 		//g.setHexFromQR(3, 1, new HexModel("Arf"));
-		g.printAll();
 	}
 	
 	public void printAll() {
@@ -172,6 +176,79 @@ public class HexGrid extends KNTObject {
 		}
 		
 		return results;
+	}
+	
+	public ArrayList<HexModel> getHexesWithThingsOnThem() {
+		ArrayList<HexModel> results = new ArrayList<HexModel>();
+
+		for (int y = 0; y < grid[0].length; y++) {
+			for (int x = 0; x < grid[y].length; x++) {
+				if (grid[y][x] != null) {
+					int playersOnHex = grid[y][x].howManyPlayersOnIt();
+					if (playersOnHex >= 1)
+						results.add(grid[y][x]);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
+	public ArrayList<HexModel> getNeighbors(String id) {
+		ArrayList<HexModel> neighbors = new ArrayList<HexModel>();
+		//n time but no way around this yet (until hashmap)
+		for (int y = 0; y < grid[0].length; y++) {
+			for (int x = 0; x < grid[y].length; x++) {
+				if (grid[y][x] != null && grid[y][x].getId().equals(id)) {
+					//Found it
+					int r = y - radius;
+					int q = x - radius - Math.min(0,  r);
+					
+					
+					//PER AXIAL COORDINATES
+					
+					try { 
+						HexModel h = getHexFromQR(q+1, r);
+						if (h != null)
+							neighbors.add(h);
+					} catch (Exception e) {}
+
+					try { 
+						HexModel h = getHexFromQR(q+1, r-1);
+						if (h != null)
+							neighbors.add(h);
+					} catch (Exception e) {}
+
+					try { 
+						HexModel h = getHexFromQR(q, r-1);
+						if (h != null)
+							neighbors.add(h);
+					} catch (Exception e) {}
+					
+					try { 
+						HexModel h = getHexFromQR(q-1, r);
+						if (h != null)
+							neighbors.add(h);
+					} catch (Exception e) {}
+					
+					try { 
+						HexModel h = getHexFromQR(q-1, r+1);
+						if (h != null)
+							neighbors.add(h);
+					} catch (Exception e) {}
+					
+					try { 
+						HexModel h = getHexFromQR(q, r+1);
+						if (h != null)
+							neighbors.add(h);
+					} catch (Exception e) {}
+
+					return neighbors;
+				}
+			}
+		}
+		
+		return neighbors;
 	}
 	
 	//replace hex

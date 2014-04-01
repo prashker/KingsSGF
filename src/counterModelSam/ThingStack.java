@@ -20,6 +20,10 @@ public class ThingStack {
 		return stack.get(id);
 	}
 	
+	public Thing removeFromStack(String id) {
+		return stack.remove(id);
+	}
+	
 	@JsonIgnore
 	public Thing getAnything() {
 		return (Thing) (stack.values().toArray()[0]);

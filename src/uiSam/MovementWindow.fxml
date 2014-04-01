@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<MovementWindow prefHeight="579.0" prefWidth="421.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.MovementWindow">
+  <children>
+    <Pane prefHeight="73.0" prefWidth="716.0">
+      <children>
+        <Label alignment="CENTER" layoutX="65.0" layoutY="7.0" minHeight="28.0" prefHeight="44.9609375" prefWidth="292.0" text="MOVEMENT">
+          <font>
+            <Font size="35.0" />
+          </font>
+        </Label>
+      </children>
+    </Pane>
+    <ScrollPane hbarPolicy="ALWAYS" prefHeight="395.0" prefWidth="716.0" vbarPolicy="ALWAYS">
+      <content>
+        <VBox fx:id="moveGrid" prefHeight="-1.0" prefWidth="-1.0" />
+      </content>
+    </ScrollPane>
+    <Pane prefHeight="106.0" prefWidth="716.0">
+      <children>
+        <fx:include id="battleHex" fx:id="toHex" source="HexTile.fxml" layoutX="218.0" layoutY="5.0" />
+        <fx:include id="battleHex" fx:id="fromHex" source="HexTile.fxml" layoutX="5.0" layoutY="2.0" />
+        <Label layoutX="136.0" layoutY="4.0" text="-&gt;">
+          <font>
+            <Font size="75.0" />
+          </font>
+        </Label>
+      </children>
+    </Pane>
+  </children>
+</MovementWindow>

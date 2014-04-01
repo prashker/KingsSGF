@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import uiSam.*?>
+<?scenebuilder-classpath-element ../../bin?>
+
+<fx:root type="javafx.scene.layout.Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="398.3333282470703" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <ThingView fx:id="moveThing" fitHeight="91.99980844726815" fitWidth="91.99980844726815" layoutX="77.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/Things/YellowKnight.png" />
+      </image>
+    </ThingView>
+    <Label layoutX="10.0" layoutY="28.0" prefHeight="35.9609375" prefWidth="58.0" text="Moves Left" />
+    <Label fx:id="numMovesLabel" alignment="CENTER" layoutX="10.0" layoutY="62.0" prefWidth="58.0" text="0" />
+    <Button fx:id="moveButton" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" text="Move" />
+    <TextArea fx:id="errorArea" layoutX="176.0" layoutY="11.0" prefHeight="69.9609375" prefWidth="208.0" wrapText="true" />
+  </children>
+</fx:root>
