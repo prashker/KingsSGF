@@ -12,9 +12,9 @@ import counterModelSam.Thing;
 import counterModelSam.Thing.ThingType;
 
 
-public class ChatPhase extends GamePhase {
+public class PermanentPhase extends GamePhase {
 	
-	public ChatPhase(GameModel m) {
+	public PermanentPhase(GameModel m) {
 		super(m);
 				
 		System.out.println("Chat engaged, quickswitch");

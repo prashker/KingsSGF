@@ -93,7 +93,7 @@ public class JoinGamePhase extends GamePhase {
 		if (referenceToModel.gamePlayersManager.numPlayers() == referenceToModel.howManyPlayers) {
 			referenceToModel.chat.sysMessage(String.format("%d Players joined", referenceToModel.gamePlayersManager.numPlayers()));
 			removeHandlers();
-			referenceToModel.state = new ChatPhase(referenceToModel);
+			referenceToModel.state = new PermanentPhase(referenceToModel);
 		}
 		
 	}
