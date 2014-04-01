@@ -48,7 +48,8 @@ public class StartGamePlayTowerPhase extends GamePhase {
 						gridFound.setFort(fort);
 					
 						referenceToModel.chat.sysMessage(playerFound.getName() + " has placed a Tower " + gridFound.getId());
-						referenceToModel.gamePlayersManager.nextPlayerTurn();						
+						referenceToModel.gamePlayersManager.nextPlayerTurn();	
+						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 						deployed++;
 					}
 					

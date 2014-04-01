@@ -80,9 +80,7 @@ public class StartGameControlHexesPhase extends GamePhase {
 							System.out.println("Each player did one");
 							eachPlayerDidThree++;
 						}
-						else {
-							referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
-						}
+						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 					}
 					else {
 						referenceToModel.chat.sysMessage(String.format("%s has tried placing a Thing in an invalid spot", playerFound.getName()));

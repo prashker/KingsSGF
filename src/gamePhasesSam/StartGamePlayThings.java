@@ -86,9 +86,8 @@ public class StartGamePlayThings extends GamePhase {
 				String player = (String) event.get("FROM");
 				
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					if (!referenceToModel.gamePlayersManager.nextPlayerTurn()) {
-						referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
-					}
+					referenceToModel.gamePlayersManager.nextPlayerTurn();
+					referenceToModel.chat.sysMessage(referenceToModel.gamePlayersManager.getPlayerByTurn().getName() + "'s turn");
 					ended++;
 				}
 				
