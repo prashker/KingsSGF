@@ -288,10 +288,14 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 					battleHex.setFort(new Fort(FortType.Tower));
 				else if (f.getType() == FortType.Castle)
 					battleHex.setFort(new Fort(FortType.Keep));
+				else if (f.getType() == FortType.Citadel) {
+					referenceToModel.chat.sysMessage("Was a Citadel, not eliminating!");
+				}
 			}
-			
 		}
 		else {
+			referenceToModel.chat.sysMessage("Reviving Fort and Special Income Counters");
+			
 			Fort f = battleHex.getFort();
 			if (f != null) {
 				f.reviveHit();
@@ -301,7 +305,6 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 			if (s != null) {
 				s.reviveHit();
 			}
-				
 		}
 		
 		
