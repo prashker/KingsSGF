@@ -111,13 +111,12 @@ public class FighterView extends Pane implements KingsAndThingsView<Thing>, Init
 				rollHit.put("THING", thing.getId());
 				if (rollOverrideCombo.getValue() != -1) {
 					rollHit.put("ROLL", rollOverrideCombo.getValue());
+					lastRollLabel.setText("Roll: " + rollOverrideCombo.getValue());
 				}
 				else {
-					if (rollOverrideCombo.getValue() != -1) {
-						rollHit.put("ROLL", roll);
-					}
+					rollHit.put("ROLL", roll);
+					lastRollLabel.setText("Roll: " + roll);
 				}
-				lastRollLabel.setText("Roll: " + roll);
 				
 				BoardGameWindow.getInstance().networkMessageSend(rollHit);
 			}
