@@ -1,6 +1,7 @@
 package modelTestSam;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import counterModelSam.HeroThing;
 import counterModelSam.HeroThing.HeroType;
@@ -26,7 +27,9 @@ public class Bank extends KNTObject {
 		heroesInGame.add(HeroThing.createHero(HeroType.MountainKing));
 		heroesInGame.add(HeroThing.createHero(HeroType.PlainsLord));
 		heroesInGame.add(HeroThing.createHero(HeroType.SwampKing));
-
+		
+		//RANDOMIZE IT FOR NOW :)
+		Collections.shuffle(heroesInGame);
 		
 		this.setChanged();
 		this.notifyObservers();
