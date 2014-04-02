@@ -36,6 +36,12 @@ public class Players extends KNTObject {
 			return players.size();
 		}
 		
+		public void setTurnToFirstPlayer() {
+			currentPlayerIndex = firstPlayerIndex;
+			this.setChanged();
+			this.notifyObservers();
+		}
+		
 		public PlayerModel getPlayerByTurnIndex(int i) {
 			try { 
 				return players.get(playerOrder.get(i));
