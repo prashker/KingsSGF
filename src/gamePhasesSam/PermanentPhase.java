@@ -19,6 +19,8 @@ public class PermanentPhase extends GamePhase {
 				
 		System.out.println("Chat engaged, quickswitch");
 		
+		referenceToModel.chat.sysMessage("/nick #### to change name");
+		
 		nextPhaseIfTime();
 	}
 
