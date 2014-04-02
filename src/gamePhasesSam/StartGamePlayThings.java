@@ -45,7 +45,7 @@ public class StartGamePlayThings extends GamePhase {
 				
 				
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(player)) {
-					if (gridFound.getOwner().equals(playerFound)) {
+					if (gridFound.hasOwner(playerFound)) {
 						Thing thing = playerFound.removeThingById(thingToPlace);
 						if (thing != null) {
 							//If special, ensure it is a valid type (no bluffing)

@@ -1,8 +1,11 @@
 package uiSam;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import counterModelSam.Thing;
+import counterModelSam.Thing.ThingType;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,13 +15,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import modelTestSam.Bank;
+import modelTestSam.GameEvent;
 
 public class BankView extends Pane implements KingsAndThingsView<Bank> {
+	
+	private ArrayList<ThingView> bankThingViewArray = new ArrayList<ThingView>();
+
 	
 	@FXML ImageView controlMarker;
 	@FXML ImageView combatMarker;
@@ -26,13 +34,24 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 	@FXML ImageView keepMarker;
 	@FXML ImageView castleMarker;
 	@FXML ImageView citadelMarker;
-
+	
+	@FXML private ThingView positionOne;
+	@FXML private ThingView positionTwo;
+	@FXML private ThingView positionThree;
+	@FXML private ThingView positionFour;
+	@FXML private ThingView positionFive;
+	@FXML private ThingView positionSix;
+	@FXML private ThingView positionSeven;
+	@FXML private ThingView positionEight;
+	
+	public ArrayList<ThingView> cells = new ArrayList<ThingView>();
 	
 	@FXML ImageView dragImageView = new ImageView(); //draggable resource
 
 	@Override
 	public void setBind(final Bank m) {
 		if (m != null) {
+						
 			m.addObserver(new Observer() {
 
 				@Override
@@ -47,7 +66,7 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 	}
 
 	@Override
-	public void updateBind(Bank m) {
+	public void updateBind(final Bank m) {
 		//Nothing to bind yet besides constants like control markers
 		Platform.runLater(new Runnable() {
 
@@ -67,6 +86,27 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 				registerDragability(keepMarker, "KEEPMARKER");
 				registerDragability(castleMarker, "CASTLEMARKER");
 				registerDragability(citadelMarker, "CITADELMARKER");
+				
+				for (int i = 0; i < 8; i++) {
+					bankThingViewArray.get(i).setBind(m.getThingFromBank(i));
+					bankThingViewArray.get(i).disableDragability();
+					
+					final int copy = i;
+					bankThingViewArray.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent mouseEvent) {
+					        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+					            if(mouseEvent.getClickCount() == 2){
+					            	Thing thingClicked = m.getThingFromBank(copy);
+					            	//if (thingClicked != null) 
+					            		System.out.println("Double clicked: " + thingClicked);			           
+					            }
+					        }
+						}
+						
+					});
+				}
 			}
 
 		});
@@ -93,7 +133,6 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
                 dragImageView.toFront();
                 dragImageView.setMouseTransparent(true);
                 dragImageView.setVisible(true);		
-                
                 
                 Dragboard db = element.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
@@ -125,9 +164,18 @@ public class BankView extends Pane implements KingsAndThingsView<Bank> {
 				dragImageView.setVisible(false);
 			}
 		});
-		
-		
-		
+
+	}
+	
+	public void initialize() {
+		bankThingViewArray.add(positionOne);
+		bankThingViewArray.add(positionTwo);
+		bankThingViewArray.add(positionThree);
+		bankThingViewArray.add(positionFour);
+		bankThingViewArray.add(positionFive);
+		bankThingViewArray.add(positionSix);
+		bankThingViewArray.add(positionSeven);
+		bankThingViewArray.add(positionEight);	
 	}
 
 }

@@ -10,9 +10,12 @@ import java.util.TreeSet;
 
 import counterModelSam.Fort;
 import counterModelSam.Fort.FortType;
+import counterModelSam.HeroThing;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
+import counterModelSam.Thing.ThingType;
 import hexModelSam.HexModel;
+import hexModelSam.HexModel.TileType;
 import modelTestSam.CombatZone.CombatMode;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;
@@ -195,12 +198,30 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 				if (referenceToModel.battleData.mode == CombatMode.UndiscoveredHex) {
 					referenceToModel.chat.sysMessage("Bluffing does not work on Undiscovered Hex Battle");
 				}
-				else {
-					if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type) {
-						referenceToModel.chat.sysMessage(String.format("%s called a bluff on %s", playerFound.getName(), thingFound.getName()));
-						thingFound.kill();
-						endBattleHandling();
+				//else if the monster is not universal terrain or has no terrain lord
+				else if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type && thingFound.thingType != ThingType.Special) {
+					//find which fighter owns this supposed bluff
+					for (PlayerModel whoOwnsThing: referenceToModel.battleData.fighters) {
+						if (referenceToModel.battleData.playerHasThing(whoOwnsThing, thingFound)) {
+							//ONLY LOOKS FOR 1 NOW, BUG???
+							Thing potentialTerrainLord = battleHex.stackByPlayer.get(whoOwnsThing.getMyTurnOrder()).findTerrainLord();
+							
+							//if we have terrain lord and it supports the supposed bluff
+							if (potentialTerrainLord != null && potentialTerrainLord.validTerrain == thingFound.validTerrain) {
+								referenceToModel.chat.sysMessage(String.format("%s called a bluff on %s, but it is supported by the %s terrain lord", playerFound.getName(), thingFound.getName(), potentialTerrainLord.getName()));
+							}
+							else {
+								//else there is no terrain lord or it is unsupported (wrong terrain lord)
+								referenceToModel.chat.sysMessage(String.format("%s called a bluff on %s's %s", playerFound.getName(), whoOwnsThing.getName(), thingFound.getName()));
+								thingFound.kill();
+								endBattleHandling();
+							}
+							break;
+						}
 					}
+				}
+				else {
+					referenceToModel.chat.sysMessage(String.format("%s called a bluff %s, but it is supported", playerFound.getName(), thingFound.getName()));
 				}
 				
 				

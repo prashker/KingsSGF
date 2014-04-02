@@ -16,6 +16,7 @@ import gamePhasesSam.CombatPickPhase;
 import gamePhasesSam.ConstructionPhase;
 import gamePhasesSam.MovementPhase;
 import gamePhasesSam.PlayerVsPlayerCombatPhase;
+import gamePhasesSam.RecruitHeroesPhase;
 import gamePhasesSam.RecruitThingsPhase;
 import gamePhasesSam.StartGameControlHexesPhase;
 import gamePhasesSam.StartGamePlayThings;
@@ -245,6 +246,13 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 						placeThingFromRack.put("RACK", clip.replace("RACK:", ""));
 						placeThingFromRack.put("HEX", tile.getId()); 
 						BoardGameWindow.getInstance().networkMessageSend(placeThingFromRack);
+					}
+					//Bank to Hex Drag (Recruit Heroes Phase)
+					else if (BoardGameWindow.getInstance().model.state instanceof RecruitHeroesPhase) {
+						GameEvent recruitHero = new GameEvent("SELECTRECRUIT");
+						recruitHero.put("THING", clip.replace("RACK:", ""));
+						recruitHero.put("HEX", tile.getId()); 
+						BoardGameWindow.getInstance().networkMessageSend(recruitHero);
 					}
 				}
 				else if (clip.equals("COMBATMARKER")) {

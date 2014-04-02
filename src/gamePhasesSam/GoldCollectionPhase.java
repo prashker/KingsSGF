@@ -78,7 +78,7 @@ public class GoldCollectionPhase extends GamePhase {
 		if (collected == referenceToModel.gamePlayersManager.numPlayers()) {
 			referenceToModel.chat.sysMessage("All Gold Collected");
 			removeHandlers();
-			referenceToModel.state = new RecruitThingsPhase(referenceToModel);
+			referenceToModel.state = new RecruitHeroesPhase(referenceToModel);
 		}
 	}
 

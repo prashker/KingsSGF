@@ -15,11 +15,51 @@
 
 <BankView prefHeight="100.0" prefWidth="380.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="uiSam.BankView">
   <children>
-    <ImageView fx:id="controlMarker" fitHeight="55.0" fitWidth="55.0" layoutX="325.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="controlMarker" fitHeight="55.0" fitWidth="55.0" layoutX="325.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="towerMarker" fitHeight="36.0" fitWidth="36.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="keepMarker" fitHeight="36.0" fitWidth="36.0" layoutX="36.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="castleMarker" fitHeight="36.0" fitWidth="36.0" layoutX="72.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="citadelMarker" fitHeight="36.0" fitWidth="36.0" layoutX="108.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="combatMarker" fitHeight="36.0" fitWidth="36.0" layoutX="0.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="combatMarker" fitHeight="49.999900000002526" fitWidth="49.999900000002526" layoutX="0.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+    <ThingView fx:id="positionOne" fitHeight="44.0" fitWidth="44.0" layoutX="146.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionTwo" fitHeight="44.0" fitWidth="44.0" layoutX="190.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionThree" fitHeight="44.0" fitWidth="44.0" layoutX="234.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionFour" fitHeight="44.0" fitWidth="44.0" layoutX="278.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionFive" fitHeight="44.0" fitWidth="44.0" layoutX="146.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionSix" fitHeight="44.0" fitWidth="44.0" layoutX="190.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionSeven" fitHeight="44.0" fitWidth="44.0" layoutX="234.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
+    <ThingView fx:id="positionEight" fitHeight="44.0" fitWidth="44.0" layoutX="278.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="WIP.png" />
+      </image>
+    </ThingView>
   </children>
 </BankView>

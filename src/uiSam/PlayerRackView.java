@@ -39,8 +39,6 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 	
 	public PlayerModel player; //future, ArrayList<ThingModel> player.rack?
 	
-	public ArrayList<ThingView> cells = new ArrayList<ThingView>();
-
 	@Override
 	public void setBind(final PlayerModel m) {
 		if (m != null) {

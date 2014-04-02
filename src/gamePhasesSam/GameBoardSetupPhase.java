@@ -3,9 +3,11 @@ package gamePhasesSam;
 import hexModelSam.HexGrid;
 
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import counterModelSam.HeroThing;
 import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
@@ -56,6 +58,7 @@ public class GameBoardSetupPhase extends GamePhase {
 					gameStartInfo.put("PLAYERS", referenceToModel.gamePlayersManager.players);
 					gameStartInfo.put("BOWL", referenceToModel.bowl.getBowl());
 					gameStartInfo.put("MODE", referenceToModel.gameGenerationMode);
+					gameStartInfo.put("BANK", referenceToModel.bank.heroesInGame);
 					
 					referenceToModel.network.sendAll(gameStartInfo.toJson());
 					
@@ -71,6 +74,7 @@ public class GameBoardSetupPhase extends GamePhase {
 			//BOWL
 			//PLAYERS: <PLAYERID, PLAYER>
 			//MODE
+			//BANK
 			addPhaseHandler("STARTGAMESETUP", new GameEventHandler() {
 
 				@Override
@@ -79,12 +83,14 @@ public class GameBoardSetupPhase extends GamePhase {
 					LinkedList<Thing> bowl = (LinkedList<Thing>) event.get("BOWL");
 					HashMap<String, PlayerModel> players = (HashMap<String, PlayerModel>) event.get("PLAYERS");
 					HexGrid board = (HexGrid) event.get("BOARD");
+					ArrayList<HeroThing> thingsInBank = (ArrayList<HeroThing>) event.get("BANK");
 					
 					referenceToModel.gameGenerationMode = (Predefined) event.get("MODE");
 					
 					//loop through everything and update
 					
 					referenceToModel.bowl.loadInBowl(bowl);
+					referenceToModel.bank.loadDataIn(thingsInBank);
 					
 					for (String key: players.keySet()) {
 						referenceToModel.gamePlayersManager.getPlayer(key).setGold(players.get(key).getGold());

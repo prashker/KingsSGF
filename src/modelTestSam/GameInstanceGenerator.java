@@ -111,6 +111,7 @@ public class GameInstanceGenerator {
 	
 	public static void GameSetup(GameModel m) {
 		RandomBowl(m);
+		m.bank.generateBankHeroes(); //FUTURE (move into this class)
 		
 		if (m.gameGenerationMode == Predefined.Random) {
 			System.out.println("SetupRandom");

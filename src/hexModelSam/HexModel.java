@@ -89,11 +89,6 @@ public class HexModel extends KNTObject {
 	}
 	*/
 	
-	//future
-	public boolean hasTerrainLord() {
-		return false;
-	}
-	
 	public void takeOwnership(PlayerModel p) {	
 		//if (owner == null) {	prevents battlewin takeover	
 			owner = p;
@@ -122,6 +117,13 @@ public class HexModel extends KNTObject {
 	
 	public SpecialIncome getSpecialIncome() {
 		return specialIncome;
+	}
+	
+	//if it is owned by this player (used frequently in game so might as well have this method)
+	public boolean hasOwner(PlayerModel p) {
+		if (getOwner() != null)
+			return getOwner().equals(p);
+		return false;
 	}
 	
 	public PlayerModel getOwner() {

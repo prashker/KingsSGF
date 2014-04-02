@@ -72,17 +72,14 @@ public class ThingBowlModel extends KNTObject implements Observer {
 		return thingsInBowl;
 	}
 	
-	
-	
-	//future
-	/*
-	  public void randomGenBowl() {
-	  		
-	  }
-	 */
-	
 	public void loadInBowl(LinkedList<Thing> bowlCopy) {
-		thingsInBowl = new LinkedList<Thing>(bowlCopy);
+		thingsInBowl.clear();
+		thingsInBowl.addAll(bowlCopy);
+		
+		//thingsInBowl = new LinkedList<Thing>(bowlCopy);
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	@Override

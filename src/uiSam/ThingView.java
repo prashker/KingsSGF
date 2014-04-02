@@ -168,6 +168,8 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 	}
 	
 	public void disableDragability() {
+		this.setOnDragDetected(null);
+		this.setOnDragDone(null);
 		//bug not sure how to disable drag ability, so if it is a null in a rack for example, we in trouble???
 		//this.removeEventHandler(eventType, eventHandler);
 	}

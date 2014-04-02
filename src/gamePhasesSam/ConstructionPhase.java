@@ -93,7 +93,7 @@ public class ConstructionPhase extends GamePhase {
 					//The fort we're trying to replace it with is the right type
 					//The player has the minimum gold requirement
 					//This hex has not been upgraded this turn yet
-					if (gridFound.getOwner().equals(playerFound) && ((gridFound.getFort() == null && toBeUpgraded == null) || (gridFound.getFort() != null && gridFound.getFort().getType() == toBeUpgraded)) && fort.getType() == nextLevel && playerFound.getGold() >= minimumGoldRequirement) {
+					if (gridFound.hasOwner(playerFound) && ((gridFound.getFort() == null && toBeUpgraded == null) || (gridFound.getFort() != null && gridFound.getFort().getType() == toBeUpgraded)) && fort.getType() == nextLevel && playerFound.getGold() >= minimumGoldRequirement) {
 						gridFound.setFort(fort);
 						
 						//final condition - if it was already upgraded, do not upgrade

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="uiSam/images/|uiSam/images/Misc/|uiSam/images/Things/|uiSam/images/Tiles/|uiSam/images/SpecialIncome/|uiSam/images/Treasure/" kind="src" path="src"/>
-	<classpathentry excluding="Misc/|Things/|Tiles/|SpecialIncome/|Treasure/" kind="src" path="src/uiSam/images"/>
+	<classpathentry excluding="uiSam/images/|uiSam/images/Misc/|uiSam/images/Things/|uiSam/images/Tiles/|uiSam/images/SpecialIncome/|uiSam/images/Treasure/|uiSam/images/Heroes/" kind="src" path="src"/>
+	<classpathentry excluding="Misc/|Things/|Tiles/|SpecialIncome/|Treasure/|Heroes/" kind="src" path="src/uiSam/images"/>
 	<classpathentry kind="src" path="src/uiSam/images/Misc"/>
 	<classpathentry kind="src" path="src/uiSam/images/Things"/>
 	<classpathentry kind="src" path="src/uiSam/images/Tiles"/>
 	<classpathentry kind="src" path="src/uiSam/images/SpecialIncome"/>
 	<classpathentry kind="src" path="src/uiSam/images/Treasure"/>
+	<classpathentry kind="src" path="src/uiSam/images/Heroes"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="libraries/jackson-core-2.2.3.jar"/>
