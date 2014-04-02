@@ -65,7 +65,19 @@ public class StartGameControlHexesPhase extends GamePhase {
 					}
 				}
 				else {
-					validPosition = true;
+					//needs to be adjacent in 4 player
+					if (referenceToModel.getNumPlayers() == 4) {
+						for (HexModel neighbor: referenceToModel.grid.getNeighbors(hexToOwn)) {
+							if (neighbor.hasOwner(playerFound)) {
+								//if we are adjacent to something else we own
+								validPosition = true;
+							}
+						}
+					}
+					else {
+						//needs to be opposites in 2-3 player (but we won't do that)
+						validPosition = true;
+					}
 				}
 								
 				
