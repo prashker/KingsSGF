@@ -123,7 +123,6 @@ public class GameInstanceGenerator {
 			
 			//NO TIME TO IMPLEMENT THE SPECIAL RULES, SORRY.
 			
-			
 			if (m.getNumPlayers() == 4) {
 				m.grid.setHexFromQR(3,-3, new HexModel(HexModel.TileType.getRandom()));
 				m.grid.setHexFromQR(3,-2, new HexModel(HexModel.TileType.getRandom()));
@@ -311,6 +310,9 @@ public class GameInstanceGenerator {
 
 			
 
+		}
+		else if (m.gameGenerationMode == Predefined.Average){
+			
 		}
 		else {
 			
