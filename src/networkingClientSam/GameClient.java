@@ -97,6 +97,7 @@ public class GameClient extends Thread implements Networkable {
 			byte[] bytes = new byte[msgBuf.limit()];
 			msgBuf.get(bytes);
 			sb.append(new String(bytes));
+			//System.out.println(String.format("In: %d, Total: %d - Content: %s", read, messageLen, new String(bytes).toString()));
 			msgBuf.clear();
 		}
 		

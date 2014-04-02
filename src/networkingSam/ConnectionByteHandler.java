@@ -24,7 +24,6 @@ public class ConnectionByteHandler implements CanHandleConnection {
 		int messageLen = headerBuf.getInt();
 		
 		System.out.println("Server getLEN: " + messageLen);
-
 		
 		ByteBuffer msgBuf = ByteBuffer.allocate(messageLen);
 

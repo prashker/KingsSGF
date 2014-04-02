@@ -128,6 +128,7 @@ public class GameServer extends Thread implements Networkable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		headerBuf.rewind();
 		msgBuf.rewind();
 	}
 	
@@ -141,9 +142,13 @@ public class GameServer extends Thread implements Networkable {
 		for(SelectionKey key : selector.keys()) {
 			if (key.isValid() && key.channel() instanceof SocketChannel) {
 				SocketChannel sch=(SocketChannel) key.channel();
+				//System.out.println("Writing to: " + sch);
 				try {
 					sch.write(headerBuf);
-					sch.write(msgBuf);
+					//NEEDED!
+					while (msgBuf.hasRemaining()) {
+						sch.write(msgBuf);
+					}
 					headerBuf.rewind();
 					msgBuf.rewind();
 				} catch (IOException e) {
