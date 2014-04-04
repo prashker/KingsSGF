@@ -5,6 +5,7 @@ import hexModelSam.HexModel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
+import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
@@ -40,8 +41,8 @@ public class GoldCollectionPhase extends GamePhase {
 					//COLLECT GOLD BASED ON
 					//1 for each owned hex (PART OF DEMO1)
 					//value of each fort owned (PART OF DEMO1)
-					//special income (not part of demo)
-					//gold character for special character owned
+					//special income value (not part of demo) (PART OF DEMO 2)
+					//1 gold per character for special characters owned (PART OF DEMO 2)
 					
 					ArrayList<HexModel> ownedHex = referenceToModel.grid.searchForAllOwnedByPlayer(playerFound);
 					
@@ -51,7 +52,16 @@ public class GoldCollectionPhase extends GamePhase {
 						if (m.getFort() != null) {
 							goldToAdd += m.getFort().value;
 						}
+						
+						//Special income value
+						if (m.getSpecialIncome() != null) {
+							goldToAdd += m.getSpecialIncome().value;
+						}
+						
+						//Number of Heroes in Gold!!!
+						goldToAdd += m.stackByPlayer.get(playerFound.getMyTurnOrder()).findHeroes().size();
 					}
+					
 					
 					playerFound.incrementGold(goldToAdd);
 					

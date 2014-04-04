@@ -2,6 +2,7 @@ package counterModelSam;
 
 import hexModelSam.HexModel.TileType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,6 +36,15 @@ public class ThingStack {
 				return t;
 		}
 		return null;
+	}
+	
+	public ArrayList<Thing> findHeroes() {
+		ArrayList<Thing> results = new ArrayList<Thing>();
+		for (Thing t: stack.values()) {
+			if (t.thingType == ThingType.Special)
+				results.add(t);
+		}
+		return results;
 	}
 	
 	@JsonIgnore
