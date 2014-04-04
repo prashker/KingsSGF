@@ -48,7 +48,6 @@ public class SpecialIncome extends Thing {
 	
 	private SpecialIncomeType type;
 
-	
 	private SpecialIncome(SpecialIncomeType t, TileType terrain, int value) {
 		super(t.toString(), terrain, value);
 		this.thingType = ThingType.SpecialIncome;

@@ -96,6 +96,11 @@ public class PlayerRackView extends AnchorPane implements KingsAndThingsView<Pla
 					                	selectEvent.put("EVENT",  thingClicked.getId());
 					                	BoardGameWindow.getInstance().networkMessageSend(selectEvent);
 					                }
+					                else if (thingClicked.thingType == ThingType.Magic) {
+					                	GameEvent selectMagic = new GameEvent("MAGIC");
+					                	selectMagic.put("MAGIC",  thingClicked.getId());
+					                	BoardGameWindow.getInstance().networkMessageSend(selectMagic);
+					                }
 					            }
 					        }
 						}

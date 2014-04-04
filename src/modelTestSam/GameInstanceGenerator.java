@@ -8,10 +8,12 @@ import counterModelSam.CreatureThing;
 import counterModelSam.CreatureThing.CreatureType;
 import counterModelSam.EventThing;
 import counterModelSam.Fort;
+import counterModelSam.MagicThing;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.EventThing.EventType;
 import counterModelSam.Fort.FortType;
+import counterModelSam.MagicThing.MagicType;
 import counterModelSam.SpecialIncome.SpecialIncomeType;
 import counterModelSam.Treasure;
 import counterModelSam.Treasure.TreasureType;
@@ -356,6 +358,8 @@ public class GameInstanceGenerator {
 			
 			//SAM_TEST_HACK
 			m.bowl.getBowl().add(0, new EventThing(EventType.Defection)); //P1
+			m.bowl.getBowl().add(0, new MagicThing(MagicType.DustOfDefence));
+			m.bowl.getBowl().add(0, new MagicThing(MagicType.DustOfDefence));
 			m.bowl.getBowl().add(10, new EventThing(EventType.GoodHarvest)); //P2
 
 

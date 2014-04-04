@@ -163,6 +163,12 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 								else {
 									f.roll1Button.setDisable(true);
 								}
+								
+								if (com.isDeadOrRetreated(p)) {
+									f.bluffButton.setDisable(true);
+								}
+								
+								
 								f.howManyRollsLabel.setText("" + m.numHitsPerThing(f.thing));
 								if (m.fighterHitPoints.get(p).get() > 0 && !f.thing.isDead()) {
 									f.takeHitButton.setDisable(false);

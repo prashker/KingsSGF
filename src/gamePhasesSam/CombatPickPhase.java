@@ -27,6 +27,9 @@ public class CombatPickPhase extends GamePhase {
 		referenceToModel.chat.sysMessage("Players must resolve all PVP battles and Unexplored Hexes");
 		referenceToModel.chat.sysMessage("Drag Combat Marker to Valid Hex to Resolve");
 		referenceToModel.chat.sysMessage("There are: " + battlesToResolve.size() + " battles to resolve");
+		if (battlesToResolve.size() == 0) {
+			referenceToModel.chat.sysMessage("Since there are no battles, end your turn!");
+		}
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
 		
 		//nextPhaseIfTime(); 
@@ -91,11 +94,11 @@ public class CombatPickPhase extends GamePhase {
 				if (referenceToModel.gamePlayersManager.isThisPlayerTurn(playerFound)) {
 					//can't normally end turn while battles exist for you but we'll let it slide now
 					
-					referenceToModel.chat.sysMessage("Lol you can't skip a battle");
-					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
-					
+					//referenceToModel.chat.sysMessage("Lol you can't skip a battle");				
 					
 					referenceToModel.gamePlayersManager.nextPlayerTurn(); //MIGHT BE A BUG FIX
+					referenceToModel.chat.sysMessage("Your turn: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
+
 				}
 				
 				if (isServer())

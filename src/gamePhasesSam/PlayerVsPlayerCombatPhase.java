@@ -2,9 +2,13 @@ package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
+
 import counterModelSam.Fort;
 import counterModelSam.Fort.FortType;
+import counterModelSam.MagicThing;
+import counterModelSam.MagicThing.MagicType;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Thing.ThingType;
@@ -258,6 +262,97 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 				nextPhaseIfTime();
 			}
 			
+		});
+		
+		addPhaseHandler("MAGIC", new GameEventHandler() {
+			
+			@Override
+			public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+				
+				String player = (String) event.get("FROM");
+				String magicID = (String) event.get("MAGIC");
+				
+				PlayerModel playerFound = referenceToModel.gamePlayersManager.getPlayer(player);
+				MagicThing magicFound = (MagicThing) playerFound.removeThingById(magicID);
+				
+				//Can use magic if this player is in the battle
+				//And not dead in battle
+				if (referenceToModel.battleData.fighters.contains(playerFound) && !referenceToModel.battleData.isDeadOrRetreated(playerFound) && magicFound != null) {
+					if (magicFound.getType() == MagicType.DustOfDefence) {
+						referenceToModel.chat.sysMessage(String.format("%s has used the Dust of Defence to FORCE-RETREAT", playerFound.getName()));
+						
+						//Picking the first person in battle who is not the person who triggered Dust of Defence, and is alive (TEST ON 3 PLAYER TO VERIFY)
+						PlayerModel playerToEject = null;
+						for (PlayerModel potentialEject: referenceToModel.battleData.fighters) {
+							if (!potentialEject.equals(playerFound) && !referenceToModel.battleData.isDeadOrRetreated(potentialEject)) {
+								playerToEject = potentialEject;
+							}
+						}
+						
+						if (playerToEject != null) {
+							//Same seed so it is consistent across machines (HOPEFULLY)
+							//ONLY CALLED ONCE WITH THIS SEED SO PSEUSO-RNG SAYS IT WILL BE THE SAME
+							//http://stackoverflow.com/questions/12458383/java-random-numbers-using-a-seed
+							Random r = new Random(playerToEject.hashCode());
+							int numRoutes = referenceToModel.grid.getNeighbors(battleHex.getId()).size();
+							int choice = r.nextInt(numRoutes);
+							
+							HexModel candidateHexAutoRetreat = referenceToModel.grid.getNeighbors(battleHex.getId()).get(choice);
+							
+							///
+							
+							referenceToModel.chat.sysMessage(String.format("%s has used his Magic: DUST OF WIND. Force-retreating %s to a neighboring %s hex", playerFound.getName(), playerToEject.getName(), candidateHexAutoRetreat.type.toString()));
+							
+							for (Thing t: battleHex.stackByPlayer.get(playerToEject.getMyTurnOrder()).getStack().values()) {
+								if (!t.isDead())
+									candidateHexAutoRetreat.addPlayerOwnedThingToHex(t, playerToEject.getMyTurnOrder());						
+							}
+							battleHex.removeAllThingsInStack(playerToEject.getMyTurnOrder());
+							
+							referenceToModel.battleData.retreatFromBattle(playerToEject);
+							referenceToModel.chat.sysMessage(String.format("%s has retreated from combat!", playerToEject.getName()));
+							endBattleHandling();
+							
+							/*
+							 * No distinction between mode, a forced-retreat probably breaks Undiscovered Battle though...
+							if (referenceToModel.battleData.mode == CombatMode.UndiscoveredHex) {
+								
+							}
+							else if (referenceToModel.battleData.mode == CombatMode.PlayerVsPlayer) {
+								
+							}
+							*/
+						}
+						
+
+					}
+				}
+				
+				/*
+				//active battle going
+				if (referenceToModel.battleData.activeBattle) {
+					//if we're moving from battlhex to another hex
+					//and this person is part of the fight
+					if (referenceToModel.battleData.battleHex.equals(fromHexO) && referenceToModel.battleData.fighters.contains(playerFound)) {
+						//for now, move all (future, more complex, move per Thing)
+						for (Thing t: fromHexO.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().values()) {
+							if (!t.isDead())
+								toHexO.addPlayerOwnedThingToHex(t, playerFound.getMyTurnOrder());						
+						}
+						fromHexO.removeAllThingsInStack(playerFound.getMyTurnOrder());
+						
+						referenceToModel.battleData.retreatFromBattle(playerFound);
+						referenceToModel.chat.sysMessage(String.format("%s has retreated from combat!", playerFound.getName()));
+						endBattleHandling();
+					}					
+				}
+				*/
+				
+				if (isServer())
+					network.sendAll(event.toJson());
+				
+				nextPhaseIfTime();
+			}
 		});
 		
 	}
