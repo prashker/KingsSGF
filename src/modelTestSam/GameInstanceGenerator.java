@@ -115,6 +115,11 @@ public class GameInstanceGenerator {
 		m.bowl.addAllToBowl(tmp);
 	}
 	
+	public static void AverageFunctionalityBowlAdditions(GameModel m) {
+		//Player 1 needs in his rack a Diamond Field and Peat Bog
+		//Player 2 needs Copper Mine, Gold Mine and a Treasure (TreasureChest)
+	}
+	
 	public static void GameSetup(GameModel m) {
 		RandomBowl(m);
 		m.bank.generateBankHeroes(); //FUTURE (move into this class)
@@ -318,6 +323,8 @@ public class GameInstanceGenerator {
 
 		}
 		else if (m.gameGenerationMode == Predefined.Average){
+			AverageFunctionalityBowlAdditions(m);
+			
 			m.grid.setHexFromQR(3,-3, new HexModel(HexModel.TileType.SeaTile));
 			m.grid.setHexFromQR(3,-2, new HexModel(HexModel.TileType.JungleTile));
 			m.grid.setHexFromQR(3,-1, new HexModel(HexModel.TileType.FrozenWasteTile));
