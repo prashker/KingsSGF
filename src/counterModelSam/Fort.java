@@ -1,7 +1,5 @@
 package counterModelSam;
 
-import counterModelSam.HeroThing.HeroType;
-import counterModelSam.Thing.ThingType;
 import hexModelSam.HexModel.TileType;
 
 public class Fort extends Thing {

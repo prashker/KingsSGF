@@ -1,8 +1,6 @@
 package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
-import java.util.ArrayList;
-
 import counterModelSam.Thing;
 import hexModelSam.HexModel;
 import modelTestSam.CombatZone.CombatMode;

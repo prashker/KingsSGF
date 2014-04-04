@@ -5,7 +5,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import counterModelSam.Thing;
-import counterModelSam.Thing.ThingType;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import modelTestSam.Bank;
-import modelTestSam.GameEvent;
 
 public class BankView extends Pane implements KingsAndThingsView<Bank> {
 	

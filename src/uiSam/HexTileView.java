@@ -41,7 +41,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 	

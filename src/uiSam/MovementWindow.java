@@ -6,22 +6,15 @@ import hexModelSam.HexModel.TileType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
 import counterModelSam.Thing;
 import counterModelSam.Thing.ThingAbility;
 import modelTestSam.GameEvent;
 import modelTestSam.GameModel;
 import modelTestSam.PlayerModel;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class MovementWindow extends VBox {
 	

@@ -2,7 +2,6 @@ package modelTestSam;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 import counterModelSam.CreatureThing;
 import counterModelSam.CreatureThing.CreatureType;
@@ -14,7 +13,6 @@ import counterModelSam.SpecialIncome.SpecialIncomeType;
 import counterModelSam.Treasure;
 import counterModelSam.Treasure.TreasureType;
 import hexModelSam.HexModel;
-import hexModelSam.HexModel.TileType;
 
 public class GameInstanceGenerator {
 	
@@ -126,11 +124,6 @@ public class GameInstanceGenerator {
 		
 		if (m.gameGenerationMode == Predefined.Random) {
 			System.out.println("SetupRandom");
-			
-			//RANDOM
-			
-			Random r = new Random();
-			int numOptions = HexModel.TileType.values().length;
 			
 			//NO TIME TO IMPLEMENT THE SPECIAL RULES, SORRY.
 			

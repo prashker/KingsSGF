@@ -1,21 +1,14 @@
 package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
-
 import counterModelSam.Fort;
 import counterModelSam.Fort.FortType;
-import counterModelSam.HeroThing;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Thing.ThingType;
 import hexModelSam.HexModel;
-import hexModelSam.HexModel.TileType;
 import modelTestSam.CombatZone.CombatMode;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;

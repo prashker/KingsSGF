@@ -1,7 +1,6 @@
 package counterModelSam;
 
 import hexModelSam.HexModel.TileType;
-import counterModelSam.Thing.ThingType;
 
 public class HeroThing extends Thing {
 	

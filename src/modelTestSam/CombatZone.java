@@ -17,7 +17,6 @@ import counterModelSam.Thing;
 import counterModelSam.Fort.FortType;
 import counterModelSam.Thing.ThingAbility;
 import counterModelSam.Thing.ThingType;
-import counterModelSam.ThingStack;
 
 //only one instantiated per model, as the object reference never changes
 public class CombatZone extends Observable {

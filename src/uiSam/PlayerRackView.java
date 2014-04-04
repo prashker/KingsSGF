@@ -1,7 +1,5 @@
 package uiSam;
 
-import gamePhasesSam.RecruitThingsPhase;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,7 +11,6 @@ import modelTestSam.PlayerModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;

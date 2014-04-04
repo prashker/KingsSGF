@@ -7,7 +7,6 @@ import java.util.Observer;
 
 import modelTestSam.CombatZone;
 import modelTestSam.CombatZone.CombatMode;
-import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.PlayerModel;
 import javafx.application.Platform;

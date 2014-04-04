@@ -1,15 +1,10 @@
 package gamePhasesSam;
 
 import hexModelSam.HexModel;
-import hexModelSam.HexModel.TileType;
-
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 
 import counterModelSam.HeroThing;
-import counterModelSam.SpecialIncome;
-import counterModelSam.Thing;
-import counterModelSam.Thing.ThingType;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;

@@ -1,22 +1,12 @@
 package uiSam;
 
-import gamePhasesSam.CombatPickPhase;
-import gamePhasesSam.ConstructionPhase;
-import gamePhasesSam.MovementPhase;
 import gamePhasesSam.RecruitThingsPhase;
-import gamePhasesSam.StartGameControlHexesPhase;
 import gamePhasesSam.StartGamePlayThings;
-import gamePhasesSam.StartGamePlayTowerPhase;
-
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
-import counterModelSam.Fort;
 import counterModelSam.Thing;
-import counterModelSam.Fort.FortType;
 import modelTestSam.GameEvent;
-import modelTestSam.JacksonSingleton;
 import modelTestSam.ThingBowlModel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;

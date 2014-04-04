@@ -5,7 +5,6 @@ import hexModelSam.HexModel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
-import counterModelSam.Thing;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
