@@ -54,7 +54,13 @@ public class CreatureThing extends Thing {
 		WhiteDragon,
 		Mammoth,
 		HeadHunter,
-		Forester
+		Forester,
+		FlyingSquirrel,
+		Pixies,
+		Ghost,
+		BirdOfParadise,
+		Elves,
+		GreatOwl
 	}
 	
 	public static CreatureThing createCreatureThing(CreatureType t) {
@@ -159,6 +165,18 @@ public class CreatureThing extends Thing {
 				return new CreatureThing(t, TileType.JungleTile, 2, false, false, false, true, false, false);
 			case Forester:
 				return new CreatureThing(t, TileType.ForestTile, 2, false, false, false, true, false, false);
+			case FlyingSquirrel:
+				return new CreatureThing(t, TileType.ForestTile, 1, true, false, false, false, false, false);
+			case Pixies:
+				return new CreatureThing(t, TileType.ForestTile, 1, true, false, false, false, false, false);
+			case Ghost:
+				return new CreatureThing(t, TileType.SwampTile, 1, true, false, false, false, false, false);
+			case BirdOfParadise:
+				return new CreatureThing(t, TileType.JungleTile, 1, true, false, false, false, false, false);
+			case Elves:
+				return new CreatureThing(t, TileType.ForestTile, 3, false, false, false, true, false, false);
+			case GreatOwl:
+				return new CreatureThing(t, TileType.ForestTile, 2, true, false, false, false, false, false);
 		}
 		return null;
 	}
