@@ -172,7 +172,9 @@ public class GameServer extends Thread implements Networkable {
 				if (sch != socketChannel) {
 					try {
 						sch.write(headerBuf);
-						sch.write(msgBuf);
+						while (msgBuf.hasRemaining()) {
+							sch.write(msgBuf);
+						}
 						headerBuf.rewind();
 						msgBuf.rewind();
 					} catch (IOException e) {
