@@ -49,6 +49,15 @@ public class Bank extends KNTObject {
 		return heroesInGame.get(i); //may also return null
 	}
 	
+	public Thing removeThingFromBank(int i) {
+		if (i < 0 || i > heroesInGame.size()-1)
+			return null;
+		Thing t = heroesInGame.remove(i);
+		this.setChanged();
+		this.notifyObservers();
+		return t;
+	}
+	
 	public void removeFromBank(HeroThing t) {
 		if (heroesInGame.remove(t))
 			this.setChanged();

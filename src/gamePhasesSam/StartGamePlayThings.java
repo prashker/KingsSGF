@@ -58,7 +58,7 @@ public class StartGamePlayThings extends GamePhase {
 									playerFound.addThingToRack(thing);
 								}
 							}
-							else if (thing.thingType == ThingType.Treasure) {
+							else if (thing.thingType == ThingType.Treasure || thing.thingType == ThingType.Event ||thing.thingType == ThingType.Magic) {
 								//Add Treasure back to Rack, cannot be played...
 								playerFound.addThingToRack(thing);
 							}

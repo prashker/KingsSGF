@@ -6,9 +6,11 @@ import java.util.Random;
 
 import counterModelSam.CreatureThing;
 import counterModelSam.CreatureThing.CreatureType;
+import counterModelSam.EventThing;
 import counterModelSam.Fort;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
+import counterModelSam.EventThing.EventType;
 import counterModelSam.Fort.FortType;
 import counterModelSam.SpecialIncome.SpecialIncomeType;
 import counterModelSam.Treasure;
@@ -351,6 +353,9 @@ public class GameInstanceGenerator {
 		}
 		else if (m.gameGenerationMode == Predefined.Superior) {
 			BaseDemoLayout(m);
+			
+			//SAM_TEST_HACK
+			m.bowl.getBowl().add(0, new EventThing(EventType.Defection));
 
 			//P1 Stack 1
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.FlyingSquirrel), 0);
