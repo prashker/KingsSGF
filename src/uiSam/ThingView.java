@@ -80,9 +80,10 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 		this.setOnMouseMoved(new EventHandler<MouseEvent>() {  
 		    @Override  
 		    public void handle(MouseEvent e) {
-		    	StringBuilder pretty = new StringBuilder(thing.name + "(" + thing.value + ")\n");
+		    	StringBuilder pretty = new StringBuilder(thing.name + " (" + thing.value + ")\n");
 		   
 		    	pretty.append("       " + thing.validTerrain.toString() + "\n");
+		    	pretty.append("       " + thing.thingType.toString() + "\n");
 		    	pretty.append("HP: " + thing.getHitValue() + "\n");
 		    	if (thing.isDead()) {
 		    		pretty.append("DEAD");
