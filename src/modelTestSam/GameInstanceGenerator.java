@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import counterModelSam.CreatureThing;
+import counterModelSam.CreatureThing.CreatureType;
 import counterModelSam.Fort;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
@@ -31,56 +32,53 @@ public class GameInstanceGenerator {
 
 		//THIS IS THE LIST OF ALL THINGS
 		
-		tmp.add(new CreatureThing("OldDragon", TileType.DesertTile, 4, true, true, false, false, false, false));
-		tmp.add(new CreatureThing("GiantSpider", TileType.DesertTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Elephant", TileType.JungleTile, 4, false, false, true, false, false, false));
-		tmp.add(new CreatureThing("BrownKnight", TileType.MountainTile, 4, false, false, true, false, false, false));
-		tmp.add(new CreatureThing("Giant", TileType.MountainTile, 4, false, false, false, true, false, false));
-		tmp.add(new CreatureThing("Dwarves", TileType.MountainTile, 2, false, false, false, true, false, false));
-		tmp.add(new CreatureThing("Skeletons", TileType.DesertTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Watusi", TileType.JungleTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Goblins", TileType.MountainTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Ogre", TileType.MountainTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("PterodactylWarriors", TileType.JungleTile, 2, true, false, false, true, false, false));
-		tmp.add(new CreatureThing("Sandworm", TileType.DesertTile, 3, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("GreenKnight", TileType.ForestTile, 4, false, false, true, false, false, false));
-		tmp.add(new CreatureThing("Dervish", TileType.DesertTile, 2, false, true, false, false, false, false));
-		tmp.add(new CreatureThing("Crocodiles", TileType.JungleTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Nomads", TileType.DesertTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Druid", TileType.ForestTile, 3, false, true, false, false, false, false));
-		tmp.add(new CreatureThing("WalkingTree", TileType.ForestTile, 5, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("CrawlingVines", TileType.JungleTile, 6, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Bandits", TileType.ForestTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Centaur", TileType.PlainsTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("CamelCorps", TileType.DesertTile, 3, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Farmers", TileType.PlainsTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Genie", TileType.DesertTile, 4, false, true, false, false, false, false));
-		tmp.add(new CreatureThing("Skeletons", TileType.DesertTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Pygmies", TileType.JungleTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("GreatHunter", TileType.PlainsTile, 4, false, false, false, true, false, false));
-		tmp.add(new CreatureThing("WitchDoctor", TileType.JungleTile, 2, false, true, false, false, false, false));
-		tmp.add(new CreatureThing("Tribesmen", TileType.PlainsTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Villains", TileType.PlainsTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Tigers", TileType.JungleTile, 3, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("VampireBat", TileType.SwampTile, 4, true, false, false, false, false, false));
-		tmp.add(new CreatureThing("Tribesmen", TileType.PlainsTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("DarkWizard", TileType.SwampTile, 1, true, true, false, false, false, false));
-		tmp.add(new CreatureThing("BlackKnight", TileType.SwampTile, 3, false, false, true, false, false, false));
-		tmp.add(new CreatureThing("GiantApe", TileType.DesertTile, 5, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("BuffaloHerd", TileType.PlainsTile, 3, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Cyclops", TileType.MountainTile, 5, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Goblins", TileType.MountainTile, 1, false, false, false, false, false, false));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.OldDragon));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.GiantSpider));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Elephant));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.BrownKnight));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Giant));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Dwarves));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Skeletons));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Watusi));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Goblins));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Ogre));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.PterodactylWarriors));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Sandworm));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.GreenKnight));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Dervish));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Crocodiles));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Nomads));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Druid));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.WalkingTree));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.CrawlingVines));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Bandits));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Centaur));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.CamelCorps));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Farmers));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Genie));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Pygmies));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.GreatHunter));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.WitchDoctor));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Tribesmen));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.GiantLizard));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Villains));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Tigers));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.VampireBat));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.DarkWizard));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.BlackKnight));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.GiantApe));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.BuffaloHerd));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Cyclops));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.MountainMen));
 		
 		//added latest
-		tmp.add(new CreatureThing("SlimeBeast", TileType.SwampTile, 3, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("KillerRacoon", TileType.ForestTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("WildCat", TileType.ForestTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("SwampRat", TileType.SwampTile, 1, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Unicorn", TileType.ForestTile, 4, false, false, false, false, false, false));
-		tmp.add(new CreatureThing("Bears", TileType.ForestTile, 2, false, false, false, false, false, false));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.SlimeBeast));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.KillerRacoon));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.WildCat));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Thing));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.SwampRat));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Unicorn));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Bears));
 		
 		tmp.add(new SpecialIncome("CopperMine", TileType.MountainTile, 1));
 		tmp.add(new SpecialIncome("DiamondField", TileType.DesertTile, 1));
@@ -103,11 +101,11 @@ public class GameInstanceGenerator {
 		tmp.add(new Treasure("TreasureChest", 20));
 		
 		//SINCE AVERAGE
-		tmp.add(new CreatureThing("IceGiant", TileType.FrozenWasteTile, 5, false, false, false, true, false, false));
-		tmp.add(new CreatureThing("WhiteDragon", TileType.FrozenWasteTile, 5, false, true, false, false, false, false));
-		tmp.add(new CreatureThing("Mammoth", TileType.FrozenWasteTile, 5, false, false, true, false, false, false));
-		tmp.add(new CreatureThing("HeadHunter", TileType.JungleTile, 2, false, false, false, true, false, false));
-		tmp.add(new CreatureThing("Forester", TileType.ForestTile, 2, false, false, false, true, false, false));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.IceGiant));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.WhiteDragon));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Mammoth));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.HeadHunter));
+		tmp.add(CreatureThing.createCreatureThing(CreatureType.Forester));
 
 		
 		Collections.shuffle(tmp);
@@ -252,13 +250,13 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(1,0).setFort(Fort.createFort(FortType.Tower));
 			
 			//MINIMAL EXCLUSIVE
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Crocodiles", TileType.JungleTile, 2, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("SlimeBeast", TileType.SwampTile, 3, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("KillerRacoon", TileType.ForestTile, 2, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Farmers", TileType.PlainsTile, 1, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("WildCat", TileType.ForestTile, 2, false, false, false, false, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Crocodiles), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.MountainMen), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.GiantLizard), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.SlimeBeast), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.KillerRacoon), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Farmers), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.WildCat), 0);
 
 			m.grid.getHexFromQR(0,0).setFort(Fort.createFort(FortType.Keep));
 			m.grid.getHexFromQR(0,0).getFort().kill();		
@@ -284,14 +282,14 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-1,2).setFort(Fort.createFort(FortType.Castle));
 			
 			//MINIMAL EXCLUSIVE
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("SwampRat", TileType.SwampTile, 1, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Unicorn", TileType.ForestTile, 4, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Bears", TileType.ForestTile, 2, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("GiantSpider", TileType.DesertTile, 1, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("CamelCorps", TileType.DesertTile, 3, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Sandworm", TileType.DesertTile, 3, false, false, false, false, false, false), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Thing), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.GiantLizard), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.SwampRat), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Unicorn), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Bears), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.GiantSpider), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.CamelCorps), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Sandworm), 1);
 			
 			//P3
 			m.grid.getHexFromQR(-1,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
@@ -379,16 +377,16 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(1,0).setFort(Fort.createFort(FortType.Tower));
 			
 			//AVERAGE EXCLUSIVE P1
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Crocodiles", TileType.JungleTile, 2, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("MountainMen", TileType.MountainTile, 1, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Nomads", TileType.DesertTile, 1, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("GiantSpider", TileType.DesertTile, 1, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("KillerRacoon", TileType.ForestTile, 2, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Farmers", TileType.PlainsTile, 1, false, false, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("IceGiant", TileType.FrozenWasteTile, 5, false, false, false, true, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("WhiteDragon", TileType.FrozenWasteTile, 5, false, true, false, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Mammoth", TileType.FrozenWasteTile, 5, false, false, true, false, false, false), 0);
-			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("HeadHunter", TileType.JungleTile, 2, false, false, false, true, false, false), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Crocodiles), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.MountainMen), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Nomads), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.GiantSpider), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.KillerRacoon), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Farmers), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.IceGiant), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.WhiteDragon), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Mammoth), 0);
+			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.HeadHunter), 0);
 			
 			m.grid.getHexFromQR(0,0).setFort(Fort.createFort(FortType.Keep));
 			m.grid.getHexFromQR(0,0).getFort().kill();		
@@ -414,16 +412,16 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-1,2).setFort(Fort.createFort(FortType.Castle));
 			
 			//AVERAGE EXCLUSIVE STACKS P2
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("GiantLizard", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("SwampRat", TileType.SwampTile, 1, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Unicorn", TileType.ForestTile, 4, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Bears", TileType.ForestTile, 2, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("CamelCorps", TileType.DesertTile, 3, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Sandworm", TileType.DesertTile, 3, false, false, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("BlackKnight", TileType.SwampTile, 3, false, false, true, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Dervish", TileType.DesertTile, 2, false, true, false, false, false, false), 1);
-			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Forester", TileType.ForestTile, 2, false, false, false, true, false, false), 1);		
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Thing), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.GiantLizard), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.SwampRat), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Unicorn), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Bears), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.CamelCorps), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Sandworm), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.BlackKnight), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Dervish), 1);
+			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.Forester), 1);		
 			
 			//P3
 			m.grid.getHexFromQR(-1,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
