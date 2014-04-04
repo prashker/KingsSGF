@@ -1,6 +1,9 @@
 package gamePhasesSam;
 
+import hexModelSam.HexModel;
+
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
 
 import counterModelSam.EventThing;
 import counterModelSam.EventThing.EventType;
@@ -25,8 +28,6 @@ public class RandomEventsPhase extends GamePhase {
 		referenceToModel.chat.sysMessage("Random Events Phase");	
 		referenceToModel.chat.sysMessage("Double click your event within your rack to activate its power! Or end your turn if you have no Events.");	
 		referenceToModel.chat.sysMessage("Starting with: " + referenceToModel.gamePlayersManager.getPlayerByTurn().getName());
-		
-		
 	}
 
 	@Override
@@ -48,12 +49,41 @@ public class RandomEventsPhase extends GamePhase {
 						
 						activeEvent = eventFound.getType();
 						
+						//DEFECTION
 						if (eventFound.getType() == EventType.Defection) {
 							referenceToModel.chat.sysMessage(String.format("%s has utilized Defection, unfortunately this functionaly breaks the flow of the"
 									+ " game so we changed it a bit. If a dice roll is <= 3 this player gets a special creature from the bank moved to their rack", playerFound.getName()));
 							referenceToModel.chat.sysMessage(String.format("%s roll now!", playerFound.getName()));
 						}
-
+						//GOOD HARVEST
+						else if (eventFound.getType() == EventType.GoodHarvest) {
+							referenceToModel.chat.sysMessage(String.format("%s activated Good Harvest, which means an immediate collection of gold from Owned Hexes + Forts and Heroes (but not special counters)!", playerFound.getName()));
+							
+							ArrayList<HexModel> ownedHex = referenceToModel.grid.searchForAllOwnedByPlayer(playerFound);
+							
+							int goldToAdd = ownedHex.size();
+									
+							for (HexModel m: ownedHex) {
+								if (m.getFort() != null) {
+									goldToAdd += m.getFort().value;
+								}
+								
+								//Special income value
+								//NOT IN GOOD HARVEST
+								//if (m.getSpecialIncome() != null) {
+								//	goldToAdd += m.getSpecialIncome().value;
+								//}
+								
+								//Number of Heroes in Gold!!!
+								goldToAdd += m.stackByPlayer.get(playerFound.getMyTurnOrder()).findHeroes().size();
+							}
+													
+							referenceToModel.chat.sysMessage(playerFound.getName() + " collected " + goldToAdd + " gold");
+							
+							resetVariablesNextTurn();
+						}
+						
+						
 					}
 				}				
 				

@@ -355,7 +355,9 @@ public class GameInstanceGenerator {
 			BaseDemoLayout(m);
 			
 			//SAM_TEST_HACK
-			m.bowl.getBowl().add(0, new EventThing(EventType.Defection));
+			m.bowl.getBowl().add(0, new EventThing(EventType.Defection)); //P1
+			m.bowl.getBowl().add(10, new EventThing(EventType.GoodHarvest)); //P2
+
 
 			//P1 Stack 1
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(CreatureThing.createCreatureThing(CreatureType.FlyingSquirrel), 0);
