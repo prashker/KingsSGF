@@ -107,64 +107,71 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 			dragImageView.setImage(this.getImage());
 	        dragImageView.setFitHeight(50);
 	        dragImageView.setFitWidth(50);
-		
-    		final VBox mainGameSomehow = (VBox) getScene().getRoot();
-    		
-	        this.setOnDragDetected(new EventHandler<MouseEvent>() {
-	            @Override
-	            public void handle(MouseEvent t) {
-	            	
-	                if (!mainGameSomehow.getChildren().contains(dragImageView)) {
-	                    mainGameSomehow.getChildren().add(dragImageView);
-	                }
-
-	                dragImageView.setOpacity(0.7);
-	                dragImageView.toFront();
-	                dragImageView.setMouseTransparent(true);
-	                dragImageView.setVisible(true);
-	                
-	                /*
-	                dragImageView.relocate(
-	                        (int) (t.getSceneX() - dragImageView.getBoundsInLocal().getWidth() / 2),
-	                        (int) (t.getSceneY() - dragImageView.getBoundsInLocal().getHeight() / 2));
-					*/
-	                
-	                Dragboard db = startDragAndDrop(TransferMode.ANY);
-	                ClipboardContent content = new ClipboardContent();
-
-	                if (thing == null) {
-	                	content.putString("You've dragged a nullpiece, how?");
-	                }
-	                else {
-	                	content.putString("RACK:" + thing.getId());
-	                }
-	            
-	                db.setContent(content);
-	                
-
-	                //DRAG VISUAL
-					mainGameSomehow.setOnDragOver(new EventHandler<DragEvent>() {
-						public void handle(DragEvent e) {
-							Point2D localPoint = mainGameSomehow
-									.sceneToLocal(new Point2D(e.getSceneX(), e
-											.getSceneY()));
-							dragImageView.relocate(
-									(int) (localPoint.getX() - dragImageView
-											.getBoundsInLocal().getWidth() / 2),
-									(int) (localPoint.getY() - dragImageView
-											.getBoundsInLocal().getHeight() / 2));
-						}
-					});				
-										
-	            }
-	        });		
 	        
-			setOnDragDone(new EventHandler<DragEvent>() {
-				public void handle(DragEvent e) {
-					dragImageView.setVisible(false);
-					//mainGameSomehow.getChildren().remove(dragImageView); memory optimization???
-				}
-			});
+	        try {
+			
+	    		final VBox mainGameSomehow = (VBox) getScene().getRoot();
+	    		
+		        this.setOnDragDetected(new EventHandler<MouseEvent>() {
+		            @Override
+		            public void handle(MouseEvent t) {
+		            	
+		                if (!mainGameSomehow.getChildren().contains(dragImageView)) {
+		                    mainGameSomehow.getChildren().add(dragImageView);
+		                }
+	
+		                dragImageView.setOpacity(0.7);
+		                dragImageView.toFront();
+		                dragImageView.setMouseTransparent(true);
+		                dragImageView.setVisible(true);
+		                
+		                /*
+		                dragImageView.relocate(
+		                        (int) (t.getSceneX() - dragImageView.getBoundsInLocal().getWidth() / 2),
+		                        (int) (t.getSceneY() - dragImageView.getBoundsInLocal().getHeight() / 2));
+						*/
+		                
+		                Dragboard db = startDragAndDrop(TransferMode.ANY);
+		                ClipboardContent content = new ClipboardContent();
+	
+		                if (thing == null) {
+		                	content.putString("You've dragged a nullpiece, how?");
+		                }
+		                else {
+		                	content.putString("RACK:" + thing.getId());
+		                }
+		            
+		                db.setContent(content);
+		                
+	
+		                //DRAG VISUAL
+						mainGameSomehow.setOnDragOver(new EventHandler<DragEvent>() {
+							public void handle(DragEvent e) {
+								Point2D localPoint = mainGameSomehow
+										.sceneToLocal(new Point2D(e.getSceneX(), e
+												.getSceneY()));
+								dragImageView.relocate(
+										(int) (localPoint.getX() - dragImageView
+												.getBoundsInLocal().getWidth() / 2),
+										(int) (localPoint.getY() - dragImageView
+												.getBoundsInLocal().getHeight() / 2));
+							}
+						});				
+											
+		            }
+		        });		
+		        
+				setOnDragDone(new EventHandler<DragEvent>() {
+					public void handle(DragEvent e) {
+						dragImageView.setVisible(false);
+						//mainGameSomehow.getChildren().remove(dragImageView); memory optimization???
+					}
+				});
+				
+	        }
+	        catch (NullPointerException e) {
+	        	//JUST TO PREVENT SOMETHING BAD HAPPENING IN THE DEMO
+	        }
 	        
 	}
 	
