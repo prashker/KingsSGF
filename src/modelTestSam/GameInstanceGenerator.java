@@ -2,6 +2,7 @@ package modelTestSam;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import counterModelSam.CreatureThing;
 import counterModelSam.CreatureThing.CreatureType;
@@ -108,14 +109,22 @@ public class GameInstanceGenerator {
 		tmp.add(CreatureThing.createCreatureThing(CreatureType.Forester));
 
 		
-		Collections.shuffle(tmp);
+		Collections.shuffle(tmp, new Random());
 		
 		m.bowl.addAllToBowl(tmp);
 	}
 	
 	public static void AverageFunctionalityBowlAdditions(GameModel m) {
 		//Player 1 needs in his rack a Diamond Field and Peat Bog
+		//Since he will get the top, just add normally
+		m.bowl.getBowl().add(0, SpecialIncome.createSpecialIncome(SpecialIncomeType.DiamondField));
+		m.bowl.getBowl().add(0, SpecialIncome.createSpecialIncome(SpecialIncomeType.PeatBog));
+		
 		//Player 2 needs Copper Mine, Gold Mine and a Treasure (TreasureChest)
+		//P2 will need to be added 10 in.
+		m.bowl.getBowl().add(10, SpecialIncome.createSpecialIncome(SpecialIncomeType.CopperMine));
+		m.bowl.getBowl().add(10, SpecialIncome.createSpecialIncome(SpecialIncomeType.GoldMine));
+		m.bowl.getBowl().add(10, Treasure.createTreasure(TreasureType.TreasureChest));
 	}
 	
 	public static void GameSetup(GameModel m) {
