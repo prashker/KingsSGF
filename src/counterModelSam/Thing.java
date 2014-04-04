@@ -4,9 +4,12 @@ import hexModelSam.HexModel.TileType;
 
 import java.util.EnumSet;
 import java.util.Set;
+
+import modelTestSam.KNTObject;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public abstract class Thing extends Counter {
+public abstract class Thing extends KNTObject {
 
 	//Fixed set of abilities for each thing
 	public static enum ThingAbility {
@@ -125,7 +128,7 @@ public abstract class Thing extends Counter {
 		
 	}
 	
-
+	public abstract String getName();
 	
 	
 }
