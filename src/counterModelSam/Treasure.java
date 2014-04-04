@@ -31,9 +31,12 @@ public class Treasure extends Thing {
 		return null;
 	}
 	
+	private TreasureType type;
+	
 	private Treasure(TreasureType t, int value) {
 		super(t.toString(), TileType.NONTYPE, value);
 		this.thingType = ThingType.Treasure;
+		type = t;
 	}
 	
 	protected Treasure() {

@@ -45,16 +45,20 @@ public class SpecialIncome extends Thing {
 		}
 		return null;
 	}
+	
+	private SpecialIncomeType type;
 
 	
 	private SpecialIncome(SpecialIncomeType t, TileType terrain, int value) {
 		super(t.toString(), terrain, value);
 		this.thingType = ThingType.SpecialIncome;
+		type = t;
 	}
 
 	private SpecialIncome(SpecialIncomeType t, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
 		super(t.toString(), terrain, value, isFlying, isMagic, isCharge, isRange, isSpecial, isMulti);
 		this.thingType = ThingType.SpecialIncomeCombat;
+		type = t;
 	}
 	
 	protected SpecialIncome() {

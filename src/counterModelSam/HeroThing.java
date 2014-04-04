@@ -39,7 +39,6 @@ public class HeroThing extends Thing {
 	private HeroThing(HeroType t, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
 		super(t.toString(), terrain, value, isFlying, isMagic, isCharge, isRange, isSpecial, isMulti);
 		this.thingType = ThingType.Special;
-		
 		type = t;
 	}
 	

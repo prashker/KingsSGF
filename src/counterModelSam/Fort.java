@@ -31,6 +31,7 @@ public class Fort extends Thing {
 	private Fort(FortType t, TileType terrain, int value, boolean isFlying, boolean isMagic, boolean isCharge, boolean isRange, boolean isSpecial, boolean isMulti) {
 		super(t.toString(), terrain, value, isFlying, isMagic, isCharge, isRange, isSpecial, isMulti);		
 		this.thingType = ThingType.Fort;
+		type = t;
 	}
 	
 	/*
