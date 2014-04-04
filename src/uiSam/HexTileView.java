@@ -211,7 +211,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 					if (BoardGameWindow.getInstance().model.state instanceof StartGamePlayTowerPhase || BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
 						GameEvent placeTowerHex = new GameEvent("PLACETOWER");
 						placeTowerHex.put("HEX", tile.getId());
-						placeTowerHex.put("MARKER", new Fort(FortType.Tower)); //create here, pass to server and others
+						placeTowerHex.put("MARKER", Fort.createFort(FortType.Tower)); //create here, pass to server and others
 						BoardGameWindow.getInstance().networkMessageSend(placeTowerHex);
 					}
 				}
@@ -219,7 +219,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 					if (BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
 						GameEvent placeKeepHex = new GameEvent("PLACEKEEP");
 						placeKeepHex.put("HEX", tile.getId());
-						placeKeepHex.put("MARKER", new Fort(FortType.Keep)); //create here, pass to server and others
+						placeKeepHex.put("MARKER", Fort.createFort(FortType.Keep)); //create here, pass to server and others
 						BoardGameWindow.getInstance().networkMessageSend(placeKeepHex);
 					}	
 				}
@@ -227,7 +227,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 					if (BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
 						GameEvent placeCastleHex = new GameEvent("PLACECASTLE");
 						placeCastleHex.put("HEX", tile.getId());
-						placeCastleHex.put("MARKER", new Fort(FortType.Castle)); //create here, pass to server and others
+						placeCastleHex.put("MARKER", Fort.createFort(FortType.Castle)); //create here, pass to server and others
 						BoardGameWindow.getInstance().networkMessageSend(placeCastleHex);
 					}	
 				}
@@ -235,7 +235,7 @@ public class HexTileView extends Pane implements KingsAndThingsView<HexModel> {
 					if (BoardGameWindow.getInstance().model.state instanceof ConstructionPhase) {
 						GameEvent placeCitadelHex = new GameEvent("PLACECITADEL");
 						placeCitadelHex.put("HEX", tile.getId());
-						placeCitadelHex.put("MARKER", new Fort(FortType.Citadel)); //create here, pass to server and others
+						placeCitadelHex.put("MARKER", Fort.createFort(FortType.Citadel)); //create here, pass to server and others
 						BoardGameWindow.getInstance().networkMessageSend(placeCitadelHex);
 					}	
 				}

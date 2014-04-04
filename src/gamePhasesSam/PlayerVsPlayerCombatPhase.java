@@ -303,12 +303,20 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 			//DOWNGRADE FORT
 			Fort f = battleHex.getFort();
 			if (f != null) {
-				if (f.getType() == FortType.Tower)
+				//maintain fort ID so all players still maintain sync
+				String oldFortID = f.getId();
+				
+				if (f.getType() == FortType.Tower) {
 					battleHex.setFort(null);
-				else if (f.getType() == FortType.Keep)
-					battleHex.setFort(new Fort(FortType.Tower));
-				else if (f.getType() == FortType.Castle)
-					battleHex.setFort(new Fort(FortType.Keep));
+				}
+				else if (f.getType() == FortType.Keep) {
+					battleHex.setFort(Fort.createFort(FortType.Tower));
+					battleHex.getFort().setId(oldFortID);
+				}
+				else if (f.getType() == FortType.Castle) {
+					battleHex.setFort(Fort.createFort(FortType.Keep));
+					battleHex.getFort().setId(oldFortID);
+				}
 				else if (f.getType() == FortType.Citadel) {
 					referenceToModel.chat.sysMessage("Was a Citadel, not eliminating!");
 				}

@@ -246,10 +246,10 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(0,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			
 			m.grid.getHexFromQR(3,-2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
-			m.grid.getHexFromQR(3,0).setFort(new Fort(FortType.Castle,true));
-			m.grid.getHexFromQR(2,-1).setFort(new Fort(FortType.Castle));
-			m.grid.getHexFromQR(2,0).setFort(new Fort(FortType.Tower));
-			m.grid.getHexFromQR(1,0).setFort(new Fort(FortType.Tower, true));
+			m.grid.getHexFromQR(3,0).setFort(Fort.createFort(FortType.Castle));
+			m.grid.getHexFromQR(2,-1).setFort(Fort.createFort(FortType.Castle));
+			m.grid.getHexFromQR(2,0).setFort(Fort.createFort(FortType.Tower));
+			m.grid.getHexFromQR(1,0).setFort(Fort.createFort(FortType.Tower));
 			
 			//MINIMAL EXCLUSIVE
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Crocodiles", TileType.JungleTile, 2, false, false, false, false, false, false), 0);
@@ -260,7 +260,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Farmers", TileType.PlainsTile, 1, false, false, false, false, false, false), 0);
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("WildCat", TileType.ForestTile, 2, false, false, false, false, false, false), 0);
 
-			m.grid.getHexFromQR(0,0).setFort(new Fort(FortType.Keep));
+			m.grid.getHexFromQR(0,0).setFort(Fort.createFort(FortType.Keep));
 			m.grid.getHexFromQR(0,0).getFort().kill();		
 			
 			//P2
@@ -276,12 +276,12 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-1,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
 			m.grid.getHexFromQR(-2,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
 			
-			m.grid.getHexFromQR(2,1).setFort(new Fort(FortType.Keep, true));			
-			m.grid.getHexFromQR(1,1).setFort(new Fort(FortType.Keep, true));
+			m.grid.getHexFromQR(2,1).setFort(Fort.createFort(FortType.Keep));			
+			m.grid.getHexFromQR(1,1).setFort(Fort.createFort(FortType.Keep));
 			m.grid.getHexFromQR(1,2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
-			m.grid.getHexFromQR(0,1).setFort(new Fort(FortType.Tower));
-			m.grid.getHexFromQR(0,2).setFort(new Fort(FortType.Keep, true));
-			m.grid.getHexFromQR(-1,2).setFort(new Fort(FortType.Castle));
+			m.grid.getHexFromQR(0,1).setFort(Fort.createFort(FortType.Tower));
+			m.grid.getHexFromQR(0,2).setFort(Fort.createFort(FortType.Keep));
+			m.grid.getHexFromQR(-1,2).setFort(Fort.createFort(FortType.Castle));
 			
 			//MINIMAL EXCLUSIVE
 			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
@@ -302,7 +302,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-3,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
 	
 			m.grid.getHexFromQR(-3,1).setSpecialIncome(new SpecialIncome("City", TileType.NONTYPE, 2, false, false, false, false, false, true));
-			m.grid.getHexFromQR(-3,2).setFort(new Fort(FortType.Keep));
+			m.grid.getHexFromQR(-3,2).setFort(Fort.createFort(FortType.Keep));
 			
 			//P4
 			m.grid.getHexFromQR(2,-3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
@@ -313,9 +313,9 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-1,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
 			m.grid.getHexFromQR(-2,-1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
 
-			m.grid.getHexFromQR(1,-3).setFort(new Fort(FortType.Castle, true));
-			m.grid.getHexFromQR(0,-3).setFort(new Fort(FortType.Keep));
-			m.grid.getHexFromQR(0,-2).setFort(new Fort(FortType.Tower, true));
+			m.grid.getHexFromQR(1,-3).setFort(Fort.createFort(FortType.Castle));
+			m.grid.getHexFromQR(0,-3).setFort(Fort.createFort(FortType.Keep));
+			m.grid.getHexFromQR(0,-2).setFort(Fort.createFort(FortType.Tower));
 			m.grid.getHexFromQR(-1,-2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
 			
 
@@ -373,10 +373,10 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(0,0).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(0));
 			
 			m.grid.getHexFromQR(3,-2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
-			m.grid.getHexFromQR(3,0).setFort(new Fort(FortType.Castle,true));
-			m.grid.getHexFromQR(2,-1).setFort(new Fort(FortType.Castle));
-			m.grid.getHexFromQR(2,0).setFort(new Fort(FortType.Tower));
-			m.grid.getHexFromQR(1,0).setFort(new Fort(FortType.Tower, true));
+			m.grid.getHexFromQR(3,0).setFort(Fort.createFort(FortType.Castle));
+			m.grid.getHexFromQR(2,-1).setFort(Fort.createFort(FortType.Castle));
+			m.grid.getHexFromQR(2,0).setFort(Fort.createFort(FortType.Tower));
+			m.grid.getHexFromQR(1,0).setFort(Fort.createFort(FortType.Tower));
 			
 			//AVERAGE EXCLUSIVE P1
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Crocodiles", TileType.JungleTile, 2, false, false, false, false, false, false), 0);
@@ -390,7 +390,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("Mammoth", TileType.FrozenWasteTile, 5, false, false, true, false, false, false), 0);
 			m.grid.getHexFromQR(1,0).addPlayerOwnedThingToHex(new CreatureThing("HeadHunter", TileType.JungleTile, 2, false, false, false, true, false, false), 0);
 			
-			m.grid.getHexFromQR(0,0).setFort(new Fort(FortType.Keep));
+			m.grid.getHexFromQR(0,0).setFort(Fort.createFort(FortType.Keep));
 			m.grid.getHexFromQR(0,0).getFort().kill();		
 			
 			//P2
@@ -406,12 +406,12 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-1,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
 			m.grid.getHexFromQR(-2,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(1));
 			
-			m.grid.getHexFromQR(2,1).setFort(new Fort(FortType.Keep, true));			
-			m.grid.getHexFromQR(1,1).setFort(new Fort(FortType.Keep, true));
+			m.grid.getHexFromQR(2,1).setFort(Fort.createFort(FortType.Keep));			
+			m.grid.getHexFromQR(1,1).setFort(Fort.createFort(FortType.Keep));
 			m.grid.getHexFromQR(1,2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
-			m.grid.getHexFromQR(0,1).setFort(new Fort(FortType.Tower));
-			m.grid.getHexFromQR(0,2).setFort(new Fort(FortType.Keep, true));
-			m.grid.getHexFromQR(-1,2).setFort(new Fort(FortType.Castle));
+			m.grid.getHexFromQR(0,1).setFort(Fort.createFort(FortType.Tower));
+			m.grid.getHexFromQR(0,2).setFort(Fort.createFort(FortType.Keep));
+			m.grid.getHexFromQR(-1,2).setFort(Fort.createFort(FortType.Castle));
 			
 			//AVERAGE EXCLUSIVE STACKS P2
 			m.grid.getHexFromQR(0,1).addPlayerOwnedThingToHex(new CreatureThing("Thing", TileType.SwampTile, 2, false, false, false, false, false, false), 1);
@@ -434,7 +434,7 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-3,3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(2));
 	
 			m.grid.getHexFromQR(-3,1).setSpecialIncome(new SpecialIncome("City", TileType.NONTYPE, 2, false, false, false, false, false, true));
-			m.grid.getHexFromQR(-3,2).setFort(new Fort(FortType.Keep));
+			m.grid.getHexFromQR(-3,2).setFort(Fort.createFort(FortType.Keep));
 			
 			//P4
 			m.grid.getHexFromQR(2,-3).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
@@ -445,9 +445,9 @@ public class GameInstanceGenerator {
 			m.grid.getHexFromQR(-1,-2).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
 			m.grid.getHexFromQR(-2,-1).takeOwnership(m.gamePlayersManager.getPlayerByTurnIndex(3));
 
-			m.grid.getHexFromQR(1,-3).setFort(new Fort(FortType.Castle, true));
-			m.grid.getHexFromQR(0,-3).setFort(new Fort(FortType.Keep));
-			m.grid.getHexFromQR(0,-2).setFort(new Fort(FortType.Tower, true));
+			m.grid.getHexFromQR(1,-3).setFort(Fort.createFort(FortType.Castle));
+			m.grid.getHexFromQR(0,-3).setFort(Fort.createFort(FortType.Keep));
+			m.grid.getHexFromQR(0,-2).setFort(Fort.createFort(FortType.Tower));
 			m.grid.getHexFromQR(-1,-2).setSpecialIncome(new SpecialIncome("Village", TileType.NONTYPE, 1, false, false, false, false, false, true));
 			
 
