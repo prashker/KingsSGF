@@ -1,4 +1,4 @@
-KingsSGF
+KingsSGF V2.0
 =========
 
 KingsSGF is a magical game.
@@ -8,16 +8,27 @@ __NOTE: WE SUPPORT IN-GAME CHAT :)__
   - Super fun!
   - Much game!
   - Very quirky!
+  
+### Features Implemented
+  * Loading from Predefined Board or a Random Board
+  * 2, 3 and 4 Player Game Support (with reduced layout for 2-3 player)
+  * Gold Collection Phase
+  * Recruiting Heroes Phase
+  * Recruiting Things Phase
+  * Random Events (Defection and Good Harvest)
+  * Movement Phase
+  * Combat Phase
+  * Special Powers Phase
+  * MUCH MORE :)
+  * CHAT FUNCTIONALITY
+  * /commands
+  * /nick command
 
 ### Current Bugs
 
 For some reason this game has a lot of issues. For the moment the following:
   * Join Game breaks if you join the game twice (it won't stop you)
-  * Can move monsters anywhere (should be restricted based on criteria)
-    * Based on this, it causes an issue where if 2 players move to an unexplored hex, it will do a PvP battle when there is no concept of a "defender"...crashes the game
   * In PVP Battle, other players do not see what the other player rolled (but they do know if they got hit or not)
-  * Player Order sometimes shifts unexpectedly
-    * Has to do with turn logic, to be revisited
   * (POSSIBLY FIXED) Networking struggling with non-blocking reads
     * Header/Body style ByteBuffer used should resolve this
     * Etc....but very smooth gameplay overall.
@@ -65,7 +76,7 @@ Client:
   7. PLAY!
 
 ### Version
-Demo1.0
+Demo2.0
 
 ### NO HARDCODE GUARANTEE
 This code is certified unhardcoded. No game logic despite Demo1 methods such as initializing the game board and giving the players the proper things is hard coded. All game logic is dynamic and should be functional ;).
