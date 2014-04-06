@@ -27,6 +27,8 @@ public class Bank extends KNTObject {
 		heroesInGame.add(HeroThing.createHero(HeroType.MountainKing));
 		heroesInGame.add(HeroThing.createHero(HeroType.PlainsLord));
 		heroesInGame.add(HeroThing.createHero(HeroType.SwampKing));
+		heroesInGame.add(HeroThing.createHero(HeroType.MasterThief));
+		
 		
 		//RANDOMIZE IT FOR NOW :)
 		Collections.shuffle(heroesInGame);

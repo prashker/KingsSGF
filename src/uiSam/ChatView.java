@@ -118,6 +118,26 @@ public class ChatView extends AnchorPane implements KingsAndThingsView<Chat> {
 				
 				BoardGameWindow.getInstance().networkMessageSend(nickEvent);
 			}
+			//MASTER THIEF FUNCTIONALITY
+			else if (possibleMsg.startsWith("/thief")) {
+				GameEvent thiefEvent = new GameEvent("THIEF");
+				thiefEvent.put("AGAINST", possibleMsg.replace("/thief",  "").trim());
+				BoardGameWindow.getInstance().networkMessageSend(thiefEvent);
+			}
+			else if (possibleMsg.startsWith("/gold")) {
+				GameEvent thiefEvent = new GameEvent("GOLD");				
+				BoardGameWindow.getInstance().networkMessageSend(thiefEvent);
+			}
+			else if (possibleMsg.startsWith("/thing")) {
+				GameEvent thiefEvent = new GameEvent("THING");				
+				BoardGameWindow.getInstance().networkMessageSend(thiefEvent);
+			}
+			
+			/*
+			 future
+			 else if (possibleMsg.startsWith("/")
+			 universal command acceptor			 
+			 */
 			else {
 				
 				//System.out.println("Sending: " + possibleMsg);

@@ -20,6 +20,8 @@ public class HeroThing extends Thing {
 				return new HeroThing(t, TileType.PlainsTile, 4, false, false, false, false, true, false);
 			case SwampKing:
 				return new HeroThing(t, TileType.SwampTile, 4, false, false, false, false, true, false);
+			case MasterThief:
+				return new HeroThing(t, TileType.NONTYPE, 4, false, false, false, false, false, true);
 		}
 		return null;
 	}
@@ -31,7 +33,8 @@ public class HeroThing extends Thing {
 		JungleLord,
 		MountainKing,
 		PlainsLord,
-		SwampKing
+		SwampKing,
+		MasterThief
 	}
 	
 	private HeroType type;

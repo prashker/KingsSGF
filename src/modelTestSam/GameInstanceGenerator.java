@@ -8,11 +8,13 @@ import counterModelSam.CreatureThing;
 import counterModelSam.CreatureThing.CreatureType;
 import counterModelSam.EventThing;
 import counterModelSam.Fort;
+import counterModelSam.HeroThing;
 import counterModelSam.MagicThing;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.EventThing.EventType;
 import counterModelSam.Fort.FortType;
+import counterModelSam.HeroThing.HeroType;
 import counterModelSam.MagicThing.MagicType;
 import counterModelSam.SpecialIncome.SpecialIncomeType;
 import counterModelSam.Treasure;
@@ -360,6 +362,7 @@ public class GameInstanceGenerator {
 			m.bowl.getBowl().add(0, new EventThing(EventType.Defection)); //P1
 			m.bowl.getBowl().add(0, new MagicThing(MagicType.DustOfDefence));
 			m.bowl.getBowl().add(0, new MagicThing(MagicType.DustOfDefence));
+			m.bowl.getBowl().add(0, HeroThing.createHero(HeroType.MasterThief));
 			m.bowl.getBowl().add(10, new EventThing(EventType.GoodHarvest)); //P2
 
 

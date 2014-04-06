@@ -102,6 +102,19 @@ public class PlayerModel extends KNTObject {
 		return null;
 	}
 	
+	public Thing popFirstThing() {
+		Thing toReturn = null;
+		for (Thing t: rack){
+			if (t != null) {
+				toReturn = t;
+				removeThingById(t.getId());
+				break;
+			}
+				
+		}
+		return toReturn;
+	}
+	
 	public Thing getThingFromRack(int i) {
 		if (i < 0 || i > 10)
 			return null;

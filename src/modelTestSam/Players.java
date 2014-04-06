@@ -28,6 +28,15 @@ public class Players extends KNTObject {
 			return newP;
 		}
 		
+		public PlayerModel getPlayerByNickName(String nick) {
+			for (PlayerModel p: players.values()) {
+				if (p.getName().equals(nick)) {
+					return p;
+				}
+			}
+			return null;
+		}
+		
 		public PlayerModel getPlayer(String id) {
 			return players.get(id);
 		}
