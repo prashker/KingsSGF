@@ -82,6 +82,10 @@ public class MovementWindow extends VBox {
 				m.moveButton.setDisable(true);
 				m.errorArea.appendText("Cannot move this Thing because you are trying to LEAVE an unexplored hex");
 			}
+			else if (to.stackByPlayer.get(p.getMyTurnOrder()).getStack().values().size() >= 10) {
+				m.moveButton.setDisable(true);
+				m.errorArea.appendText("Cannot move this Thing because it will defy the 10 Thing limit");
+			}
 			else {
 				m.moveButton.setDisable(false);
 				m.errorArea.appendText("SAFE TO MOVE :) - COST: " + costToMove);
