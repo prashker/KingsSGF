@@ -111,8 +111,11 @@ public class RecruitThingsPhase extends GamePhase {
 								//Add Treasure back to Rack, cannot be played...
 								playerFound.addThingToRack(thing);
 							}
-							else {
+							else if (gridFound.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().size() >= 10) {
 								gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
+							}
+							else {
+								playerFound.addThingToRack(thing);
 							}
 						}
 					}
