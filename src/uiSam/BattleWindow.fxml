@@ -32,9 +32,13 @@
     </ScrollPane>
     <Pane prefHeight="106.0" prefWidth="716.0">
       <children>
-        <Button fx:id="retreatButton" layoutX="560.0" layoutY="32.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="142.0" text="Retreat" />
-        <Button fx:id="rollButton" layoutX="22.0" layoutY="32.0" mnemonicParsing="false" prefHeight="44.9609375" prefWidth="335.999977929685" text="TO RETREAT, DRAG FROM MAIN GAME." />
         <fx:include fx:id="battleHex" source="HexTile.fxml" layoutX="404.0" layoutY="2.0" />
+        <Label layoutX="35.0" layoutY="38.0" text="Battle is being performed on">
+          <font>
+            <Font size="25.0" />
+          </font>
+        </Label>
+        <Label layoutX="533.0" layoutY="28.0" prefHeight="54.9609375" prefWidth="183.0" text="To retreat, drag your stack to another hex on the other screen" wrapText="true" />
       </children>
     </Pane>
   </children>

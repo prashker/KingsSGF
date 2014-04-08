@@ -30,9 +30,6 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 	
 	@FXML Label roundLabel;
 	
-	@FXML Button retreatButton;
-	@FXML Button rollButton;
-	
 	@FXML HexTileView battleHexController;
 	
 	//private AtomicBoolean fightStart = new AtomicBoolean(false);
@@ -106,7 +103,7 @@ public class BattleWindow extends VBox implements KingsAndThingsView<CombatZone>
 			public void run() {
 				if (com.activeBattle == false) {
 					//close window
-					Stage s = (Stage) rollButton.getScene().getWindow();
+					Stage s = (Stage) roundLabel.getScene().getWindow();
 					
 					fighterGrid.getChildren().clear();
 					fighterVboxes.clear();
