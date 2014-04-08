@@ -137,6 +137,7 @@ public class BoardGameWindow extends VBox implements Observer {
 		
 		//CHAT BIND SETUP
 		chatController.setBind(model.chat);
+		model.chat.sysMessage("Welcome to KingsSGF, File -> Join Game to get into the game");
 		
 		//HEX GRID BIND SETUP
 		hexGridController.setBind(model.grid);

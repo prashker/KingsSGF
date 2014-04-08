@@ -36,6 +36,8 @@ public class JoinGamePhase extends GamePhase {
 					allPlayersEvent.put("PLAYERS", referenceToModel.gamePlayersManager.players);
 					allPlayersEvent.put("NUMPLAYERS", referenceToModel.getNumPlayers());
 					
+					event.put("NUMPLAYERS", referenceToModel.getNumPlayers());
+					
 					//Send to joining player a list of all players
 					//Send to existing player the joining player
 					network.sendAllExcept(socket, event.toJson());
@@ -52,12 +54,14 @@ public class JoinGamePhase extends GamePhase {
 
 				@Override
 				public void handleEvent(Networkable network, SocketChannel socket, GameEvent event) {
+					
+					referenceToModel.setNumPlayers((int) event.get("NUMPLAYERS"));
 									
 					PlayerModel playerFromNetwork = (PlayerModel) event.get("PLAYER");
 
 					referenceToModel.gamePlayersManager.addPlayer(playerFromNetwork);
 					
-					referenceToModel.chat.sysMessage("JOINED: " + playerFromNetwork.getName());
+					referenceToModel.chat.sysMessage("HAS JOINED: " + playerFromNetwork.getName());
 					
 					nextPhaseIfTime();
 				}

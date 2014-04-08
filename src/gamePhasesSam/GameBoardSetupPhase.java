@@ -25,6 +25,8 @@ public class GameBoardSetupPhase extends GamePhase {
 	public GameBoardSetupPhase(GameModel m) {
 		super(m);
 		
+		referenceToModel.chat.sysMessage("GAME IS READY TO BE STARTED");
+		referenceToModel.chat.sysMessage("First person to click File -> Start Game will initiate the game :)");
 		
 		if (isServer())
 			GameInstanceGenerator.GameSetup(m);
