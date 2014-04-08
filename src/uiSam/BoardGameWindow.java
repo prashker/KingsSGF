@@ -3,7 +3,8 @@ package uiSam;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import networkingClientSam.GameClient;
+
+import networkingSam.GameClient;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.GameModel;

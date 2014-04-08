@@ -1,4 +1,4 @@
-package networkingClientSam;
+package networkingSam;
 
 import java.io.IOException;
 import java.net.InetAddress;

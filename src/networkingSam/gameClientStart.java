@@ -1,4 +1,4 @@
-package networkingClientSam;
+package networkingSam;
 
 import modelTestSam.GameModel;
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="networkingSam.ConnectionAcceptHandler" project="KingsSGF" 
+    file="/KingsSGF/src/networkingSam/ConnectionAcceptHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="288" x="434" y="52"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="networkingSam.gameClientStart" project="KingsSGF" 
+    file="/KingsSGF/src/networkingSam/gameClientStart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="116" x="278" y="52"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="networkingSam.CanHandleConnection" project="KingsSGF" 
+    file="/KingsSGF/src/networkingSam/CanHandleConnection.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="288" x="598" y="425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="4" language="java" name="networkingSam.GameServer" project="KingsSGF" 
+    file="/KingsSGF/src/networkingSam/GameServer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="229" x="1090" y="52"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="networkingSam.GameClient" project="KingsSGF" 
+    file="/KingsSGF/src/networkingSam/GameClient.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="229" x="1359" y="52"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="networkingSam.ConnectionByteHandler" project="KingsSGF" 
+    file="/KingsSGF/src/networkingSam/ConnectionByteHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="288" x="762" y="52"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="7">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="8">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
