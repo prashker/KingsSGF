@@ -3,8 +3,8 @@ package gamePhasesSam;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
+import networkingSam.Networkable;
 
 import java.nio.channels.SocketChannel;
 

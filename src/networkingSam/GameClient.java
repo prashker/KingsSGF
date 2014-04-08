@@ -8,10 +8,9 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
+
 import modelTestSam.GameModel;
 import modelTestSam.ModelWorker;
-import modelTestSam.Networkable;
-import modelTestSam.NetworkedJSONGameLoop;
 
 public class GameClient extends Thread implements Networkable {
 	private final int port;

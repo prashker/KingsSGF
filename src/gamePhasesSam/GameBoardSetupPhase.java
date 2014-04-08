@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import networkingSam.Networkable;
 import counterModelSam.HeroThing;
 import counterModelSam.Thing;
 import modelTestSam.GameEvent;
@@ -14,7 +15,6 @@ import modelTestSam.GameEventHandler;
 import modelTestSam.GameInstanceGenerator;
 import modelTestSam.GameInstanceGenerator.Predefined;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class GameBoardSetupPhase extends GamePhase {

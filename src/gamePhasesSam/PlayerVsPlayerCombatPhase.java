@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import networkingSam.Networkable;
 import counterModelSam.Fort;
 import counterModelSam.Fort.FortType;
 import counterModelSam.MagicThing;
@@ -18,7 +19,6 @@ import modelTestSam.Dice;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class PlayerVsPlayerCombatPhase extends GamePhase {

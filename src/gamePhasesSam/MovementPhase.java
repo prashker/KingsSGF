@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import networkingSam.Networkable;
 import counterModelSam.Thing;
 import counterModelSam.ThingStack;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class MovementPhase extends GamePhase {

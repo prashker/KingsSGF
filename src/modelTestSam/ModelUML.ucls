@@ -37,16 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="modelTestSam.NetworkedJSONGameLoop.NetworkDataEvent" project="KingsSGF" 
-    file="/KingsSGF/src/modelTestSam/NetworkedJSONGameLoop.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="291" x="2342" y="459"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <enumeration id="6" language="java" name="modelTestSam.PlayerModel.PlayerType" project="KingsSGF" 
+  <enumeration id="5" language="java" name="modelTestSam.PlayerModel.PlayerType" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/PlayerModel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="181" x="1069" y="1637"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -55,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="7" language="java" name="modelTestSam.GameInstanceGenerator" project="KingsSGF" 
+  <class id="6" language="java" name="modelTestSam.GameInstanceGenerator" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/GameInstanceGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="285" x="913" y="122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -64,7 +55,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="modelTestSam.ThingBowlModel" project="KingsSGF" 
+  <class id="7" language="java" name="modelTestSam.ThingBowlModel" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/ThingBowlModel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="243" width="227" x="2075" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -73,7 +64,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="9" language="java" name="modelTestSam.GameInstanceGenerator.Predefined" project="KingsSGF" 
+  <enumeration id="8" language="java" name="modelTestSam.GameInstanceGenerator.Predefined" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/GameInstanceGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="171" width="142" x="541" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -82,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="10" language="java" name="modelTestSam.CombatZone.CombatMode" project="KingsSGF" 
+  <enumeration id="9" language="java" name="modelTestSam.CombatZone.CombatMode" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/CombatZone.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="180" x="1334" y="1138"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -91,7 +82,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="11" language="java" name="modelTestSam.PlayerModel" project="KingsSGF" 
+  <class id="10" language="java" name="modelTestSam.PlayerModel" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/PlayerModel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="459" width="225" x="1069" y="1138"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -100,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="modelTestSam.Bank" project="KingsSGF" file="/KingsSGF/src/modelTestSam/Bank.java" 
+  <class id="11" language="java" name="modelTestSam.Bank" project="KingsSGF" file="/KingsSGF/src/modelTestSam/Bank.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="207" width="213" x="1627" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -109,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="13" language="java" name="modelTestSam.GameModel.Type" project="KingsSGF" 
+  <enumeration id="12" language="java" name="modelTestSam.GameModel.Type" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/GameModel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="119" x="723" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -118,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="14" language="java" name="modelTestSam.Dice" project="KingsSGF" file="/KingsSGF/src/modelTestSam/Dice.java" 
+  <class id="13" language="java" name="modelTestSam.Dice" project="KingsSGF" file="/KingsSGF/src/modelTestSam/Dice.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="93" x="780" y="122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -127,25 +118,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="15" language="java" name="modelTestSam.Networkable" project="KingsSGF" 
-    file="/KingsSGF/src/modelTestSam/Networkable.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="229" x="1587" y="1138"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="16" language="java" name="modelTestSam.ModelWorker" project="KingsSGF" 
-    file="/KingsSGF/src/modelTestSam/ModelWorker.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="286" x="2673" y="459"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="17" language="java" name="modelTestSam.KNTObject" project="KingsSGF" 
+  <class id="14" language="java" name="modelTestSam.KNTObject" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/KNTObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="261" width="142" x="1480" y="122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -154,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="modelTestSam.Chat" project="KingsSGF" file="/KingsSGF/src/modelTestSam/Chat.java" 
+  <class id="15" language="java" name="modelTestSam.Chat" project="KingsSGF" file="/KingsSGF/src/modelTestSam/Chat.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="155" x="1880" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -163,16 +136,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="modelTestSam.NetworkedJSONGameLoop" project="KingsSGF" 
-    file="/KingsSGF/src/modelTestSam/NetworkedJSONGameLoop.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="286" x="2589" y="122"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="20" language="java" name="modelTestSam.Players" project="KingsSGF" 
+  <class id="16" language="java" name="modelTestSam.Players" project="KingsSGF" 
     file="/KingsSGF/src/modelTestSam/Players.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="477" width="274" x="903" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -181,54 +145,60 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="21" language="java" name="modelTestSam.GameEventHandler" project="KingsSGF" 
-    file="/KingsSGF/src/modelTestSam/GameEventHandler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="310" x="2999" y="459"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <association id="22">    
-    <bendpoint x="1596" y="459"/>    
+  <generalization id="17">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="18">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="23" name="network"/>      
-      <multiplicity id="24" minimum="0" maximum="1"/>    
+      <attribute id="19" name="bank"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="22" name="bowl"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="25" name="battleData"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="28" name="chat"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="25">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="5"/>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <nesting id="31">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="9"/>  
   </nesting>  
-  <association id="26">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="27" name="chat"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="29">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="30" name="network"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <generalization id="32">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="17"/>  
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="14"/>  
   </generalization>  
   <association id="33">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="34" name="mode"/>      
       <multiplicity id="35" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="36">    
@@ -236,7 +206,7 @@
       <attribute id="37" name="gameGenerationMode"/>      
       <multiplicity id="38" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="39">    
@@ -244,141 +214,85 @@
       <attribute id="40" name="fighters"/>      
       <multiplicity id="41" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <nesting id="43">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </nesting>  
-  <nesting id="44">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
-  <association id="45">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="46" name="retreatedPlayers"/>      
-      <multiplicity id="47" minimum="0" maximum="2147483647"/>    
+  <association id="42">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="43" name="players"/>      
+      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <nesting id="46">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <generalization id="47">    
+    <bendpoint x="1207" y="459"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
   <association id="48">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="49" name="bank"/>      
+      <attribute id="49" name="gamePlayersManager"/>      
       <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="52" name="modelType"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="51">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <association id="52">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="53" name="bowl"/>      
-      <multiplicity id="54" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <nesting id="54">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
   <association id="55">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="56" name="battleData"/>      
-      <multiplicity id="57" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="56" name="fighterAttackWho"/>      
+      <multiplicity id="57" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <nesting id="58">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="10"/>  
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
   </nesting>  
-  <generalization id="59">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <association id="60">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="61" name="handleMap"/>      
-      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+  <association id="59">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="60" name="retreatedPlayers"/>      
+      <multiplicity id="61" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="63">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="64" name="queue"/>      
-      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
+  <association id="62">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="63" name="controlMarker"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="66">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="16"/>  
-  </realization>  
-  <association id="67">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="68" name="players"/>      
-      <multiplicity id="69" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="70">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="13"/>  
-  </nesting>  
-  <association id="71">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="72" name="modelType"/>      
-      <multiplicity id="73" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="74">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="75" name="gamePlayersManager"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="77">    
-    <bendpoint x="1207" y="459"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <association id="78">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="79" name="fighterAttackWho"/>      
-      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="81">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="82" name="controlMarker"/>      
-      <multiplicity id="83" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="84">    
+  <association id="65">    
     <bendpoint x="872" y="459"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="85" name="localPlayer"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
+      <attribute id="66" name="localPlayer"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

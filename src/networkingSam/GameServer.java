@@ -11,8 +11,6 @@ import java.util.Iterator;
 
 import modelTestSam.GameModel;
 import modelTestSam.ModelWorker;
-import modelTestSam.Networkable;
-import modelTestSam.NetworkedJSONGameLoop;
 
 public class GameServer extends Thread implements Networkable {
 	private final int port;

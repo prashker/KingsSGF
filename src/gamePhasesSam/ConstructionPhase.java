@@ -6,12 +6,13 @@ import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import networkingSam.Networkable;
 import counterModelSam.Fort;
 import counterModelSam.Fort.FortType;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class ConstructionPhase extends GamePhase {

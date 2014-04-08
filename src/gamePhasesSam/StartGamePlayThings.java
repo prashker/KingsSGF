@@ -5,13 +5,13 @@ import hexModelSam.HexModel.TileType;
 
 import java.nio.channels.SocketChannel;
 
+import networkingSam.Networkable;
 import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Thing.ThingType;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class StartGamePlayThings extends GamePhase {

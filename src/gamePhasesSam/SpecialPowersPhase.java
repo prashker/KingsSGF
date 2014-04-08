@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import networkingSam.Networkable;
 import counterModelSam.EventThing;
 import counterModelSam.HeroThing;
 import counterModelSam.Thing;
@@ -15,7 +16,6 @@ import counterModelSam.HeroThing.HeroType;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class SpecialPowersPhase extends GamePhase {

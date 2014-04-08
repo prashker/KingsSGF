@@ -5,8 +5,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
-import modelTestSam.Networkable;
-
 public class ConnectionByteHandler implements CanHandleConnection {
 	
 	//metadata attach to this class in future (char info?)

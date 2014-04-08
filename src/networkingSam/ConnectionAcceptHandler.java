@@ -5,8 +5,6 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
-import modelTestSam.Networkable;
-
 //Responsible for accepting a connection and passing it off to the appropriate Reader Handler (forced to Byte now, future: param to JSON as example)
 public class ConnectionAcceptHandler implements CanHandleConnection {
 			

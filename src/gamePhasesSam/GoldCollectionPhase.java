@@ -5,10 +5,10 @@ import hexModelSam.HexModel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
+import networkingSam.Networkable;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class GoldCollectionPhase extends GamePhase {

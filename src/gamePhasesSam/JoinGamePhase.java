@@ -3,10 +3,10 @@ package gamePhasesSam;
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 
+import networkingSam.Networkable;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class JoinGamePhase extends GamePhase {

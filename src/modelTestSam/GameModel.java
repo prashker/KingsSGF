@@ -6,6 +6,7 @@ import hexModelSam.HexGrid;
 
 import java.util.Observable;
 
+import networkingSam.Networkable;
 import modelTestSam.GameInstanceGenerator.Predefined;
 
 public class GameModel extends Observable {

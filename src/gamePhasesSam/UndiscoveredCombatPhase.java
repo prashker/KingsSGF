@@ -1,13 +1,14 @@
 package gamePhasesSam;
 
 import java.nio.channels.SocketChannel;
+
+import networkingSam.Networkable;
 import counterModelSam.Thing;
 import hexModelSam.HexModel;
 import modelTestSam.CombatZone.CombatMode;
 import modelTestSam.GameEvent;
 import modelTestSam.GameEventHandler;
 import modelTestSam.GameModel;
-import modelTestSam.Networkable;
 import modelTestSam.PlayerModel;
 
 public class UndiscoveredCombatPhase extends GamePhase {

@@ -1,10 +1,15 @@
-package modelTestSam;
+package networkingSam;
 
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import modelTestSam.GameEvent;
+import modelTestSam.GameEventHandler;
+import modelTestSam.JacksonSingleton;
+import modelTestSam.ModelWorker;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -47,11 +52,11 @@ public class NetworkedJSONGameLoop implements ModelWorker {
 			try {
 				generatedEvent = JacksonSingleton.getInstance().readValue(dataEvent.data, GameEvent.class);
 				System.out.println("DEBUG: " + dataEvent.data);
-				if (handleMap.containsKey(generatedEvent.type)) {
-					handleMap.get(generatedEvent.type).handleEvent(dataEvent.network, dataEvent.socket, generatedEvent);
+				if (handleMap.containsKey(generatedEvent.getType())) {
+					handleMap.get(generatedEvent.getType()).handleEvent(dataEvent.network, dataEvent.socket, generatedEvent);
 				}
 				else {
-					System.out.println("Cannot handle type: " + generatedEvent.type);
+					System.out.println("Cannot handle type: " + generatedEvent.getType());
 					
 					/*GameEvent unknown = new GameEvent("UNKNOWN");
 					unknown.put("REASON", "Cannot handle type: " + generatedEvent.type);
