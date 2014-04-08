@@ -63,7 +63,8 @@ Server:
 
   1. Open JAR or Start uiStart.java.
   2. Select port (host address does not matter)
-  3. Click "Host"
+  3. Select Number of players, and Layout Mode (Random, Minimal, Average, Superior, Outstanding)
+  4. Click Host Button
   
 Client:
 
@@ -72,7 +73,8 @@ Client:
   3. Click Connect
   4. Once game window pops up, click File -> Join Game
   5. Once all players joined (game will tell you), do roll and then
-  6. File -> Start Game once it says.
+  5.1. At this point in the chatbox you can type /nickNAME where NAME is a name of your choice :)
+  6. File -> Start Game once it says. (ONLY ONE PLAYER WILL NEED TO START THE GAME)
   7. PLAY!
 
 ### Version
