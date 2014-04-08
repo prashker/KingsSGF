@@ -50,7 +50,7 @@ public class StartGamePlayThings extends GamePhase {
 						if (thing != null) {
 							//If special, ensure it is a valid type (no bluffing)
 							if (thing.thingType == ThingType.SpecialIncome || thing.thingType == ThingType.SpecialIncomeCombat) {
-								if (thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) {
+								if ((thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) || thing.validTerrain == TileType.NONTYPE) {
 									gridFound.setSpecialIncome((SpecialIncome)thing);
 								}
 								else {

@@ -63,7 +63,7 @@ public class RecruitThingsPhase extends GamePhase {
 						referenceToModel.chat.sysMessage(playerFound.getName() + " got a Free Thing from the bowl");
 						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 					}
-					else if (playerFound.getGold() > 5) {
+					else if (playerFound.getGold() >= 5) {
 						playerFound.addThingToRack(referenceToModel.bowl.getTopThing());
 						playerFound.decrementGold(5);
 						referenceToModel.chat.sysMessage(playerFound.getName() + " bought a Thing from the bowl");
@@ -98,10 +98,9 @@ public class RecruitThingsPhase extends GamePhase {
 						if (thing != null) {				
 							//If special, ensure it is a valid type (no bluffing)
 							if (thing.thingType == ThingType.SpecialIncome || thing.thingType == ThingType.SpecialIncomeCombat) {
-								if (thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) {
+								if ((thing.validTerrain != TileType.NONTYPE && thing.validTerrain == gridFound.type) || thing.validTerrain == TileType.NONTYPE) {
 									gridFound.setSpecialIncome((SpecialIncome)thing);
 								}
-								
 								else {
 									//Return it back, invalid
 									playerFound.addThingToRack(thing);
@@ -111,7 +110,7 @@ public class RecruitThingsPhase extends GamePhase {
 								//Add Treasure back to Rack, cannot be played...
 								playerFound.addThingToRack(thing);
 							}
-							else if (gridFound.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().size() >= 10) {
+							else if (gridFound.stackByPlayer.get(playerFound.getMyTurnOrder()).getStack().size() < 10) {
 								gridFound.addPlayerOwnedThingToHex(thing, playerFound.getMyTurnOrder());
 							}
 							else {

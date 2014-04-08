@@ -124,7 +124,7 @@ public class MovementPhase extends GamePhase {
 						//BOOM TAKEOVER
 						referenceToModel.chat.sysMessage(String.format("%s has moved a %s to a %s tile", playerFound.getName(), foundThing.getName(), toHexO.type.toString()));
 						
-						if (toHexO.howManyPlayersOnIt() == 0 && !toHexO.hasOwner(playerFound)) {
+						if (toHexO.howManyPlayersOnIt() == 0 && !toHexO.hasOwner(playerFound) && !toHexO.isUnexplored()) {
 							referenceToModel.chat.sysMessage(String.format("Player %s takes over the hex since owner %s has no defenders", playerFound.getName(), toHexO.getOwner().getName()));
 							toHexO.takeOwnership(playerFound);
 						}

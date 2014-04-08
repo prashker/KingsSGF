@@ -34,7 +34,7 @@ public class HostWindow extends VBox {
 		
 		public void startNetwork() {
 			model = new GameModel(GameModel.Type.SERVER);
-			server = new GameServer(10997, model);
+			server = new GameServer(port, model);
 			model.setNetwork(server); 
 			if (players != null)
 				model.setNumPlayers(players);

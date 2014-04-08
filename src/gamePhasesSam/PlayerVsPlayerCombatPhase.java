@@ -14,6 +14,7 @@ import counterModelSam.SpecialIncome;
 import counterModelSam.Thing;
 import counterModelSam.Thing.ThingType;
 import hexModelSam.HexModel;
+import hexModelSam.HexModel.TileType;
 import modelTestSam.CombatZone.CombatMode;
 import modelTestSam.Dice;
 import modelTestSam.GameEvent;
@@ -196,7 +197,7 @@ public class PlayerVsPlayerCombatPhase extends GamePhase {
 					referenceToModel.chat.sysMessage("Bluffing does not work on Undiscovered Hex Battle");
 				}
 				//else if the monster is not universal terrain or has no terrain lord
-				else if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type && thingFound.thingType != ThingType.Special) {
+				else if (thingFound.validTerrain != referenceToModel.battleData.battleHex.type && thingFound.thingType != ThingType.Special && thingFound.validTerrain != TileType.NONTYPE) {
 					//find which fighter owns this supposed bluff
 					for (PlayerModel whoOwnsThing: referenceToModel.battleData.fighters) {
 						if (referenceToModel.battleData.playerHasThing(whoOwnsThing, thingFound)) {

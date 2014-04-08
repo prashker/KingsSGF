@@ -59,7 +59,13 @@ public class ThingView extends ImageView implements KingsAndThingsView<Thing> {
 						setOpacity(0.5);
 					else
 						setOpacity(1);
+					try {
 					setImage(new Image(m.getName() + ".png"));
+					}
+					catch (Exception e) {
+						setImage(new Image("WIP.png"));
+						System.out.println("Image for " + m.getName() + " not found");
+					}
 					registerDragability();
 					registerHoverability();
 				}

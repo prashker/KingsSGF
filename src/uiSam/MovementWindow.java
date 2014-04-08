@@ -72,19 +72,26 @@ public class MovementWindow extends VBox {
 					m.moveButton.setDisable(true);
 					m.errorArea.appendText("Cannot move this Thing because you are trying to move to a SeaTile and this is not a flying creature");
 				}
+				else {
+					m.errorArea.appendText("FLYING CREATURE OVER SEA :) COST: " + costToMove);
+				}
 			}
 			//leaving a tile with enemies, and cannot fly
 			else if (from.howManyPlayersOnIt() > 1 && !thing.hasAbility(ThingAbility.FLYING)) {
 				m.moveButton.setDisable(true);
 				m.errorArea.appendText("Cannot move this Thing because you are trying to LEAVE an enemy-occupied tile and are not a flying creature");
 			}
-			else if (from.isUnexplored()) {
+			else if (from.isUnexplored() && !thing.hasAbility(ThingAbility.FLYING)) {
 				m.moveButton.setDisable(true);
-				m.errorArea.appendText("Cannot move this Thing because you are trying to LEAVE an unexplored hex");
+				m.errorArea.appendText("Cannot move this Thing because you are trying to LEAVE an unexplored hex and cannot fly");
 			}
 			else if (to.stackByPlayer.get(p.getMyTurnOrder()).getStack().values().size() >= 10) {
 				m.moveButton.setDisable(true);
 				m.errorArea.appendText("Cannot move this Thing because it will defy the 10 Thing limit");
+			}
+			else if (!referenceToModel.grid.getNeighbors(from.getId()).contains(to)) {
+				m.moveButton.setDisable(true);
+				m.errorArea.appendText("Cannot move this Thing because it is not a neighbor of the hex you're moving from");
 			}
 			else {
 				m.moveButton.setDisable(false);
